@@ -17,7 +17,8 @@ const SignUp = () => {
         region: '',
         postalCode: '',
         password: '',
-        password_confirmation: ''
+        password_confirmation: '',
+        subscriptionId: subscriptionId
     });
 
     const handleChange = (e) => {
@@ -28,16 +29,21 @@ const SignUp = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post(`${import.meta.env.APP_URL}/signup`, formData);
+            const response = await axios.post('http://127.0.0.1:8000/api/register', formData);
 
-            if (!response.ok) {
+            if (!response) {
                 const errorData = await response.json();
-                Object.values(errorData.errors).forEach(error => {
-                    toast.error(error, {
-                        position: 'top-center'
+                console.log(errorData)
+                Object.values(errorData).forEach(errors => {
+                    errors.forEach(error => {
+                        toast.error(error, {
+                            position: 'top-center'
+                        });
                     });
                 });
             } else {
+                const { token } = response.data.data;
+                localStorage.setItem('token', JSON.stringify(token));
                 setFormData({
                     firstName: '',
                     lastName: '',
@@ -49,7 +55,8 @@ const SignUp = () => {
                     region: '',
                     postalCode: '',
                     password: '',
-                    password_confirmation: ''
+                    password_confirmation: '',
+                    subscriptionId: subscriptionId
                 });
                 toast.success('Signup successful!', {
                     position: 'top-center'
@@ -72,7 +79,6 @@ const SignUp = () => {
                     <h2 className="text-base font-semibold leading-7 text-gray-900">Personal Information</h2>
                     <p className="mt-1 text-sm leading-6 text-gray-600">Use a permanent address where you can receive mail.</p>
                     <form onSubmit={handleSubmit}>
-                        <input type="hidden" name="subscriptionId" value={subscriptionId} className="hidden" />
                         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div className="sm:col-span-3">
                                 <label htmlFor="first-name" className="block text-sm font-medium leading-6 text-gray-900">First name</label>
