@@ -28,7 +28,6 @@ const SignUp = () => {
         e.preventDefault();
 
         try {
-            console.log(formData)
             const response = await axios.post(`${import.meta.env.APP_URL}/signup`, formData);
 
             if (!response.ok) {
@@ -52,7 +51,6 @@ const SignUp = () => {
                     password: '',
                     password_confirmation: ''
                 });
-                // Show success toast
                 toast.success('Signup successful!', {
                     position: 'top-center'
                 });
