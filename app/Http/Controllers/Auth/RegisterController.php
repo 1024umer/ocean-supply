@@ -23,7 +23,7 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
             'subscription_id' => $request->subscriptionId,
             'postal_code' => $request->postalCode,
-            'street_Address' => $request->streetAddress,
+            'street_address' => $request->streetAddress,
             'city' => $request->city,
             'region' => $request->region,
         ]);
