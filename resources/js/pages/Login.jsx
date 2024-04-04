@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -51,9 +52,9 @@ const Login = () => {
         <>
             <section className='container mx-auto flex justify-center items-center h-screen'>
                 <div className="border rounded-lg p-7 border-gray-900/10 pb-12">
-                    <h2 className='font-bold text-3xl text-violet-700'>Signup Page</h2>
+                    <h2 className='font-bold text-3xl text-violet-700'>Login Page</h2>
                     <h2 className="text-base font-semibold leading-7 text-gray-900">Personal Information</h2>
-                    <p className="mt-1 text-sm leading-6 text-gray-600">Use a permanent address where you can receive mail.</p>
+                    <p className="mt-1 text-sm leading-6 text-gray-600">Use your email and password to Login</p>
                     <form onSubmit={handleSubmit}>
                         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div className="sm:col-span-3">
@@ -71,6 +72,7 @@ const Login = () => {
                         </div>
                         <button type="submit" className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Submit</button>
                     </form>
+                    Want to Signup? <Link className='text-blue-500 ml-3' to={'/'}>SignUp</Link>
                 </div>
             </section>
             <ToastContainer />

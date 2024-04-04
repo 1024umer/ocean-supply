@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 
 const SignUp = () => {
+    const navigate = useNavigate();
     const { subscriptionId } = useParams();
+    useEffect(() => {
+        if (!subscriptionId) {
+            navigate('/');
+        }
+    }, [subscriptionId, navigate]);
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -33,7 +39,6 @@ const SignUp = () => {
 
             if (!response) {
                 const errorData = await response.json();
-                console.log(errorData)
                 Object.values(errorData).forEach(errors => {
                     errors.forEach(error => {
                         toast.error(error, {
@@ -63,7 +68,6 @@ const SignUp = () => {
                 });
             }
         } catch (error) {
-            console.error('Error:', error);
             toast.error('An error occurred. Please try again later.', {
                 position: 'top-center',
                 autoClose: 2000
@@ -153,6 +157,7 @@ const SignUp = () => {
                         </div>
                         <button type="submit" className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Submit</button>
                     </form>
+                    Want to Login? <Link className='text-blue-500 ml-3' to={'/'}>Login</Link>
                 </div>
             </section>
             <ToastContainer />
