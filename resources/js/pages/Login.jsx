@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { signupSuccess } from '../redux/user/userSlice';
 const Login = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -16,37 +19,28 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const response = await axios.post('http://127.0.0.1:8000/api/login', formData);
-            if (!response) {
-                const errorData = await response.json();
-                console.log(errorData)
-                Object.values(errorData).forEach(errors => {
-                    errors.forEach(error => {
-                        toast.error(error, {
-                            position: 'top-center'
-                        });
-                    });
-                });
-            } else {
-                const { token } = response.data.data;
-                localStorage.setItem('token', JSON.stringify(token));
-                setFormData({
-                    email: '',
-                    password: '',
-                });
-                toast.success('Signup successful!', {
-                    position: 'top-center'
-                });
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            toast.error('An error occurred. Please try again later.', {
-                position: 'top-center',
-                autoClose: 2000
+        const response = await axios.post('http://127.0.0.1:8000/api/login', formData);
+        if (response) {
+            const { token, user } = response.data;
+            localStorage.setItem('token', JSON.stringify(token));
+            dispatch(signupSuccess(user));
+            navigate('/dashboard')
+            localStorage.setItem('token', JSON.stringify(token));
+            setFormData({
+                email: '',
+                password: '',
+            });
+            toast.success('Login successful!', {
+                position: 'top-center'
             });
         }
+        const message = response.message;
+        toast.error(message, {
+            position: 'top-center'
+        });
+
     };
+
 
     return (
         <>
