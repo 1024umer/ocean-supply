@@ -38,9 +38,9 @@ class RegisterController extends Controller
             'region' => $request->region,
         ]);
         $bigCommerce = $this->createUserService->createUser($request->all());
-        $token = $user->createToken('Task Management Token Grant')->accessToken;
+        $token = $user->createToken('Task Management Token Grant')->plainTextToken;
         $user_detail = User::where('id', $user->id)->first();
-        $response = ['success' => true, 'token' => $token->token, 'user' => $user_detail];
+        $response = ['success' => true, 'token' => $token, 'user' => $user_detail];
         return new RegisterResource($response);
     }
 }

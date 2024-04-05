@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { signupSuccess } from '../redux/user/userSlice';
+import { signInSuccess } from '../redux/user/userSlice';
 const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const Login = () => {
         if (response) {
             const { token, user } = response.data;
             localStorage.setItem('token', JSON.stringify(token));
-            dispatch(signupSuccess(user));
+            dispatch(signInSuccess(user));
             navigate('/dashboard')
             localStorage.setItem('token', JSON.stringify(token));
             setFormData({

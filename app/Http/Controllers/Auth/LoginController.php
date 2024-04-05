@@ -23,8 +23,8 @@ class LoginController extends Controller
         if ($user) {
             if ($user->is_email_verified == 1) {
                 if (Hash::check($request->password, $user->password)) {
-                    $token = $user->createToken('Task Management Token Grant')->accessToken;
-                    $response = ['token' => $token->token, 'user' => $user];
+                    $token = $user->createToken('Task Management Token Grant')->plainTextToken;
+                    $response = ['token' => $token, 'user' => $user];
                     return response($response, 200);
                 } else {
                     $response = ["success" => false, "message" => "Password mismatch"];
@@ -32,7 +32,7 @@ class LoginController extends Controller
                 }
             } else {
                 if (Hash::check($request->password, $user->password)) {
-                    $token = $user->createToken('Task Management Token Grant')->accessToken;
+                    $token = $user->createToken('Task Management Token Grant')->plainTextToken;
                     $response = ['success' => true, 'token' => $token, 'user' => $user];
                     return response($response, 200);
                 }
@@ -43,5 +43,12 @@ class LoginController extends Controller
             $response = ['success' => false, "message" => 'User does not exist'];
             return response($response, 404);
         }
+    }
+    public function logout(Request $request)
+    {
+        $token = $request->user()->token();
+        $token->revoke();
+        $response = ['success' => true, 'message' => 'You have been successfully logged out!'];
+        return response($response, 200);
     }
 }
