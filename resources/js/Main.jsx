@@ -1,17 +1,26 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignUp from "./pages/SignUp";
 import Subscription from "./pages/Subscription";
+import { useSelector } from 'react-redux';
 import Login from "./pages/Login";
 import { Provider } from "react-redux";
 import store from "./redux/store";
+import PrivateRoute from "./components/PrivateRoute";
+import Dashboard from "./pages/Dashboard";
+import PublicRoute from "./components/PublicRoute";
 const Main = () => {
     return (
         <Provider store={store}>
             <BrowserRouter>
                 <Routes>
-                    <Route path='/' element={<Subscription />}></Route>
-                    <Route path='/signup/:subscriptionId' element={<SignUp />}></Route>
-                    <Route path="/login" element={<Login/>}></Route>
+                    <Route element={<PublicRoute />}>
+                        <Route path='/' element={<Subscription />}></Route>
+                        <Route path='/signup/:subscriptionId' element={<SignUp />}></Route>
+                        <Route path="/login" element={<Login />}></Route>
+                    </Route>
+                    <Route element={<PrivateRoute />}>
+                        <Route path="/dashboard" element={<Dashboard />}></Route>
+                    </Route>
                 </Routes>
             </BrowserRouter>
         </Provider>
