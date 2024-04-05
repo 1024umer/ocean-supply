@@ -3,9 +3,11 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
-
+import { useDispatch } from 'react-redux';
+import { signupSuccess } from '../redux/user/userSlice';
 const SignUp = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const { subscriptionId } = useParams();
     useEffect(() => {
         if (!subscriptionId) {
@@ -47,8 +49,10 @@ const SignUp = () => {
                     });
                 });
             } else {
-                const { token } = response.data.data;
+                const { token, user } = response.data.data;
                 localStorage.setItem('token', JSON.stringify(token));
+                dispatch(signupSuccess(user));
+                navigate('/dashboard')
                 setFormData({
                     firstName: '',
                     lastName: '',
