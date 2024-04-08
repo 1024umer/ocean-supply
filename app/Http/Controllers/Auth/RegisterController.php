@@ -36,8 +36,10 @@ class RegisterController extends Controller
             'street_address' => $request->streetAddress,
             'city' => $request->city,
             'region' => $request->region,
+            'role_id' => User::USER_ROLE_ID,
         ]);
         $bigCommerce = $this->createUserService->createUser($request->all());
+        dd($bigCommerce);
         $token = $user->createToken('Task Management Token Grant')->plainTextToken;
         $user_detail = User::where('id', $user->id)->first();
         $response = ['success' => true, 'token' => $token, 'user' => $user_detail];

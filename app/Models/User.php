@@ -34,6 +34,8 @@ class User extends Authenticatable
     public function role(){
         return $this->belongsTo(Role::class);
     }
+    public const ADMIN_ROLE_ID = 1;
+    public const  USER_ROLE_ID = 2;
     /**
      * The attributes that should be hidden for serialization.
      *

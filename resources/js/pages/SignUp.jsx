@@ -32,27 +32,16 @@ const SignUp = () => {
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/register', formData);
 
-            if (!response) {
-                const errorData = await response.json();
-                Object.values(errorData).forEach(errors => {
-                    errors.forEach(error => {
-                        toast.error(error, {
-                            position: 'top-center'
-                        });
-                    });
-                });
-            } else {
+            if (response.status === 200) {
                 const { token, user } = response.data.data;
                 localStorage.setItem('token', JSON.stringify(token));
                 dispatch(signupSuccess(user));
-                navigate('/dashboard')
+                navigate('/dashboard');
                 setFormData({
                     firstName: '',
                     lastName: '',
@@ -70,12 +59,22 @@ const SignUp = () => {
                 toast.success('Signup successful!', {
                     position: 'top-center'
                 });
+            } else {
+                toast.error(response.data.message, {
+                    position: 'top-center'
+                });
             }
         } catch (error) {
-            toast.error('An error occurred. Please try again later.', {
-                position: 'top-center',
-                autoClose: 2000
-            });
+            if (error.response) {
+                toast.error(error.response.data.message, {
+                    position: 'top-center'
+                });
+            } else {
+                toast.error('An error occurred. Please try again later.', {
+                    position: 'top-center',
+                    autoClose: 2000
+                });
+            }
         }
     };
 
