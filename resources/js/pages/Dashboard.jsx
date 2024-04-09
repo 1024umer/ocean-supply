@@ -3,7 +3,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { signoutSuccess } from '../redux/user/userSlice';
 import { useNavigate } from 'react-router-dom';
-import Sidebar from '../components/Sidebar';
+import SidebarMain from '../components/SidebarMain';
 function Dashboard() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -19,7 +19,7 @@ function Dashboard() {
     };
     return (
         <>
-            <Sidebar />
+            <SidebarMain />
             <div>
                 <button onClick={handleSignout}>Signout</button>
                 <h1>Dashboard</h1>
