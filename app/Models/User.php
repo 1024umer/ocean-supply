@@ -30,12 +30,15 @@ class User extends Authenticatable
         'postal_code',
         'password',
         'role_id',
+        'bigcommerce_id',
+        'clover_id',
     ];
-    public function role(){
+    public function role()
+    {
         return $this->belongsTo(Role::class);
     }
     public const ADMIN_ROLE_ID = 1;
-    public const  USER_ROLE_ID = 2;
+    public const USER_ROLE_ID = 2;
     /**
      * The attributes that should be hidden for serialization.
      *

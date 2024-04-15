@@ -23,7 +23,10 @@ class RegisterController extends Controller
     }
     public function register(RegisterRequest $request)
     {
+        $bigCommerce = $this->createUserService->createUser($request->all());
+
         $clover = $this->createCloverUserService->createUser($request->all());
+        // dd($bigCommerce);
         $user = User::create([
             'email' => $request->email,
             'first_name' => $request->firstName,
@@ -37,9 +40,9 @@ class RegisterController extends Controller
             'city' => $request->city,
             'region' => $request->region,
             'role_id' => User::USER_ROLE_ID,
+            'bigcommerce_id' => $bigCommerce['id'],
+            'clover_id' => $clover['id'],
         ]);
-        $bigCommerce = $this->createUserService->createUser($request->all());
-        dd($bigCommerce);
         $token = $user->createToken('Task Management Token Grant')->plainTextToken;
         $user_detail = User::where('id', $user->id)->first();
         $response = ['success' => true, 'token' => $token, 'user' => $user_detail];
