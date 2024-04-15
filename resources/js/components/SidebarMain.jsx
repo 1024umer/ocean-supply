@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { signoutSuccess } from '../redux/user/userSlice';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Sidebar } from "flowbite-react";
 import { BiBuoy } from "react-icons/bi";
 import { HiArrowSmRight, HiChartPie, HiInbox, HiShoppingBag, HiTable, HiUser, HiViewBoards } from "react-icons/hi";
@@ -23,9 +23,11 @@ function SidebarMain() {
                     <Sidebar.Item href="#" icon={HiInbox}>
                         Inbox
                     </Sidebar.Item>
-                    <Sidebar.Item href="#" icon={HiUser}>
-                        Users
-                    </Sidebar.Item>
+                    <Link to="/profile">
+                        <Sidebar.Item icon={HiUser}>
+                            Users
+                        </Sidebar.Item>
+                    </Link>
                     <Sidebar.Item href="#" icon={HiShoppingBag}>
                         Products
                     </Sidebar.Item>

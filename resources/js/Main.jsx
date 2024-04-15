@@ -8,6 +8,7 @@ import store from "./redux/store";
 import PrivateRoute from "./components/PrivateRoute";
 import Dashboard from "./pages/Dashboard";
 import PublicRoute from "./components/PublicRoute";
+import Profile from "./pages/Profile";
 const Main = () => {
     return (
         <Provider store={store}>
@@ -20,6 +21,7 @@ const Main = () => {
                     </Route>
                     <Route element={<PrivateRoute />}>
                         <Route path="/dashboard" element={<Dashboard />}></Route>
+                        <Route path="/profile" element={<Profile />}></Route>
                     </Route>
                 </Routes>
             </BrowserRouter>
