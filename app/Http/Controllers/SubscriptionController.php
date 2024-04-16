@@ -23,6 +23,7 @@ class SubscriptionController extends Controller
      */
     public function store(SubscriptionRequest $request)
     {
+        // dd($request->all());
         $data = $request->only('name', 'title', 'price', 'description', 'is_premium', 'is_active');
         $user = Subscription::create($data);
         $user->save();
