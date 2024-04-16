@@ -21,11 +21,12 @@ class ProfileRequest extends FormRequest
      */
     public function rules(): array
     {
+        $user_id = auth('api')->user()->id;
         return [
             'firstName' => 'required|string|max:255',
             'lastName' => 'required|string|max:255',
-            'email' => 'required|email|unique:App\Models\User,email',
-            'password' => 'required|string|min:8|regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/|confirmed',
+            'email' => 'required|email|unique:App\Models\User,email'.($user_id>0?(','.$user_id):''),
+            'password' => 'required|sometimes|string|min:8|regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/|confirmed',
         ];
     }
 }

@@ -23,7 +23,7 @@ class LoginController extends Controller
         if ($user) {
             if ($user->is_email_verified == 1) {
                 if (Hash::check($request->password, $user->password)) {
-                    $token = $user->createToken('Task Management Token Grant')->plainTextToken;
+                    $token = $user->createToken('Ocean Supply')->plainTextToken;
                     $response = ['token' => $token, 'user' => $user];
                     return response($response, 200);
                 } else {
@@ -32,7 +32,7 @@ class LoginController extends Controller
                 }
             } else {
                 if (Hash::check($request->password, $user->password)) {
-                    $token = $user->createToken('Task Management Token Grant')->plainTextToken;
+                    $token = $user->createToken('Ocean Supply')->plainTextToken;
                     $response = ['success' => true, 'token' => $token, 'user' => $user];
                     return response($response, 200);
                 }

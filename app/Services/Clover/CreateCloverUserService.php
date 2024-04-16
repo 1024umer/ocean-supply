@@ -12,7 +12,7 @@ class CreateCloverUserService
         $curl = curl_init();
 
         curl_setopt_array($curl, [
-            CURLOPT_URL => "https://sandbox.dev.clover.com/v3/merchants/W39GQWW4TYSX1/customers",
+            CURLOPT_URL => "https://sandbox.dev.clover.com/v3/merchants/".env('CLOVER_MERCHANT_ID')."/customers",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -40,8 +40,8 @@ class CreateCloverUserService
             ),
 
             CURLOPT_HTTPHEADER => array(
-                'Authorization: Bearer 3a448668-d553-f7a1-efca-b9ba5ee23647',
-                'Content-Type: application/json'
+                "Authorization: Bearer ".env('CLOVER_BEARRER_TOKEN'),
+                "Content-Type: application/json"
             ),
         ]);
         $response = curl_exec($curl);
@@ -49,9 +49,9 @@ class CreateCloverUserService
 
         curl_close($curl);
         if ($err) {
-            return response()->json($err, 500);
+            return response()->json($err,404);
         } else {
-            return response()->json($response, 200);
+            return json_decode($response,true);
         }
     }
 }

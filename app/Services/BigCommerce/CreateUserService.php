@@ -83,7 +83,7 @@ class CreateUserService
         curl_setopt_array(
             $curl,
             array(
-                CURLOPT_URL => "https://api.bigcommerce.com/stores/1abwowmljz/v3/customers",
+                CURLOPT_URL => "https://api.bigcommerce.com/stores/".env('BIGCOMMERCE_STORE_HASH')."/v3/customers",
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => "",
                 CURLOPT_MAXREDIRS => 10,
@@ -93,7 +93,7 @@ class CreateUserService
                 CURLOPT_POSTFIELDS => json_encode($customerData),
                 CURLOPT_HTTPHEADER => array(
                     "Content-Type: application/json",
-                    "X-Auth-Token: j1kgg3t937z28srzikguf8dniv4d5y0"
+                    "X-Auth-Token: ".env('BIGCOMMERCE_AUTH_TOKEN')
                 ),
             )
         );
@@ -104,9 +104,9 @@ class CreateUserService
         curl_close($curl);
 
         if ($err) {
-            echo "cURL Error #: " . $err;
+            return response()->json($err,404);
         } else {
-            return response()->json($response, 200);
+            return json_decode($response,true);
         }
     }
 }

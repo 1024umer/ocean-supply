@@ -4,7 +4,7 @@ import Subscription from "./pages/Subscription";
 import { useSelector } from 'react-redux';
 import Login from "./pages/Login";
 import { Provider } from "react-redux";
-import store, { persistor } from "./redux/store";
+import {store, persistor } from "./redux/store";
 import PrivateRoute from "./components/PrivateRoute";
 import Dashboard from "./pages/Dashboard";
 import PublicRoute from "./components/PublicRoute";

@@ -58,7 +58,10 @@ return [
     'url' => env('APP_URL', 'http://localhost'),
 
     'asset_url' => env('ASSET_URL'),
-
+    'clover_merchant_id'=>env('CLOVER_MERCHANT_ID'),
+    'clover_bearrer_token' => env('CLOVER_BEARER_TOKEN'),
+    'bigcommerce_store_hash' => env('BIGCOMMERCE_STORE_HASH'),
+    'bigcommerce_auth_token' => env('BIGCOMMERCE_AUTH_TOKEN'),
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

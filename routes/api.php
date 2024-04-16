@@ -11,8 +11,8 @@ Route::group(['middleware' => ['json.response']], function () {
     Route::post('/register', [RegisterController::class, 'register']);
     Route::post('/login', [LoginController::class, 'login']);
 });
-Route::group(['middleware' => ['json.response', 'auth:sanctum', 'verified']], function () {
+Route::group(['middleware' => ['json.response', 'auth:sanctum','verified']], function () {
     Route::post('/logout', [LoginController::class, 'logout']);
-    Route::post('/update', [ProfileController::class, 'update']);
+    Route::post('/profile', [ProfileController::class, 'update']);
     Route::apiResource('subscription', SubscriptionController::class);
 });
