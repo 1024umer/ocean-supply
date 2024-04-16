@@ -8,7 +8,7 @@ function Profile() {
 const dispatch = useDispatch();
 const navigate = useNavigate();
 const { user } = useSelector(state => state.user)
-console.log(user)
+// console.log(user)
 const [formData, setFormData] = useState({
     first_name: user.first_name,
     last_name: user.last_name,
@@ -23,14 +23,13 @@ const handleChange = (e) => {
 
 const handleSubmit = (e) => {
     const token = localStorage.getItem('token').replace(/"/g, '');
-console.log(token)
-// Set up the headers for the request
-const config = {
-  headers: {
-    'Content-Type': 'application/json', // Assuming your formData requires this
-    'Authorization': `Bearer ${token}` // Add the token as a Bearer token
-  }
-};
+    // console.log(token)
+    const config = {
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+    };
     e.preventDefault();
     var response = axios.post('http://127.0.0.1:8000/api/profile', formData,config);
     dispatch(updateUserProfile(formData));
