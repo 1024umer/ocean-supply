@@ -28,6 +28,7 @@ const Main = () => {
                             <Route path="/dashboard" element={<Dashboard />}></Route>
                             <Route path="/profile" element={<Profile />}></Route>
                             <Route path="/subscription" element={<SubscriptionForm />}></Route>
+                            <Route path="/subscription/:id" element={<SubscriptionForm />}></Route>
                             <Route path="/subscription-list" element={<SubscriptionList />}></Route>
                             <Route path="/user/list" element={<UserList />}></Route>
                         </Route>

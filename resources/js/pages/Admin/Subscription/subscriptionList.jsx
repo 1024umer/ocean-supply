@@ -1,34 +1,45 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
 import service from "../../../config/axiosConfig";
+import { useNavigate } from "react-router-dom";
+import { Table } from "flowbite-react";
+import { Link } from 'react-router-dom';
 
 export default function SubscriptionForm() {
-
+    const navigate = useNavigate();
     const [subscriptions, setSubscriptions] = useState([]);
     const getSubscription = async () => {
-        const response = await service.get('http://127.0.0.1:8000/api/subscriptionList');
-        setSubscriptions(response.data.data)
-    }
+        const response = await service.get(
+            "http://127.0.0.1:8000/api/subscriptionList"
+        );
+        setSubscriptions(response.data.data);
+    };
 
-    // const premiumBadge = (rowData) => {
-    //     const badgeClass = rowData.is_premium === 1 ? "premium-badge" : "not-premium-badge";
-    //     return <span className={badgeClass}>{rowData.is_premium === 1 ? "Premium" : "Not Premium"}</span>;
-    // };
+    useEffect(() => {
+        getSubscription();
+    }, []);
 
-    // const activeBadge = (rowData) => {
-    //     const badgeClass = rowData.is_active === 1 ? "active-badge" : "inactive-badge";
-    //     return <span className={badgeClass}>{rowData.is_active === 1 ? "Active" : "Inactive"}</span>;
-    // };
+    const renderEditButton = (rowData) => {
+        return (
+            <button
+                className="p-button p-button-primary"
+                onClick={() => handleEdit(rowData)}
+            >
+                Edit
+            </button>
+        );
+    };
 
+    const handleEdit = (rowData) => {
+        const { id } = rowData;
+        console.log({ id });
+        navigate(`/subscription/${id}`);
+    };
 
-    useEffect(()=>{
-        getSubscription()
-    },[])
-
-    const products = subscriptions
+    const products = subscriptions;
     return (
         <>
             <section className="container mx-auto">
@@ -36,15 +47,61 @@ export default function SubscriptionForm() {
                     Subscription List
                 </h1>
                 <div className="grid grid-cols-1 gap-4 mt-10">
-                <DataTable value={products} removableSort tableStyle={{ minWidth: '50rem' }}>
-                    <Column field="name" header="Name" sortable style={{ width: '100px' }}></Column>
-                    <Column field="title" header="Title" sortable style={{ width: '100px' }}></Column>
-                    <Column field="price" header="Price" sortable style={{ width: '100px' }}></Column>
-                    <Column field="description" header="Description" sortable style={{ width: '100px' }}></Column>
-                    <Column field="is_premium" header="Is Premium" sortable style={{ width: '100px' }}></Column>
-                    <Column field="is_active" header="Is Active" sortable style={{ width: '100px' }} ></Column>
-                </DataTable>
 
+                    <div className="overflow-x-auto">
+                        <Table striped>
+                            <Table.Head>
+                                <Table.HeadCell>#</Table.HeadCell>
+                                <Table.HeadCell>Name</Table.HeadCell>
+                                <Table.HeadCell>Title</Table.HeadCell>
+                                <Table.HeadCell>Price</Table.HeadCell>
+                                <Table.HeadCell>Description</Table.HeadCell>
+                                <Table.HeadCell>Is Premium</Table.HeadCell>
+                                <Table.HeadCell>Is Active</Table.HeadCell>
+                                <Table.HeadCell>
+                                    <span className="sr-only">Edit</span>
+                                </Table.HeadCell>
+                            </Table.Head>
+                            <Table.Body className="divide-y">
+
+                            {subscriptions.map(subscription => (
+                                    <Table.Row key={subscription.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                                        <Table.Cell className="text-center">{subscription.id}</Table.Cell>
+                                        <Table.Cell className="text-center">{subscription.name}</Table.Cell>
+                                        <Table.Cell className="text-center">{subscription.title}</Table.Cell>
+                                        <Table.Cell className="text-center">{subscription.description}</Table.Cell>
+                                        <Table.Cell className="text-center">${subscription.price}</Table.Cell>
+                                        <Table.Cell className="text-center">
+                                            {subscription.is_premium === 1 ? (
+                                                <span className="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-800">
+                                                    Premium
+                                                </span>
+                                            ) : (
+                                                <span className="bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-800">
+                                                    Not Premium
+                                                </span>
+                                            )}
+                                        </Table.Cell>
+                                        <Table.Cell className="text-center">
+                                            {subscription.is_active === 1 ? (
+                                                <span className="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-800">
+                                                    Active
+                                                </span>
+                                            ) : (
+                                                <span className="bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-800">
+                                                    Not Active
+                                                </span>
+                                            )}
+                                        </Table.Cell>
+                                        <Table.Cell className="text-center">
+                                        <Link to={`/subscription/${subscription.id}`} className="text-green-600 hover:text-green-900 border border-green-600 hover:border-green-900 px-3 rounded">Edit</Link>
+                                        </Table.Cell>
+                                    </Table.Row>
+                                ))}
+
+                            </Table.Body>
+                        </Table>
+                    </div>
                 </div>
             </section>
         </>

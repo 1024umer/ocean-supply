@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import service from "../../../config/axiosConfig";
+import { useNavigate ,useParams } from "react-router-dom";
 
 export default function SubscriptionForm() {
+    const navigate = useNavigate();
+    const {id} = useParams();
     const [subscription, setSubscription] = useState({
         name: "",
         title: "",
@@ -11,6 +14,22 @@ export default function SubscriptionForm() {
         is_premium: false,
         is_active: true,
     });
+
+    useEffect(() => {
+        if (id) {
+            fetchSubscription(id);
+        }
+    }, [id]);
+
+    const fetchSubscription = async (id) => {
+        try {
+            const response = await service.get(`/api/subscription/${id}`);
+            const { data } = response.data;
+            setSubscription(data);
+        } catch (error) {
+            console.error("Error fetching subscription:", error);
+        }
+    };
 
     const handleChange = (e) => {
         const { name, checked, value } = e.target;
@@ -21,31 +40,27 @@ export default function SubscriptionForm() {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(subscription);
 
         try {
-            const response = service
-                .post(
-                    "/api/subscription",
-                    subscription
-                )
-                .then((response) => {
-                    console.log(response);
-                })
-                .catch((error) => {
-                    console.error("Error:", error.response.data.errors);
-                    for (const [key, value] of Object.entries(
-                        error.response.data.errors
-                    )) {
-                        toast.error(value[0], {
-                            position: "top-right",
-                        });
-                    }
-                });
+            let response;
+            if (id) {
+                response = await service.put(`/api/subscription/${id}`, subscription);
+            } else {
+                response = await service.post("/api/subscription", subscription);
+            }
+            console.log(response.status);
+            if (response.status === 201 || response.status === 200) {
+                navigate("/subscription-list");
+            }
         } catch (error) {
-            console.error("Error:", error);
+            console.error("Error:", error.response.data.errors);
+            for (const [key, value] of Object.entries(error.response.data.errors)) {
+                toast.error(value[0], {
+                    position: "top-right",
+                });
+            }
         }
     };
     return (
@@ -54,7 +69,7 @@ export default function SubscriptionForm() {
                 Admin Subscription
             </h1>
             <div className="container mx-auto max-w-lg mt-10 p-6 bg-gray-100 rounded-lg shadow-xl">
-                <h2 className="text-2xl font-bold mb-6">Create Subscription</h2>
+                <h2 className="text-2xl font-bold mb-6">{id ? "Edit" : "Create"} Subscription</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label
@@ -158,7 +173,7 @@ export default function SubscriptionForm() {
                         type="submit"
                         className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
                     >
-                        Submit
+                        {id ? "Update" : "Create"}
                     </button>
                 </form>
             </div>
