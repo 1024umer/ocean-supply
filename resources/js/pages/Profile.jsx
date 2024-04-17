@@ -48,7 +48,6 @@ const handleSubmit = (e) => {
                         <label htmlFor="last_name" className="block text-gray-700 font-bold mb-2">Last Name</label>
                         <input type="text" id="last_name" name="last_name" value={formData.last_name} onChange={handleChange} className="border border-gray-300 rounded-md px-4 py-2 w-full" />
                     </div>
-                    {/* Add more fields as needed */}
                     <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Update Profile</button>
                 </form>
             </div>
