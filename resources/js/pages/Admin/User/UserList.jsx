@@ -51,46 +51,36 @@ export default function UserList() {
 
     return (
     <>
-      <div className="overflow-x-auto">
+    <section className="container mx-auto">
+        <h1 className="font-bold text-3xl text-center mt-10 mb-10">User List</h1>
+        <div className="overflow-x-auto">
         <Table hoverable>
           <TableHead>
-            <TableHeadCell className="p-4">
-              <Checkbox />
-            </TableHeadCell>
-            <TableHeadCell>Name</TableHeadCell>
-            <TableHeadCell>Email</TableHeadCell>
-            <TableHeadCell>Role</TableHeadCell>
-            <TableHeadCell>Phone</TableHeadCell>
-            <TableHeadCell>
-              <span className="sr-only">Edit</span>
-            </TableHeadCell>
-            <TableHeadCell>
-              <span className="sr-only">Delete</span>
-            </TableHeadCell>
+            <TableHeadCell className="border p-4">#</TableHeadCell>
+            <TableHeadCell className='border'>Name</TableHeadCell>
+            <TableHeadCell className='border'>Email</TableHeadCell>
+            <TableHeadCell className='border'>Role</TableHeadCell>
+            <TableHeadCell className='border'>Phone</TableHeadCell>
+            <TableHeadCell className='border'>Action</TableHeadCell>
           </TableHead>
           <TableBody className="divide-y">
               {users.map(user => (
               <TableRow key={user.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                  <TableCell className="p-4">
-                  <Checkbox />
-                  </TableCell>
-                  <TableCell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                  {user.first_name} {user.last_name}
-                  </TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>{user.role.title}</TableCell>
-                  <TableCell>{user.phone}</TableCell>
-                  <TableCell>
-                  <Link to={`/user/edit/${user.id}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</Link>
-                  </TableCell>
-                  <TableCell>
-                    <button onClick={() => handleDelete(user.id)} className="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
+                  <TableCell className="border text-center p-4">{user.id}</TableCell>
+                  <TableCell className="border text-center whitespace-nowrap font-medium text-gray-900 dark:text-white">{user.first_name}  {user.last_name}</TableCell>
+                  <TableCell className="border text-center">{user.email}</TableCell>
+                  <TableCell className="border text-center">{user.role.title}</TableCell>
+                  <TableCell className="border text-center">{user.phone}</TableCell>
+                  <TableCell className="border text-center">
+                    <Link to={`/user/edit/${user.id}`} className="text-center font-medium text-blue-600 dark:text-blue-500 hover:underline pr-3">Edit</Link>
+                    <button onClick={() => handleDelete(user.id)} className="text-center font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
                   </TableCell>
               </TableRow>
               ))}
           </TableBody>
         </Table>
-      </div>
+        </div>
+      </section>
     </>
   )
 }
