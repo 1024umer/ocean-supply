@@ -10,6 +10,7 @@ import Dashboard from "./pages/Dashboard";
 import PublicRoute from "./components/PublicRoute";
 import Profile from "./pages/Profile";
 import SubscriptionForm from "./pages/Admin/Subscription/subscriptionForm";
+import SubscriptionList from "./pages/Admin/Subscription/subscriptionList";
 import { PersistGate } from 'redux-persist/integration/react';
 const Main = () => {
     return (
@@ -26,6 +27,7 @@ const Main = () => {
                             <Route path="/dashboard" element={<Dashboard />}></Route>
                             <Route path="/profile" element={<Profile />}></Route>
                             <Route path="/subscription" element={<SubscriptionForm />}></Route>
+                            <Route path="/subscription-list" element={<SubscriptionList />}></Route>
                         </Route>
                         <Route path="*" element={<div>Not Found</div>}>
                         </Route>

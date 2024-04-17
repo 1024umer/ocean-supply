@@ -14,7 +14,6 @@ import {
     HiViewBoards,
 } from "react-icons/hi";
 
-
 function SidebarMain() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -26,13 +25,20 @@ function SidebarMain() {
                     <Sidebar.Item href="#" icon={HiChartPie}>
                         Dashboard
                     </Sidebar.Item>
-                    {user.role.name === "admin" &&                        
+                    {user.role.name === "admin" && (
                         <Link to="/subscription">
                             <Sidebar.Item href="#" icon={HiChartPie}>
                                 Subscription
                             </Sidebar.Item>
                         </Link>
-                    }
+                    )}
+                    {user.role.name === "admin" && (
+                    <Link to="/subscription-list">
+                        <Sidebar.Item href="#" icon={HiChartPie}>
+                            Subscription List
+                        </Sidebar.Item>
+                    </Link>
+                    )}
                     <Link to="/profile">
                         <Sidebar.Item icon={HiUser}>Users</Sidebar.Item>
                     </Link>
