@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const service = axios.create({
-  baseURL: import.meta.env.VITE_APP_URL, // Get base URL from environment variable
+  baseURL: import.meta.env.VITE_APP_URL, 
   headers: {
     'Content-Type': 'application/json',
   },
