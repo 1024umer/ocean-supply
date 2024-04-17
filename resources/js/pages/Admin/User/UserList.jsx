@@ -55,29 +55,29 @@ export default function UserList() {
         <h1 className="font-bold text-3xl text-center mt-10 mb-10">User List</h1>
         <div className="overflow-x-auto">
         <Table hoverable>
-          <TableHead>
-            <TableHeadCell className="border p-4">#</TableHeadCell>
-            <TableHeadCell className='border'>Name</TableHeadCell>
-            <TableHeadCell className='border'>Email</TableHeadCell>
-            <TableHeadCell className='border'>Role</TableHeadCell>
-            <TableHeadCell className='border'>Phone</TableHeadCell>
-            <TableHeadCell className='border'>Action</TableHeadCell>
-          </TableHead>
-          <TableBody className="divide-y">
+          <Table.Head>
+            <Table.HeadCell className="border p-4">#</Table.HeadCell>
+            <Table.HeadCell className='border'>Name</Table.HeadCell>
+            <Table.HeadCell className='border'>Email</Table.HeadCell>
+            <Table.HeadCell className='border'>Role</Table.HeadCell>
+            <Table.HeadCell className='border'>Phone</Table.HeadCell>
+            <Table.HeadCell className='border'>Action</Table.HeadCell>
+          </Table.Head>
+          <Table.Body className="divide-y">
               {users.map(user => (
-              <TableRow key={user.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                  <TableCell className="border text-center p-4">{user.id}</TableCell>
-                  <TableCell className="border text-center whitespace-nowrap font-medium text-gray-900 dark:text-white">{user.first_name}  {user.last_name}</TableCell>
-                  <TableCell className="border text-center">{user.email}</TableCell>
-                  <TableCell className="border text-center">{user.role.title}</TableCell>
-                  <TableCell className="border text-center">{user.phone}</TableCell>
-                  <TableCell className="border text-center">
+              <Table.Row key={user.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                  <Table.Cell className="border text-center p-4">{user.id}</Table.Cell>
+                  <Table.Cell className="border text-center whitespace-nowrap font-medium text-gray-900 dark:text-white">{user.first_name}  {user.last_name}</Table.Cell>
+                  <Table.Cell className="border text-center">{user.email}</Table.Cell>
+                  <Table.Cell className="border text-center">{user.role.title}</Table.Cell>
+                  <Table.Cell className="border text-center">{user.phone}</Table.Cell>
+                  <Table.Cell className="border text-center">
                     <Link to={`/user/edit/${user.id}`} className="text-center font-medium text-blue-600 dark:text-blue-500 hover:underline pr-3">Edit</Link>
                     <button onClick={() => handleDelete(user.id)} className="text-center font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
-                  </TableCell>
-              </TableRow>
+                  </Table.Cell>
+              </Table.Row>
               ))}
-          </TableBody>
+          </Table.Body>
         </Table>
         </div>
       </section>

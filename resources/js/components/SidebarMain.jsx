@@ -27,21 +27,28 @@ function SidebarMain() {
                     </Sidebar.Item>
                     {user.role.name === "admin" && (
                         <Link to="/subscription">
-                            <Sidebar.Item href="#" icon={HiChartPie}>
+                            <Sidebar.Item href="#" icon={HiInbox}>
                                 Subscription
                             </Sidebar.Item>
                         </Link>
                     )}
                     {user.role.name === "admin" && (
-                    <Link to="/subscription-list">
-                        <Sidebar.Item href="#" icon={HiChartPie}>
-                            Subscription List
-                        </Sidebar.Item>
-                    </Link>
+                        <Link to="/subscription-list">
+                            <Sidebar.Item href="#" icon={HiViewBoards}>
+                                Subscription List
+                            </Sidebar.Item>
+                        </Link>
                     )}
                     <Link to="/profile">
-                        <Sidebar.Item icon={HiUser}>Users</Sidebar.Item>
+                        <Sidebar.Item icon={HiUser}>Users Profile</Sidebar.Item>
                     </Link>
+                    {user.role.name === "admin" && (
+                        <Link to="/user/list">
+                            <Sidebar.Item href="#" icon={HiTable}>
+                                User List
+                            </Sidebar.Item>
+                        </Link>
+                    )}
                     <Sidebar.Item href="#" icon={HiShoppingBag}>
                         Products
                     </Sidebar.Item>
