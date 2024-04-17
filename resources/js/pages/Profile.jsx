@@ -4,7 +4,7 @@ import { updateUserProfile } from "../redux/user/userSlice";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import service from "../config/axiosConfig";
 function Profile() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -30,16 +30,9 @@ function Profile() {
     };
 
     const handleSubmit = async(e) => {
-        const token = localStorage.getItem("token").replace(/"/g, "");
-        const config = {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-        };
         e.preventDefault();
-        var response = await axios
-            .post("http://127.0.0.1:8000/api/profile", formData, config)
+        var response = await service
+            .post("/api/profile", formData)
             .then((response) => {
                 if (response.status === 200) {
                     dispatch(updateUserProfile(formData));

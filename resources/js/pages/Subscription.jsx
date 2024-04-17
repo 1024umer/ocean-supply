@@ -3,11 +3,12 @@ import React, { useEffect,useState } from 'react';
 import { MdCheck } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { MdOutlineWorkspacePremium } from "react-icons/md";
+import service from '../config/axiosConfig';
 
 const Subscription = () => {
   const [subscriptions, setSubscriptions] = useState([]);
   const getSubscription = async() => {
-    const response = await axios.get('http://127.0.0.1:8000/api/subscription');
+    const response = await service.get('/api/subscription');
     setSubscriptions(response.data.data)
   }
 useEffect(()=>{

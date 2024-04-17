@@ -3,19 +3,13 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import service from "../../../config/axiosConfig";
 
 export default function SubscriptionForm() {
 
     const [subscriptions, setSubscriptions] = useState([]);
     const getSubscription = async () => {
-        const token = localStorage.getItem("token").replace(/"/g, "");
-        const config = {
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`,
-            },
-        };
-        const response = await axios.get('http://127.0.0.1:8000/api/subscriptionList' , config);
+        const response = await service.get('http://127.0.0.1:8000/api/subscriptionList');
         setSubscriptions(response.data.data)
     }
 
@@ -23,12 +17,12 @@ export default function SubscriptionForm() {
     //     const badgeClass = rowData.is_premium === 1 ? "premium-badge" : "not-premium-badge";
     //     return <span className={badgeClass}>{rowData.is_premium === 1 ? "Premium" : "Not Premium"}</span>;
     // };
-    
+
     // const activeBadge = (rowData) => {
     //     const badgeClass = rowData.is_active === 1 ? "active-badge" : "inactive-badge";
     //     return <span className={badgeClass}>{rowData.is_active === 1 ? "Active" : "Inactive"}</span>;
     // };
-    
+
 
     useEffect(()=>{
         getSubscription()

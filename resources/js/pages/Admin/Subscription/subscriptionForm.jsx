@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import service from "../../../config/axiosConfig";
 
 export default function SubscriptionForm() {
     const [subscription, setSubscription] = useState({
@@ -25,18 +26,10 @@ export default function SubscriptionForm() {
         console.log(subscription);
 
         try {
-            const token = localStorage.getItem("token").replace(/"/g, "");
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-            };
-            const response = axios
+            const response = service
                 .post(
-                    "http://127.0.0.1:8000/api/subscription",
-                    subscription,
-                    config
+                    "/api/subscription",
+                    subscription
                 )
                 .then((response) => {
                     console.log(response);
