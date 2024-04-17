@@ -6,6 +6,7 @@ use App\Http\Requests\SubscriptionRequest;
 use App\Http\Resources\SubscriptionResource;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
+use Spatie\FlareClient\Api;
 
 class SubscriptionController extends Controller
 {
@@ -14,7 +15,7 @@ class SubscriptionController extends Controller
      */
     public function index()
     {
-        $subscriptions = Subscription::all();
+        $subscriptions = Subscription::where('is_active', 1)->get();
         return SubscriptionResource::collection($subscriptions);
     }
 
@@ -23,6 +24,7 @@ class SubscriptionController extends Controller
      */
     public function store(SubscriptionRequest $request)
     {
+        // dd($request->all());
         $data = $request->only('name', 'title', 'price', 'description', 'is_premium', 'is_active');
         $user = Subscription::create($data);
         $user->save();
@@ -53,5 +55,11 @@ class SubscriptionController extends Controller
     {
         $subscription->delete();
         return response()->json(null, 200);
+    }
+
+    public function subscriptionList()
+    {
+        $subscriptions = Subscription::all();
+        return SubscriptionResource::collection($subscriptions);
     }
 }

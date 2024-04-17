@@ -3,3 +3,32 @@
 *{
 font-family: 'Roboto', sans-serif;
 }
+
+.premium-badge {
+    background-color: rgb(53, 255, 53);
+    color: white;
+    padding:  2px 14px;
+    border-radius: 20px;
+}
+
+.not-premium-badge {
+    background-color: red;
+    color: white;
+    padding:  2px 14px;
+    border-radius: 20px;
+}
+
+.active-badge {
+    background-color: green;
+    color: white;
+    padding:  2px 14px;
+    border-radius: 20px;
+}
+
+.inactive-badge {
+    background-color: red;
+    color: white;
+    padding:  2px 14px;
+    border-radius: 20px;
+}
+
