@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\{SubscriptionController,ProfileController};
+use App\Http\Controllers\{SubscriptionController,ProfileController,UserController};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,5 +16,6 @@ Route::group(['middleware' => ['json.response', 'auth:sanctum','verified']], fun
     Route::post('/profile', [ProfileController::class, 'update']);
     Route::get('/subscriptionList', [SubscriptionController::class, 'subscriptionList']);
     Route::apiResource('subscription', SubscriptionController::class)->only(['store', 'show', 'update', 'destroy']);
+    Route::apiResource('/user',UserController::class);
 });
 Route::get('subscription', [SubscriptionController::class, 'index']);
