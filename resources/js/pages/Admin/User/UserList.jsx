@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import service from '../../../config/axiosConfig';
 import { Checkbox, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from "flowbite-react";
+import { Link } from 'react-router-dom';
 export default function UserList() {
   const [users, setUsers] = useState([]);
   const getUsers = async () => {
@@ -28,7 +29,7 @@ export default function UserList() {
         </TableHead>
         <TableBody className="divide-y">
             {users.map(user => (
-            <TableRow className="bg-white dark:border-gray-700 dark:bg-gray-800">
+            <TableRow key={user.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                 <TableCell className="p-4">
                 <Checkbox />
                 </TableCell>
@@ -39,9 +40,7 @@ export default function UserList() {
                 <TableCell>{user.role.title}</TableCell>
                 <TableCell>{user.phone}</TableCell>
                 <TableCell>
-                <a href="#" className="font-medium text-cyan-600 hover:underline dark:text-cyan-500">
-                    Edit
-                </a>
+                <Link to={`/user/edit/${user.id}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</Link>
                 </TableCell>
             </TableRow>
             ))}

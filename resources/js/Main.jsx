@@ -13,6 +13,7 @@ import SubscriptionForm from "./pages/Admin/Subscription/subscriptionForm";
 import SubscriptionList from "./pages/Admin/Subscription/subscriptionList";
 import { PersistGate } from 'redux-persist/integration/react';
 import UserList from "./pages/Admin/User/UserList";
+import EditUser from "./pages/Admin/User/editUser";
 const Main = () => {
     return (
         <Provider store={store}>
@@ -31,6 +32,7 @@ const Main = () => {
                             <Route path="/subscription/:id" element={<SubscriptionForm />}></Route>
                             <Route path="/subscription-list" element={<SubscriptionList />}></Route>
                             <Route path="/user/list" element={<UserList />}></Route>
+                            <Route path="/user/edit/:id" element={<EditUser />}></Route>
                         </Route>
                         <Route path="*" element={<div>Not Found</div>}>
                         </Route>
