@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import service from "../config/axiosConfig";
+import SidebarMain from "../components/SidebarMain";
 function Profile() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -56,6 +57,7 @@ function Profile() {
 
     return (
         <>
+        <SidebarMain />
             <div className="container mx-auto max-w-lg mt-10 p-6 bg-gray-100 rounded-lg shadow-xl">
                 <h2 className="text-2xl font-bold mb-6">Update Profile</h2>
                 <form onSubmit={handleSubmit}>

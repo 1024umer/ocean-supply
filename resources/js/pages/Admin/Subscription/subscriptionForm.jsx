@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import service from "../../../config/axiosConfig";
-import { useNavigate ,useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import SidebarMain from "../../../components/SidebarMain";
 
 export default function SubscriptionForm() {
     const navigate = useNavigate();
-    const {id} = useParams();
+    const { id } = useParams();
     const [subscription, setSubscription] = useState({
         name: "",
         title: "",
@@ -33,7 +34,8 @@ export default function SubscriptionForm() {
 
     const handleChange = (e) => {
         const { name, checked, value } = e.target;
-        const newValue = name === "is_premium" || name === "is_active" ? checked : value;
+        const newValue =
+            name === "is_premium" || name === "is_active" ? checked : value;
         setSubscription((prevState) => ({
             ...prevState,
             [name]: newValue,
@@ -46,9 +48,15 @@ export default function SubscriptionForm() {
         try {
             let response;
             if (id) {
-                response = await service.put(`/api/subscription/${id}`, subscription);
+                response = await service.put(
+                    `/api/subscription/${id}`,
+                    subscription
+                );
             } else {
-                response = await service.post("/api/subscription", subscription);
+                response = await service.post(
+                    "/api/subscription",
+                    subscription
+                );
             }
             console.log(response.status);
             if (response.status === 201 || response.status === 200) {
@@ -56,7 +64,9 @@ export default function SubscriptionForm() {
             }
         } catch (error) {
             console.error("Error:", error.response.data.errors);
-            for (const [key, value] of Object.entries(error.response.data.errors)) {
+            for (const [key, value] of Object.entries(
+                error.response.data.errors
+            )) {
                 toast.error(value[0], {
                     position: "top-right",
                 });
@@ -65,11 +75,11 @@ export default function SubscriptionForm() {
     };
     return (
         <>
-            <h1 className="text-3xl font-bold mb-6 text-center mt-10">
-                Admin Subscription
-            </h1>
+            <SidebarMain />
             <div className="container mx-auto max-w-lg mt-10 p-6 bg-gray-100 rounded-lg shadow-xl">
-                <h2 className="text-2xl font-bold mb-6">{id ? "Edit" : "Create"} Subscription</h2>
+                <h2 className="text-2xl font-bold mb-6">
+                    {id ? "Edit" : "Create"} Subscription
+                </h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label

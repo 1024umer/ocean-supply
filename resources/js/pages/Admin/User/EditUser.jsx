@@ -3,6 +3,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import service from "../../../config/axiosConfig";
 import { useNavigate, useParams } from "react-router-dom";
+import SidebarMain from "../../../components/SidebarMain";
 
 export default function EditUser() {
     const { id } = useParams();
@@ -52,16 +53,19 @@ export default function EditUser() {
                 navigate("/user/list");
             }
         } catch (error) {
-            for (const [key, value] of Object.entries(error.response.data.errors)) {
+            for (const [key, value] of Object.entries(
+                error.response.data.errors
+            )) {
                 toast.error(value[0], {
                     position: "top-right",
                 });
             }
         }
-    }
+    };
 
     return (
         <>
+            <SidebarMain />
             <section className="container mx-auto max-w-lg mt-10 p-6 bg-gray-100 rounded-lg shadow-xl">
                 <h1 className="text-3xl font-bold mb-6 text-center mt-10">
                     Edit User

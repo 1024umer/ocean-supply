@@ -26,6 +26,7 @@ class UserRequest extends FormRequest
             'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
             'password' => 'required|sometimes|string|min:8|regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/|confirmed',
+            'postal_code' => 'numeric',
         ];
     }
 }

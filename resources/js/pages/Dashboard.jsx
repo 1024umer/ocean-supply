@@ -1,18 +1,18 @@
-import axios from 'axios';
-import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { signoutSuccess } from '../redux/user/userSlice';
-import { useNavigate } from 'react-router-dom';
-import SidebarMain from '../components/SidebarMain';
+import axios from "axios";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { signoutSuccess } from "../redux/user/userSlice";
+import { useNavigate } from "react-router-dom";
+import SidebarMain from "../components/SidebarMain";
 function Dashboard() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { user } = useSelector(state => state.user)
+    const { user } = useSelector((state) => state.user);
     const handleSignout = async () => {
         try {
             dispatch(signoutSuccess());
-            localStorage.removeItem('token');
-            navigate('/login');
+            localStorage.removeItem("token");
+            navigate("/login");
         } catch (error) {
             console.log(error.message);
         }
@@ -20,12 +20,11 @@ function Dashboard() {
     return (
         <>
             <SidebarMain />
-            <div>
-                <button onClick={handleSignout}>Signout</button>
-                <h1>Dashboard</h1>
-            </div>
+            <section className="container mx-auto">
+                <h1 className="text-3xl text-center my-5 font-bold">Dashboard</h1>
+            </section>
         </>
-    )
+    );
 }
 
-export default Dashboard
+export default Dashboard;

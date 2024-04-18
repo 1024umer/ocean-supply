@@ -7,6 +7,7 @@ import service from "../../../config/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import { Table } from "flowbite-react";
 import { Link } from 'react-router-dom';
+import SidebarMain from "../../../components/SidebarMain";
 
 export default function SubscriptionForm() {
     const navigate = useNavigate();
@@ -42,6 +43,7 @@ export default function SubscriptionForm() {
     const products = subscriptions;
     return (
         <>
+        <SidebarMain />
             <section className="container mx-auto">
                 <h1 className="font-bold text-3xl text-center mt-10">
                     Subscription List
