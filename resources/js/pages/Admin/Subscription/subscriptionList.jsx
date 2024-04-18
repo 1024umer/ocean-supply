@@ -51,16 +51,14 @@ export default function SubscriptionForm() {
                     <div className="overflow-x-auto">
                         <Table striped>
                             <Table.Head>
-                                <Table.HeadCell>#</Table.HeadCell>
-                                <Table.HeadCell>Name</Table.HeadCell>
-                                <Table.HeadCell>Title</Table.HeadCell>
-                                <Table.HeadCell>Price</Table.HeadCell>
-                                <Table.HeadCell>Description</Table.HeadCell>
-                                <Table.HeadCell>Is Premium</Table.HeadCell>
-                                <Table.HeadCell>Is Active</Table.HeadCell>
-                                <Table.HeadCell>
-                                    <span className="sr-only">Edit</span>
-                                </Table.HeadCell>
+                                <Table.HeadCell className="text-center">#</Table.HeadCell>
+                                <Table.HeadCell className="text-center">Name</Table.HeadCell>
+                                <Table.HeadCell className="text-center">Title</Table.HeadCell>
+                                <Table.HeadCell className="text-center">Price</Table.HeadCell>
+                                <Table.HeadCell className="text-center">Description</Table.HeadCell>
+                                <Table.HeadCell className="text-center">Is Premium</Table.HeadCell>
+                                <Table.HeadCell className="text-center">Is Active</Table.HeadCell>
+                                <Table.HeadCell className="text-center">Action</Table.HeadCell>
                             </Table.Head>
                             <Table.Body className="divide-y">
 
