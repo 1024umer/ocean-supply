@@ -13,13 +13,17 @@ import {
     HiUser,
     HiViewBoards,
 } from "react-icons/hi";
+import { Navbar } from "flowbite-react";
 
 function SidebarMain() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { user } = useSelector((state) => state.user);
     return (
-        <Sidebar aria-label="Sidebar with content separator example">
+        <Sidebar aria-label="Sidebar with logo branding example">
+            <Sidebar.Logo href="#" img="/favicon.ico" imgAlt="Flowbite logo">
+                Flowbite
+            </Sidebar.Logo>
             <Sidebar.Items>
                 <Sidebar.ItemGroup>
                     <Sidebar.Item href="#" icon={HiChartPie}>

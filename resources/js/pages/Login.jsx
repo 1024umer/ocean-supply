@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { signInSuccess } from '../redux/user/userSlice';
+
 const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -19,27 +20,32 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await axios.post('http://127.0.0.1:8000/api/login', formData);
-        if (response) {
-            const { token, user } = response.data;
-            localStorage.setItem('token', JSON.stringify(token));
-            dispatch(signInSuccess(user));
-            navigate('/dashboard')
-            localStorage.setItem('token', JSON.stringify(token));
-            setFormData({
-                email: '',
-                password: '',
-            });
-            toast.success('Login successful!', {
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/api/login', formData);
+            if (response) {
+                const { token, user } = response.data;
+                localStorage.setItem('token', JSON.stringify(token));
+                dispatch(signInSuccess(user));
+                navigate('/dashboard');
+                setFormData({
+                    email: '',
+                    password: '',
+                });
+                toast.success('Login successful!', {
+                    position: 'top-center'
+                });
+            }
+        } catch (error) {
+            let errorMessage = 'An error occurred';
+            if (error.response && error.response.data && error.response.data.message) {
+                errorMessage = error.response.data.message;
+            }
+            toast.error(errorMessage, {
                 position: 'top-center'
             });
         }
-        const message = response.message;
-        toast.error(message, {
-            position: 'top-center'
-        });
-
     };
+    
 
 
     return (
