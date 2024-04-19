@@ -48,7 +48,7 @@ div#root section.containe .relative {
 }
 
 div#root section.container table.w-full.text-left.text-sm.text-gray-500.dark\:text-gray-400 {
-    z-index: 9999999;
+    /* z-index: 9999999; */
     position: relative;
 }
 div#root section.container table.w-full.text-left.text-sm.text-gray-500.dark\:text-gray-400 th {
@@ -56,6 +56,30 @@ div#root section.container table.w-full.text-left.text-sm.text-gray-500.dark\:te
 }
 div#root nav.w-64.h-screen {
     height: 95vh !important;
+}
+div#root nav.w-64.h-screen ul li a {
+    cursor: pointer;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(0, 0, 0); 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #838383; 
 }
 </style>
 <body>
