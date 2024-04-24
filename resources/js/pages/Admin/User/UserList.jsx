@@ -99,7 +99,9 @@ export default function UserList() {
                                         {user.id}
                                     </Table.Cell>
                                     <Table.Cell className="border text-center whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                                        {user.first_name} {user.last_name}
+                                        <Link to={'/user/preview/' + user.id}>
+                                                {user.first_name} {user.last_name}
+                                        </Link>
                                     </Table.Cell>
                                     <Table.Cell className="border text-center">
                                         {user.email}
