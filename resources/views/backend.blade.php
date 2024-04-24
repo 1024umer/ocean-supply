@@ -67,19 +67,19 @@ div#root nav.w-64.h-screen ul li a {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px grey; 
+  box-shadow: inset 0 0 5px grey;
   border-radius: 10px;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgb(0, 0, 0); 
+  background: rgb(0, 0, 0);
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #838383; 
+  background: #838383;
 }
 </style>
 <body>
