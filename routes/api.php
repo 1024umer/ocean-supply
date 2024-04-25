@@ -1,10 +1,11 @@
 <?php
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserGetController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\{SubscriptionController,ProfileController,UserController,OrderController};
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 
 
 Route::group(['middleware' => ['json.response']], function () {
@@ -18,5 +19,6 @@ Route::group(['middleware' => ['json.response', 'auth:sanctum','verified']], fun
     Route::apiResource('subscription', SubscriptionController::class)->only(['store', 'show', 'update', 'destroy']);
     Route::apiResource('/user',UserController::class);
     Route::get('/order/{id}',[OrderController::class,'getOrders']);
+    Route::get('/getUsers',[UserGetController::class,'getUsers']);
 });
 Route::get('subscription', [SubscriptionController::class, 'index']);
