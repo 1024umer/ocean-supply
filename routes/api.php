@@ -20,5 +20,6 @@ Route::group(['middleware' => ['json.response', 'auth:sanctum','verified']], fun
     Route::apiResource('/user',UserController::class);
     Route::get('/order/{id}',[OrderController::class,'getOrders']);
     Route::get('/getUsers',[UserGetController::class,'getUsers']);
+    Route::get('/getCloverUsers',[UserGetController::class,'getCloverUsers']);
 });
 Route::get('subscription', [SubscriptionController::class, 'index']);
