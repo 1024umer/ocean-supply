@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { signupSuccess } from '../redux/user/userSlice';
+import service from '../config/axiosConfig';
 const SignUp = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -35,7 +36,7 @@ const SignUp = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/register', formData);
+            const response = await service.post('/api/register', formData);
 
             if (response.status === 200) {
                 const { token, user } = response.data.data;

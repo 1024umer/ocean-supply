@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { signInSuccess } from '../redux/user/userSlice';
+import service from '../config/axiosConfig';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -21,7 +22,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/login', formData);
+            const response = await service.post('/api/login', formData);
             if (response) {
                 const { token, user } = response.data;
                 localStorage.setItem('token', JSON.stringify(token));
@@ -45,7 +46,7 @@ const Login = () => {
             });
         }
     };
-    
+
 
 
     return (
