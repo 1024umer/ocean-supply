@@ -34,6 +34,7 @@ export default function EditUser() {
         city: "",
         region: "",
         postal_code: "",
+        store_credit_amount:"",
     });
 
     const handleChange = (e) => {
@@ -215,7 +216,6 @@ export default function EditUser() {
                             className="border border-gray-300 rounded-md px-4 py-2 w-full"
                         />
                     </div>
-
                     <button
                         type="submit"
                         className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"

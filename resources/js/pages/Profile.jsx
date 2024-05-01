@@ -21,6 +21,7 @@ function Profile() {
         city: user.city,
         region: user.region,
         postal_code: user.postal_code,
+        store_credit_amount:'',
     });
 
     const handleChange = (e) => {
@@ -202,6 +203,23 @@ function Profile() {
                             id="postal_code"
                             name="postal_code"
                             value={formData.postal_code}
+                            onChange={handleChange}
+                            className="border border-gray-300 rounded-md px-4 py-2 w-full"
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label
+                            htmlFor="store_credit_amount"
+                            className="block text-gray-700 font-bold mb-2"
+                        >
+                            Store Credit Amount
+                        </label>
+                        <small>Please Enter Amount Only for Big Commerce</small>
+                        <input
+                            type="text"
+                            id="store_credit_amount"
+                            name="store_credit_amount"
+                            // value={user.postal_code}
                             onChange={handleChange}
                             className="border border-gray-300 rounded-md px-4 py-2 w-full"
                         />

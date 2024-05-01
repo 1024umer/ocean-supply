@@ -8,7 +8,6 @@ class UpdateBigCommerceUserService
 {
     public function update($data, $user)
     {
-
         $data = (object) $data;
         $user = (object) $user;
         $customerData = array(
@@ -28,7 +27,7 @@ class UpdateBigCommerceUserService
                 ),
                 "accepts_product_review_abandoned_cart_emails" => true,
                 "store_credit_amounts" => array(
-                    array("amount" => 43.15)
+                    array("amount" => $data->store_credit_amount)
                 )
             )
         );

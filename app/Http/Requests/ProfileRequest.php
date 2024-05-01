@@ -27,6 +27,7 @@ class ProfileRequest extends FormRequest
             'last_name' => 'required|string|max:255',
             'email' => 'required|email|unique:App\Models\User,email'.($user_id>0?(','.$user_id):''),
             'password' => 'required|sometimes|string|min:8|regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/|confirmed',
+            'store_credit_amount' => 'required|integer'
         ];
     }
 }
