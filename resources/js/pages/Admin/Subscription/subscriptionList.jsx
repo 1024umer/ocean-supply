@@ -14,7 +14,7 @@ export default function SubscriptionForm() {
     const [subscriptions, setSubscriptions] = useState([]);
     const getSubscription = async () => {
         const response = await service.get(
-            "http://127.0.0.1:8000/api/subscriptionList"
+            "/api/subscriptionList"
         );
         setSubscriptions(response.data.data);
     };
@@ -51,7 +51,7 @@ export default function SubscriptionForm() {
                 <div className="grid grid-cols-1 gap-4 mt-10">
 
                     <div className="overflow-x-auto">
-                    <Table hoverable> 
+                    <Table hoverable>
                             <Table.Head>
                                 <Table.HeadCell className="text-center border p-4">#</Table.HeadCell>
                                 <Table.HeadCell className="text-center border">Name</Table.HeadCell>
