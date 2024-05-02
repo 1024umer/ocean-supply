@@ -84,7 +84,7 @@ const SignUp = () => {
         <>
         <Navigation/>
             <section className='container mx-auto flex justify-center items-center h-screen'>
-                <div className="border rounded-lg p-7 border-gray-900/10 pb-12">
+                <div className="bg-white border rounded-lg p-7 border-gray-900/10 pb-12">
                     <h2 className='font-bold text-3xl text-violet-700'>Signup Page</h2>
                     <h2 className="text-base font-semibold leading-7 text-gray-900">Personal Information</h2>
                     <p className="mt-1 text-sm leading-6 text-gray-600">Use a permanent address where you can receive mail.</p>
