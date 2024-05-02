@@ -22,6 +22,7 @@
 }
 
 div#root {
+    background: linear-gradient(45deg, #2d95b3, #3bade3, #50b3d8, #2c7b98);
     display: flex;
     padding-top: 40px;
 }

@@ -54,7 +54,7 @@ const Login = () => {
         <>
             <Navigation/>
             <section className='container mx-auto flex justify-center items-center h-screen'>
-                <div className="border rounded-lg p-7 border-gray-900/10 pb-12">
+                <div className="bg-white border shadow-md rounded-lg p-7 border-gray-900/10 pb-12">
                     <h2 className='font-bold text-3xl text-violet-700'>Login Page</h2>
                     <h2 className="text-base font-semibold leading-7 text-gray-900">Personal Information</h2>
                     <p className="mt-1 text-sm leading-6 text-gray-600">Use your email and password to Login</p>
