@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { signupSuccess } from '../redux/user/userSlice';
 import service from '../config/axiosConfig';
+import Navigation from '../components/Navigation';
 const SignUp = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -81,6 +82,7 @@ const SignUp = () => {
 
     return (
         <>
+        <Navigation/>
             <section className='container mx-auto flex justify-center items-center h-screen'>
                 <div className="border rounded-lg p-7 border-gray-900/10 pb-12">
                     <h2 className='font-bold text-3xl text-violet-700'>Signup Page</h2>

@@ -9,6 +9,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import { Card } from "flowbite-react";
+import Navigation from "../components/Navigation";
 
 const Subscription = () => {
     const [subscriptions, setSubscriptions] = useState([]);
@@ -56,7 +57,8 @@ const Subscription = () => {
 
     return (
         <>
-            <section className="container mx-auto">
+        <Navigation/>
+            <section className="container mx-auto inline-block">
                 <div className="text-center mt-8">
                     <h2 className="font-bold text-3xl text-cyan-600">
                         Subscription
