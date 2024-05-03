@@ -26,7 +26,7 @@ const Subscription = () => {
         infinite: true,
         speed: 500,
         slidesToShow: 3,
-        slidesToScroll: 1,
+        slidesToScroll: 2,
         responsive: [
             {
                 breakpoint: 1024,
@@ -58,12 +58,12 @@ const Subscription = () => {
     return (
         <>
         <Navigation/>
-            <section className="container mx-auto inline-block">
+            <section className="container mx-auto inline-block h-screen pt-20">
                 <div className="text-center mt-8">
-                    <h2 className="font-bold text-3xl text-cyan-600">
+                    <h2 className="font-bold text-3xl text-black">
                         Subscription
                     </h2>
-                    <p className="mt-3 text-gray-500">
+                    <p className="mt-3 text-white">
                         Lorem ipsum dolor sit amet consectetur, adipisicing
                         elit.
                     </p>
@@ -71,7 +71,7 @@ const Subscription = () => {
                 <Slider {...settings}>
                     {subscriptions.map((subscription) => (
                         <Card key={subscription.id} className="max-w-sm mt-10">
-                            <div className="grid grid-cols-12">
+                            <div className="grid grid-cols-12 text">
                                 <h5 className="mb-4 text-xl font-medium text-gray-500 dark:text-gray-400 col-span-11">
                                     {subscription.name}
                                 </h5>
@@ -81,7 +81,7 @@ const Subscription = () => {
                                     </div>
                                 )}
                             </div>
-                            <div className="flex items-baseline text-gray-900 dark:text-white">
+                            <div className="flex items-baseline text-gray-900 dark:text-white ">
                                 <span className="text-3xl font-semibold">
                                     $
                                 </span>
