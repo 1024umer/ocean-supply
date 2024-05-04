@@ -20,8 +20,8 @@ function Dashboard() {
     return (
         <>
             <SidebarMain/>
-            <section className="container mx-auto">
-                <h1 className="text-3xl text-center my-5 font-bold">Dashboard</h1>
+            <section className="container mx-auto pt-10">
+                <h1 className="text-3xl text-center my-5 font-bold text-white">Dashboard</h1>
             </section>
         </>
     );

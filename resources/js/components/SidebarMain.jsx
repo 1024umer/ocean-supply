@@ -34,9 +34,9 @@ function SidebarMain() {
 
     return (
         <>
-            <Navbar fluid rounded className="bg-gray-50">
+            <Navbar fluid rounded className="bg-gray-50 custome-b-01" >
                 <Navbar.Brand as={Link} href="https://flowbite-react.com">
-                    <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
+                    <span className="self-center whitespace-nowrap text-xl font-semibold text-white">
                         Ocean Supply
                     </span>
                 </Navbar.Brand>
@@ -71,11 +71,11 @@ function SidebarMain() {
             </Navbar>
             <Sidebar
                 aria-label="Sidebar with logo branding example"
-                className="h-screen"
+                className="h-screen  custome-b-02"
             >
-                <Sidebar.Items>
-                    <Sidebar.ItemGroup>
-                        <Sidebar.Item
+                <Sidebar.Items >
+                    <Sidebar.ItemGroup >
+                        <Sidebar.Item 
                             icon={HiChartPie}
                             onClick={() => handleNavigation("/")}
                         >

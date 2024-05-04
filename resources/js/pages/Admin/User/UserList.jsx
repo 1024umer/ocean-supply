@@ -63,8 +63,8 @@ export default function UserList() {
     return (
         <>
             <SidebarMain />
-            <section className="container mx-auto">
-                <h1 className="font-bold text-3xl text-center mt-10 mb-10">
+            <section className="container mx-auto px-4">
+                <h1 className="font-bold text-3xl text-center mt-10 mb-10 text-white">
                     User List
                 </h1>
                 <div className="overflow-x-auto">

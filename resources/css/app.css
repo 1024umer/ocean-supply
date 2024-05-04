@@ -39,3 +39,32 @@
 .slick-slider.slick-initialized .slick-list .slick-slide>div>div {
     text-align: left;
 }
+
+.custome-b-01 {
+    background-color: #3853b4 !important;
+}
+
+
+#root nav:nth-child(2).custome-b-02>div {
+    background-color: #3853b4 !important;
+    padding-top: 50px;
+}
+
+
+.custome-b-02 ul li a {
+    color: white !important;
+    transition: .3s;
+}
+
+.custome-b-02 ul li a svg {
+    fill: white;
+    transition: .3s;
+}
+
+.custome-b-02 ul li a:hover {
+    color: black !important;
+}
+
+.custome-b-02 ul li a:hover svg {
+    fill: black !important;
+}

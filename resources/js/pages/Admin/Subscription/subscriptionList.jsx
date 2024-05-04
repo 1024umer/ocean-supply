@@ -44,8 +44,8 @@ export default function SubscriptionForm() {
     return (
         <>
         <SidebarMain />
-            <section className="container mx-auto">
-                <h1 className="font-bold text-3xl text-center mt-10">
+            <section className="container mx-auto px-4">
+                <h1 className="font-bold text-3xl text-center mt-10 text-white " >
                     Subscription List
                 </h1>
                 <div className="grid grid-cols-1 gap-4 mt-10">
