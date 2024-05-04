@@ -20,7 +20,7 @@
     "src": "node_modules/slick-carousel/slick/fonts/slick.woff"
   },
   "resources/css/app.css": {
-    "file": "assets/app-WwsOHth1.css",
+    "file": "assets/app-lAE0gsS4.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
@@ -33,9 +33,9 @@
       "assets/slick-Zcw5u4Ni.svg"
     ],
     "css": [
-      "assets/app-ouXUlnUv.css"
+      "assets/app-iDaUOzUW.css"
     ],
-    "file": "assets/app-k1Ycnw5t.js",
+    "file": "assets/app-tFJQ4w2Y.js",
     "isEntry": true,
     "src": "resources/js/app.jsx"
   }
