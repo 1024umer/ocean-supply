@@ -8,15 +8,21 @@ import { useNavigate } from "react-router-dom";
 import { Table } from "flowbite-react";
 import { Link } from 'react-router-dom';
 import SidebarMain from "../../../components/SidebarMain";
-
-export default function SubscriptionForm() {
+import Loading from "../../../components/Loading";
+export default function subscriptionList() {
     const navigate = useNavigate();
     const [subscriptions, setSubscriptions] = useState([]);
+    const [loading, setLoading] = useState(true);
     const getSubscription = async () => {
-        const response = await service.get(
-            "/api/subscriptionList"
-        );
-        setSubscriptions(response.data.data);
+        try {
+            const response = await service.get("/api/subscriptionList");
+            setSubscriptions(response.data.data);
+        } catch (error) {
+            console.error("Error fetching subscriptions:", error);
+            toast.error("Failed to fetch subscriptions");
+        } finally {
+            setLoading(false);
+        }
     };
 
     useEffect(() => {
@@ -41,6 +47,9 @@ export default function SubscriptionForm() {
     };
 
     const products = subscriptions;
+    if (loading) {
+        return <Loading/> ;
+    }
     return (
         <>
         <SidebarMain />
