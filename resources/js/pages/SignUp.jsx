@@ -163,7 +163,7 @@ const SignUp = () => {
                         </div>
                         <button type="submit" className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">Submit</button>
                     </form>
-                    Want to Login? <Link className='text-blue-500 ml-3' to={'/'}>Login</Link>
+                    Want to Login? <Link className='text-blue-500 ml-3' to={'/login'}>Login</Link>
                 </div>
             </section>
             <ToastContainer />
