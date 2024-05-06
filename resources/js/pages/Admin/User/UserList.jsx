@@ -12,13 +12,16 @@ import {
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import SidebarMain from "../../../components/SidebarMain";
+import Loading from "../../../components/Loading";
 
 export default function UserList() {
     const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const getUsers = async () => {
         const response = await service.get("/api/user");
         setUsers(response.data.data);
+        setLoading(false)
     };
 
     useEffect(() => {
@@ -26,7 +29,6 @@ export default function UserList() {
     }, []);
 
     const handleDelete = async (userId) => {
-        // Show confirmation dialog
         const result = await Swal.fire({
             title: "Are you sure?",
             text: "You will not be able to recover this user!",
@@ -39,13 +41,10 @@ export default function UserList() {
         });
 
         if (result.isConfirmed) {
-            // User confirmed deletion
             try {
                 const response = await service.delete(`/api/user/${userId}`);
                 if (response.status === 200) {
-                    // Remove the deleted user from the local state
                     setUsers(users.filter((user) => user.id !== userId));
-                    // Show success message
                     Swal.fire(
                         "Deleted!",
                         "The user has been deleted.",
@@ -54,12 +53,13 @@ export default function UserList() {
                 }
             } catch (error) {
                 console.error("Error deleting user:", error);
-                // Show error message
                 Swal.fire("Error!", "Failed to delete the user.", "error");
             }
         }
     };
-
+    if (loading) {
+        return <Loading/> ;
+    }
     return (
         <>
             <SidebarMain />

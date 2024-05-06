@@ -3,8 +3,10 @@ import SidebarMain from "../../../components/SidebarMain";
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import service from "../../../config/axiosConfig";
 import { Table } from "flowbite-react";
+import Loading from "../../../components/Loading";
 
 export const PreviewUser = () => {
+    const [loading, setLoading] = useState(true);
     const [cloverOrders, setCloverOrders] = useState([]);
     const [bigCommerceOrders, setBigCommerceOrders] = useState([]);
 
@@ -14,13 +16,14 @@ export const PreviewUser = () => {
         const response = await service.get("/api/order/" + id);
         setCloverOrders(response.data.clover_orders.elements);
         setBigCommerceOrders(response.data.big_commerce_orders);
-        console.log("Get orders response data", response.data);
-        console.log("Clover orders", cloverOrders);
-        console.log("Big Commerce orders", bigCommerceOrders);
+        setLoading(false)
     };
     useEffect(() => {
         getOrders();
     }, [id]);
+    if (loading) {
+        return <Loading/> ;
+    }
     return (
         <>
             <SidebarMain />
@@ -29,7 +32,6 @@ export const PreviewUser = () => {
                     <h2 className="text-xl font-bold my-3">BigCommerce Orders</h2>
                     <Table hoverable>
                         <Table.Head>
-                            {/* <Table.HeadCell>#</Table.HeadCell> */}
                             <Table.HeadCell>Product name</Table.HeadCell>
                             <Table.HeadCell>Price</Table.HeadCell>
                             <Table.HeadCell>Date</Table.HeadCell>
@@ -37,7 +39,6 @@ export const PreviewUser = () => {
                         </Table.Head>
                         <Table.Body className="divide-y">
                             {bigCommerceOrders.map(order => {
-                                // console.log(order);
                                 return (
                                     <Table.Row key={order.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                                         {/* <Tabel.Cell>{order.id}</Tabel.Cell> */}
@@ -57,18 +58,14 @@ export const PreviewUser = () => {
                                         </Table.Cell>
                                     </Table.Row>
                                 )
-
                             })}
-
                         </Table.Body>
                     </Table>
                 </div>
-
                 <div className="overflow-x-auto w-full lg:p-5 mt-5 col-span-12">
                     <h2 className="text-xl font-bold my-3">Clover Orders</h2>
                     <Table hoverable>
                         <Table.Head>
-                            {/* <Table.HeadCell>#</Table.HeadCell> */}
                             <Table.HeadCell>Product name</Table.HeadCell>
                             <Table.HeadCell>Price</Table.HeadCell>
                             <Table.HeadCell>Date</Table.HeadCell>
@@ -76,7 +73,6 @@ export const PreviewUser = () => {
                         </Table.Head>
                         <Table.Body className="divide-y">
                             {cloverOrders.map(order => {
-                                // console.log(order);
                                 return (
                                     <Table.Row key={order.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
                                         {/* <Tabel.Cell>{order.id}</Tabel.Cell> */}
@@ -96,9 +92,7 @@ export const PreviewUser = () => {
                                         </Table.Cell>
                                     </Table.Row>
                                 )
-
                             })}
-
                         </Table.Body>
                     </Table>
                 </div>
