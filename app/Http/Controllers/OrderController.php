@@ -14,12 +14,15 @@ class OrderController extends Controller
     {
         $user = User::find($id);
         if ($user) {
-            $data = $orderClover->getAllOrders($user);
-            $data2 = $bigCommerce->bigCommerceOrders($user);
-            return new OrderResource([$data,$data2]);
+            $cloverOrders = $orderClover->getAllOrders($user);
+            $bigCommerceOrders = $bigCommerce->bigCommerceOrders($user);
+
+            return [
+                'clover_orders' => new OrderResource($cloverOrders),
+                'big_commerce_orders' => new OrderResource($bigCommerceOrders),
+            ];
         } else {
             return response()->json(['message' => 'User not found'], 404);
         }
     }
-
 }
