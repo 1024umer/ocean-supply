@@ -13,10 +13,11 @@ export const PreviewUser = () => {
     const { id } = useParams();
 
     const getOrders = async () => {
-        const response = await service.get("/api/order/" + id);
-        setCloverOrders(response.data.clover_orders.elements);
-        setBigCommerceOrders(response.data.big_commerce_orders);
-        setLoading(false)
+        const response = await service.get("/api/order/" + id).then(response =>{
+            setCloverOrders(response.data.clover_orders.elements);
+            setBigCommerceOrders(response.data.big_commerce_orders);
+            setLoading(false)
+        }).catch(error => console.log(error));
     };
     useEffect(() => {
         getOrders();
