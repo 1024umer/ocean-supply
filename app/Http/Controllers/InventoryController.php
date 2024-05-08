@@ -13,4 +13,9 @@ class InventoryController extends Controller
         $data = json_decode($inventories->getContent(), true);
         return response($data);
     }
+    public function show(GetInventory $getInventory, $id){
+        $inventories = $getInventory->getSingleInventory($id);
+        return response($inventories);
+    }
+
 }
