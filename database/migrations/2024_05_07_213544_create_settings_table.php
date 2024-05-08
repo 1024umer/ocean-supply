@@ -20,17 +20,21 @@ return new class extends Migration
         });
         $arr = [
             [
-                'key' => 'number_of_orders',
-                'value' => '5'
-            ],
-            [
-                'key' => 'number_of_points',
-                'value' => '1'
-            ],
-            [
-                'key' => 'points_value',
+                'key' => 'points',
                 'value' => '10'
             ],
+            [
+                'key' => 'value',
+                'value' => '10'
+            ],
+            [
+                'key' => 'amount',
+                'value' => '10'
+            ],
+            [
+                'key' => 'is_active',
+                'value' => '1'
+            ]
         ];
         foreach($arr as $ar){
             Setting::create($ar);
