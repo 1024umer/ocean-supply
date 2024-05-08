@@ -42,22 +42,22 @@ class LoginController extends Controller
                     $token = $user->createToken('Ocean Supply')->plainTextToken;
                     $response = ['success' => true, 'token' => $token, 'user' => $user];
 
-                    if ($is_active->value == "1") {
+                    // if ($is_active->value == "1") {
 
-                        $bigCommerceOrders = $bigCommerce->bigCommerceOrders($user);
-                        foreach ($bigCommerceOrders as $order) {
-                            $totalAmount += $order['subtotal_inc_tax'];
-                        }
+                    //     $bigCommerceOrders = $bigCommerce->bigCommerceOrders($user);
+                    //     foreach ($bigCommerceOrders as $order) {
+                    //         $totalAmount += $order['subtotal_inc_tax'];
+                    //     }
 
-                        if ($totalAmount >= $amount->value) {
-                            $pointValue = $amount->value / $points->value;
-                            dd($pointValue * $totalAmount);
-                            dd("Points+");
-                        } else {
-                            dd("No Points");
-                        }
+                    //     if ($totalAmount >= $amount->value) {
+                    //         $pointValue = $amount->value / $points->value;
+                    //         dd($pointValue * $totalAmount);
+                    //         dd("Points+");
+                    //     } else {
+                    //         dd("No Points");
+                    //     }
 
-                    }
+                    // }
                     return response($response, 200);
                 }
                 $response = ['success' => false, "message" => "Password doesn't match"];
