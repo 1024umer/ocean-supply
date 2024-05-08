@@ -75,7 +75,7 @@ function SidebarMain() {
             >
                 <Sidebar.Items >
                     <Sidebar.ItemGroup >
-                        <Sidebar.Item 
+                        <Sidebar.Item
                             icon={HiChartPie}
                             onClick={() => handleNavigation("/")}
                         >
@@ -113,6 +113,14 @@ function SidebarMain() {
                                 onClick={() => handleNavigation("/user/list")}
                             >
                                 User List
+                            </Sidebar.Item>
+                        )}
+                        {user.role.name === "admin" && (
+                            <Sidebar.Item
+                                icon={HiTable}
+                                onClick={() => handleNavigation("/inventory/list")}
+                            >
+                                Inventories
                             </Sidebar.Item>
                         )}
                     </Sidebar.ItemGroup>
