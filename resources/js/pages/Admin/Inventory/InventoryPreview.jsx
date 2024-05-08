@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
 import service from "../../../config/axiosConfig";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import SidebarMain from "../../../components/SidebarMain";
 import Loading from "../../../components/Loading";
 import Box from "../../../components/Box";
-function InventoryList() {
+function InventoryPreview() {
     const [inventory, setInventory] = useState([]);
     const [loading, setLoading] = useState(true);
+    const { id } = useParams();
+
     const getInventories = async () => {
-        const response = await service.get("/api/inventory").then(response => {
+        const response = await service.get("/api/inventory/"+ id).then(response => {
             setInventory(response.data.elements);
             setLoading(false)
         }).catch(setLoading(true));
     };
-
     useEffect(() => {
         getInventories();
     }, []);
@@ -35,4 +36,4 @@ function InventoryList() {
     )
 }
 
-export default InventoryList
+export default InventoryPreview
