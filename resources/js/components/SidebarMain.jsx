@@ -34,7 +34,7 @@ function SidebarMain() {
 
     return (
         <>
-            <Navbar fluid rounded className="bg-gray-50 custome-b-01" >
+            {/* <Navbar fluid rounded className="bg-gray-50 custome-b-01" >
                 <Navbar.Brand as={Link} href="https://flowbite-react.com">
                     <span className="self-center whitespace-nowrap text-xl font-semibold text-white">
                         Ocean Supply
@@ -125,7 +125,79 @@ function SidebarMain() {
                         )}
                     </Sidebar.ItemGroup>
                 </Sidebar.Items>
-            </Sidebar>
+            </Sidebar> */}
+            <div className="col-lg-3 col-md-3">
+                <div className="main-dash-content">
+                    <div className="main-logo">
+                        <img src="front/images/main-logo.png" alt="" />
+                    </div>
+                    <div className="user-profile">
+                        <div className="content">
+                            <h2>Welcome Back,</h2>
+                            <h3>{user.first_name} {user.last_name}</h3>
+                        </div>
+                        <div className="profile-img">
+                            <img src="front/images/user-profile-img.png" alt="" />
+                        </div>
+                    </div>
+                    <div className="main-dash-link">
+                        <a onClick={() => handleNavigation("/")} href="#">Dashborad</a>
+                    </div>
+                    <div className="main-accordion-box">
+                        <div id="accordionExample" className="accordion shadow">
+                            <div className="card">
+                                <div id="headingOne" className="card-header bg-white shadow-sm border-0">
+                                    <h2 className="mb-0">
+                                        <button type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false"
+                                            aria-controls="collapseOne"
+                                            className="btn btn-link text-dark font-weight-bold text-uppercase collapsible-link">Users</button>
+                                    </h2>
+                                </div>
+                                <div id="collapseOne" aria-labelledby="headingOne" data-parent="#accordionExample" className="collapse ">
+                                    <div className="card-body">
+                                        <ul>
+                                            <li><a href="#">All Users</a></li>
+                                            <li><a href="#">Add Users</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="card">
+                                <div id="headingTwo" className="card-header bg-white shadow-sm border-0">
+                                    <h2 className="mb-0">
+                                        <button type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+                                            aria-controls="collapseTwo"
+                                            className="btn btn-link collapsed text-dark font-weight-bold text-uppercase collapsible-link">Orders</button>
+                                    </h2>
+                                </div>
+                                <div id="collapseTwo" aria-labelledby="headingTwo" data-parent="#accordionExample" className="collapse">
+                                    <div className="card-body">
+                                        <ul>
+                                            <li><a href="#">All Orders</a></li>
+                                            <li><a href="#">Packages Orders</a></li>
+                                            <li><a href="#">Add Package</a></li>
+                                            <li><a href="#">Package List</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="dash-extra-link">
+                        <a onClick={() => handleNavigation("/inventory/list")}>Inventories</a>
+                    </div>
+                    <div className="dash-logout-btn">
+                        <a href="#" className="t-btn t-btn-gradient">Log Out</a>
+                    </div>
+
+                    <div className="two-abs-imgs">
+                        <img className="dash-img-top" src="front/images/dash-img-top.png" alt="" />
+                        <img className="dash-img-bottom" src="front/images/dash-img-bottom.png" alt="" />
+                    </div>
+
+                </div>
+
+            </div>
         </>
     );
 }

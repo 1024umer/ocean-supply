@@ -23,14 +23,19 @@ function InventoryList() {
     }
     return (
         <>
-            <SidebarMain />
-            <div className="grid grid-cols-7 gap-6 p-4 mt-4">
-                {inventory.map(item => (
-                    <Link to={'/inventory/'+ item.id}>
-                        <Box key={item.id} title={item.name} total={item.price} />
-                    </Link>
-                ))}
-            </div>
+            <section className="main-dashboard">
+                <div className="container-fluid dash-board">
+                    <div className="row">
+                        <SidebarMain />
+
+                        {inventory.map(item => (
+                            <Link to={'/inventory/' + item.id}>
+                                <Box key={item.id} title={item.name} total={item.price} />
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            </section>
         </>
     )
 }
