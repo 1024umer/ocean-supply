@@ -62,6 +62,12 @@ export default function UserList() {
     }
     return (
         <>
+        <section className="main-dashboard">
+
+            <div className="container-fluid dash-board">
+
+                <div className="row">
+
             <SidebarMain />
             <section className="container mx-auto px-4">
                 <h1 className="font-bold text-3xl text-center mt-10 mb-10 text-white">
@@ -92,7 +98,7 @@ export default function UserList() {
                         <Table.Body className="divide-y">
                             {users.map((user) => (
                                 <Table.Row
-                                    key={user.id}
+                                key={user.id}
                                     className="bg-white dark:border-gray-700 dark:bg-gray-800"
                                 >
                                     <Table.Cell className="border text-center p-4">
@@ -134,6 +140,9 @@ export default function UserList() {
                     </Table>
                 </div>
             </section>
+                                </div>
+                            </div>
+                        </section>
         </>
     );
 }

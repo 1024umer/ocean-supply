@@ -96,7 +96,8 @@ class LoginController extends Controller
                                     dd("Points earned");
                                 }
                             } else {
-                                dd("No Points");
+                                return response($response, 200);
+                                // dd("No Points");
                             }
 
                         }

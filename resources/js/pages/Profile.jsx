@@ -58,6 +58,9 @@ function Profile() {
 
     return (
         <>
+        <section className="main-dashboard">
+            <div className="container-fluid dash-board">
+                <div className="row">
         <SidebarMain />
             <div className="container mx-auto max-w-lg mt-10 p-6 bg-gray-100 rounded-lg shadow-xl">
                 <h2 className="text-2xl font-bold mb-6">Update Profile</h2>
@@ -76,7 +79,7 @@ function Profile() {
                             value={formData.first_name}
                             onChange={handleChange}
                             className="border border-gray-300 rounded-md px-4 py-2 w-full"
-                        />
+                            />
                     </div>
                     <div className="mb-4">
                         <label
@@ -92,14 +95,14 @@ function Profile() {
                             value={formData.last_name}
                             onChange={handleChange}
                             className="border border-gray-300 rounded-md px-4 py-2 w-full"
-                        />
+                            />
                     </div>
 
                     <div className="mb-4">
                         <label
                             htmlFor="email"
                             className="block text-gray-700 font-bold mb-2"
-                        >
+                            >
                             Email
                         </label>
                         <input
@@ -109,7 +112,7 @@ function Profile() {
                             value={formData.email}
                             onChange={handleChange}
                             className="border border-gray-300 rounded-md px-4 py-2 w-full"
-                        />
+                            />
                     </div>
                     <div className="mb-4">
                         <label
@@ -125,7 +128,7 @@ function Profile() {
                             value={formData.phone}
                             onChange={handleChange}
                             className="border border-gray-300 rounded-md px-4 py-2 w-full"
-                        />
+                            />
                     </div>
                     <div className="mb-4">
                         <label
@@ -141,13 +144,13 @@ function Profile() {
                             value={formData.country}
                             onChange={handleChange}
                             className="border border-gray-300 rounded-md px-4 py-2 w-full"
-                        />
+                            />
                     </div>
                     <div className="mb-4">
                         <label
                             htmlFor="street_address"
                             className="block text-gray-700 font-bold mb-2"
-                        >
+                            >
                             Street Address
                         </label>
                         <input
@@ -157,13 +160,13 @@ function Profile() {
                             value={formData.street_address}
                             onChange={handleChange}
                             className="border border-gray-300 rounded-md px-4 py-2 w-full"
-                        />
+                            />
                     </div>
                     <div className="mb-4">
                         <label
                             htmlFor="city"
                             className="block text-gray-700 font-bold mb-2"
-                        >
+                            >
                             City
                         </label>
                         <input
@@ -173,13 +176,13 @@ function Profile() {
                             value={formData.city}
                             onChange={handleChange}
                             className="border border-gray-300 rounded-md px-4 py-2 w-full"
-                        />
+                            />
                     </div>
                     <div className="mb-4">
                         <label
                             htmlFor="region"
                             className="block text-gray-700 font-bold mb-2"
-                        >
+                            >
                             Region
                         </label>
                         <input
@@ -189,13 +192,13 @@ function Profile() {
                             value={formData.region}
                             onChange={handleChange}
                             className="border border-gray-300 rounded-md px-4 py-2 w-full"
-                        />
+                            />
                     </div>
                     <div className="mb-4">
                         <label
                             htmlFor="postal_code"
                             className="block text-gray-700 font-bold mb-2"
-                        >
+                            >
                             Postal Code
                         </label>
                         <input
@@ -211,7 +214,7 @@ function Profile() {
                         <label
                             htmlFor="store_credit_amount"
                             className="block text-gray-700 font-bold mb-2"
-                        >
+                            >
                             Store Credit Amount
                         </label>
                         <small>Please Enter Amount Only for Big Commerce</small>
@@ -227,11 +230,14 @@ function Profile() {
                     <button
                         type="submit"
                         className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-                    >
+                        >
                         Update Profile
                     </button>
                 </form>
             </div>
+            </div>
+            </div>
+        </section>
             <ToastContainer />
         </>
     );

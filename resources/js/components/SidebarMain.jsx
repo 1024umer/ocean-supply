@@ -156,8 +156,10 @@ function SidebarMain() {
                                 <div id="collapseOne" aria-labelledby="headingOne" data-parent="#accordionExample" className="collapse ">
                                     <div className="card-body">
                                         <ul>
-                                            <li><a href="#">All Users</a></li>
-                                            <li><a href="#">Add Users</a></li>
+                                            <li><a onClick={() => handleNavigation("/profile")}>User Profile</a></li>
+                                            {user.role.name === "admin" && (
+                                                <li><a onClick={() => handleNavigation("/user/list")}>All Users</a></li>
+                                            )}
                                         </ul>
                                     </div>
                                 </div>
@@ -167,16 +169,18 @@ function SidebarMain() {
                                     <h2 className="mb-0">
                                         <button type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
                                             aria-controls="collapseTwo"
-                                            className="btn btn-link collapsed text-dark font-weight-bold text-uppercase collapsible-link">Orders</button>
+                                            className="btn btn-link collapsed text-dark font-weight-bold text-uppercase collapsible-link">Subscription</button>
                                     </h2>
                                 </div>
                                 <div id="collapseTwo" aria-labelledby="headingTwo" data-parent="#accordionExample" className="collapse">
                                     <div className="card-body">
                                         <ul>
-                                            <li><a href="#">All Orders</a></li>
-                                            <li><a href="#">Packages Orders</a></li>
-                                            <li><a href="#">Add Package</a></li>
-                                            <li><a href="#">Package List</a></li>
+                                        {user.role.name === "admin" && (
+                                            <li><a onClick={() => handleNavigation("/subscription")}>Subscription</a></li>
+                                        )}
+                                        {user.role.name === "admin" && (
+                                            <li><a onClick={() => handleNavigation("/subscription-list")}>Subscription List</a></li>
+                                        )}
                                         </ul>
                                     </div>
                                 </div>
@@ -187,7 +191,7 @@ function SidebarMain() {
                         <a onClick={() => handleNavigation("/inventory/list")}>Inventories</a>
                     </div>
                     <div className="dash-logout-btn">
-                        <a href="#" className="t-btn t-btn-gradient">Log Out</a>
+                        <a onClick={handleSignout} className="t-btn t-btn-gradient">Log Out</a>
                     </div>
 
                     <div className="two-abs-imgs">
