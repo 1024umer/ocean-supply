@@ -58,4 +58,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function point()
+    {
+        return $this->hasMany(UserPoint::class);
+    }
 }

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserPoint extends Model
 {
     use HasFactory;
-
+    protected $with = ['user'];
     protected $fillable = [
         'user_id',
         'total_points',
@@ -16,4 +16,8 @@ class UserPoint extends Model
         'last_clover_order_id',
         'last_bigCommerce_order_id',
     ];
+    public function User()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

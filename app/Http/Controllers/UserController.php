@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     public function index(){
-        $user = User::where('id','!=', auth('api')->user()->id)->get();
+        $user = User::where('id','!=', auth('api')->user()->id)->with('point')->get();
         return  UserResource::collection($user);
     }
 
@@ -22,7 +22,7 @@ class UserController extends Controller
     public function update(UserRequest $request, User $user){
         $user->update($request->all());
         return new UserResource($user);
-    } 
+    }
 
     public function destroy(User $user){
         $user->delete();

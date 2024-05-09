@@ -92,6 +92,12 @@ export default function UserList() {
                                 Phone
                             </Table.HeadCell>
                             <Table.HeadCell className="border">
+                                Total Points
+                            </Table.HeadCell>
+                            <Table.HeadCell className="border">
+                                Remaining Points
+                            </Table.HeadCell>
+                            <Table.HeadCell className="border">
                                 Action
                             </Table.HeadCell>
                         </Table.Head>
@@ -117,6 +123,12 @@ export default function UserList() {
                                     </Table.Cell>
                                     <Table.Cell className="border text-center">
                                         {user.phone}
+                                    </Table.Cell>
+                                    <Table.Cell className="border text-center">
+                                        {user.point[0] ? user.point[0].total_points : 0}
+                                    </Table.Cell>
+                                    <Table.Cell className="border text-center">
+                                        {user.point[0] ? user.point[0].remaining_points : 0}
                                     </Table.Cell>
                                     <Table.Cell className="border text-center">
                                         <Link

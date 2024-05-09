@@ -6,11 +6,14 @@ import { useNavigate } from "react-router-dom";
 import SidebarMain from "../components/SidebarMain";
 import Box from "../components/Box";
 import service from "../config/axiosConfig";
+import Loading from "../components/Loading";
 function Dashboard() {
     const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(true);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { user } = useSelector((state) => state.user);
+    const totalUsers = users.length
 
     const getUsers = async () => {
         const response = await service.get("/api/user");
@@ -65,36 +68,13 @@ function Dashboard() {
                                                         <th>Emails</th>
                                                         <th>Role</th>
                                                     </tr>
-                                                    <tr>
-                                                        <td>Jhony Bravo</td>
-                                                        <td>someone@gmail.com</td>
-                                                        <td>User</td>
+                                                    {users.slice(0, 6).map((user) => (
+                                                    <tr key={user.id}>
+                                                        <td>{user.first_name} {user.last_name}</td>
+                                                        <td>{user.email}</td>
+                                                        <td>{user.role.title}</td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>Jhony Bravo</td>
-                                                        <td>someone@gmail.com</td>
-                                                        <td>User</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Jhony Bravo</td>
-                                                        <td>someone@gmail.com</td>
-                                                        <td>User</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Jhony Bravo</td>
-                                                        <td>someone@gmail.com</td>
-                                                        <td>User</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Jhony Bravo</td>
-                                                        <td>someone@gmail.com</td>
-                                                        <td>User</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Jhony Bravo</td>
-                                                        <td>someone@gmail.com</td>
-                                                        <td>User</td>
-                                                    </tr>
+                                                    ))}
                                                 </table>
                                             </div>
                                             <div className="img-abs">
@@ -131,7 +111,7 @@ function Dashboard() {
                                     <div className="col-lg-4 col-md-4">
                                         <div className="price-box">
                                             <div className="heading">
-                                                <h2>190</h2>
+                                                <h2>{totalUsers}</h2>
                                                 <h3>Total Users </h3>
                                             </div>
                                             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>

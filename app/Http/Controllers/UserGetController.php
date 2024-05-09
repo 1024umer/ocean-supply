@@ -30,4 +30,16 @@ class UserGetController extends Controller
         return response()->json($decodedResponse);
     }
 
+    public function getBigCommerceUsers(UsersGet $BigCommerceUserGet)
+    {
+        $response = $BigCommerceUserGet->BigCommerceUserGet();
+
+        $decodedResponse = json_decode($response, true);
+        if ($decodedResponse === null) {
+            return response()->json(['error' => 'Failed to decode JSON response'], 500);
+        }
+        return response()->json($decodedResponse);
+
+    }
+
 }

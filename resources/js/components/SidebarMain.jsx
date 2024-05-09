@@ -160,6 +160,12 @@ function SidebarMain() {
                                             {user.role.name === "admin" && (
                                                 <li><a onClick={() => handleNavigation("/user/list")}>All Users</a></li>
                                             )}
+                                            {user.role.name === "admin" && (
+                                                <li><a onClick={() => handleNavigation("/clover/user/list")}>Clover Users</a></li>
+                                            )}
+                                            {user.role.name === "admin" && (
+                                                <li><a onClick={() => handleNavigation("/big-commerce/user/list")}>Big Commerce Users</a></li>
+                                            )}
                                         </ul>
                                     </div>
                                 </div>
