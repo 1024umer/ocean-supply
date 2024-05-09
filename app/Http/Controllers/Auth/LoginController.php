@@ -93,13 +93,12 @@ class LoginController extends Controller
                                     $userPoints->total_points += $pointsEarned;
                                     $userPoints->remaining_points += $pointsEarned;
                                     $userPoints->save();
-                                    dd("Points earned");
+                                    // dd("Points earned");
                                 }
                             } else {
                                 return response($response, 200);
                                 // dd("No Points");
                             }
-
                         }
                     return response($response, 200);
                 }

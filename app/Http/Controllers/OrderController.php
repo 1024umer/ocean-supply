@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Services\Clover\CloverCreateOrder;
 use Illuminate\Http\Request;
 use App\Http\Resources\OrderResource;
 use App\Services\Clover\OrderCloverUserService;
@@ -24,5 +25,10 @@ class OrderController extends Controller
         } else {
             return response()->json(['message' => 'User not found'], 404);
         }
+    }
+    public function store(CloverCreateOrder $cloverCreateOrder){
+        $user = User::find(auth('api')->user()->id);
+        $data = $cloverCreateOrder->createOrder($user);
+        dd($data);
     }
 }
