@@ -12,7 +12,8 @@ function InventoryPreview() {
 
     const getInventories = async () => {
         const response = await service.get("/api/inventory/"+ id).then(response => {
-            setInventory(response.data.elements);
+            console.log(response.data)
+            setInventory(response.data);
             setLoading(false)
         }).catch(setLoading(true));
     };
@@ -22,16 +23,36 @@ function InventoryPreview() {
     if (loading) {
         return <Loading />;
     }
+    const formatTimestamp = (timestamp) => {
+        const date = new Date(timestamp);
+        return date.toLocaleString(); // Adjust format as needed
+    };
     return (
         <>
-            <SidebarMain />
-            <div className="grid grid-cols-7 gap-6 p-4 mt-4">
-                {inventory.map(item => (
-                    <Link to={'/inventory/'+ item.id}>
-                        <Box key={item.id} title={item.name} total={item.price} />
-                    </Link>
-                ))}
+        <section className="main-dashboard">
+            <div className="container-fluid dash-board">
+                <div className="row">
+                    <SidebarMain />
+                    <section className="container mx-auto px-4">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-12">
+                                <h2>Product Detail</h2>
+                                <p>Id: {inventory.id}</p>
+                                <p>Code: {inventory.code}</p>
+                                <p>Name: {inventory.name}</p>
+                                <p>Coast: {inventory.cost}</p>
+                                <p>Price: ${inventory.price} {inventory.priceType}</p>
+                                <p>{inventory.available == true ? "In Stock" : "Out of Stock"}</p>
+                                <p>Time: {formatTimestamp(inventory.modifiedTime)}</p>
+                                <p>SKU: {inventory.sku}</p>
+                            </div>
+                        </div>
+                    </div>
+                    </section>
+                </div>
             </div>
+        </section>
         </>
     )
 }

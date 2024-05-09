@@ -1,14 +1,27 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signoutSuccess } from "../redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
 import SidebarMain from "../components/SidebarMain";
 import Box from "../components/Box";
+import service from "../config/axiosConfig";
 function Dashboard() {
+    const [users, setUsers] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { user } = useSelector((state) => state.user);
+
+    const getUsers = async () => {
+        const response = await service.get("/api/user");
+        setUsers(response.data.data);
+        setLoading(false)
+    };
+
+    useEffect(() => {
+        getUsers();
+    }, []);
+
     const handleSignout = async () => {
         try {
             dispatch(signoutSuccess());
@@ -17,6 +30,10 @@ function Dashboard() {
         } catch (error) {
             console.log(error.message);
         }
+    };
+
+    const handleNavigation = (path) => {
+        navigate(path);
     };
     return (
         <>
@@ -39,7 +56,7 @@ function Dashboard() {
                                         <div className="main-user-box">
                                             <div className="two-align-thing">
                                                 <h3>Users</h3>
-                                                <a href="#" className="t-btn without-shadow"> See All</a>
+                                                <a onClick={() => handleNavigation("/user/list")} className="t-btn without-shadow"> See All</a>
                                             </div>
                                             <div className="table-box">
                                                 <table>
