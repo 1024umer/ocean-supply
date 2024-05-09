@@ -2,23 +2,29 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Setting;
+use App\Models\UserPoint;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Services\Clover\OrderCloverUserService;
 use App\Services\BigCommerce\OrderBigCommerceService;
 
 class LoginController extends Controller
 {
-    public function login(Request $request, OrderBigCommerceService $bigCommerce)
+    public function login(Request $request, OrderBigCommerceService $bigCommerce, OrderCloverUserService $orderClover)
     {
         $amount = Setting::where('key', 'amount')->first();
         $points = Setting::where('key', 'points')->first();
+        $value = Setting::where('key', 'value')->first();
+        $lastCloverOrderId = '';
+        $lastBigCommerceOrderId = 0;
         $is_active = Setting::where('key', 'is_active')->first();
-        $totalAmount = 0;
-
+        $totalBigCommerceAmount = 0;
+        $totalCloverAmount = 0;
+        $grandTotal = 0;
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:8',
@@ -42,22 +48,58 @@ class LoginController extends Controller
                     $token = $user->createToken('Ocean Supply')->plainTextToken;
                     $response = ['success' => true, 'token' => $token, 'user' => $user];
 
-                    // if ($is_active->value == "1") {
+                        if ($is_active->value == "1") {
 
-                    //     $bigCommerceOrders = $bigCommerce->bigCommerceOrders($user);
-                    //     foreach ($bigCommerceOrders as $order) {
-                    //         $totalAmount += $order['subtotal_inc_tax'];
-                    //     }
+                            $userPoints = UserPoint::where('user_id', $user->id)->first();
+                            if(!$userPoints){
+                                $userPoints = new UserPoint();
+                                $userPoints->user_id = $user->id;
+                                $userPoints->total_points = 0;
+                                $userPoints->remaining_points = 0;
+                                $userPoints->last_clover_order_id = '';
+                                $userPoints->last_bigCommerce_order_id = 0;
+                                $userPoints->save();
+                            }
+                            $bigCommerceOrders = $bigCommerce->bigCommerceOrders($user);
+                            $orderClover = $orderClover->getAllOrders($user);
 
-                    //     if ($totalAmount >= $amount->value) {
-                    //         $pointValue = $amount->value / $points->value;
-                    //         dd($pointValue * $totalAmount);
-                    //         dd("Points+");
-                    //     } else {
-                    //         dd("No Points");
-                    //     }
 
-                    // }
+                            if($bigCommerceOrders && count($bigCommerceOrders) > 0){
+                                foreach ($bigCommerceOrders as $order) {
+                                    $lastBigCommerceOrderId = $order['id'];
+                                    $totalBigCommerceAmount += $order['subtotal_inc_tax'];
+                                }
+                            }
+
+                            if(count($orderClover->elements) > 0){
+                                foreach($orderClover->elements as $order) {
+                                    $lastCloverOrderId = $order->id;
+                                    $totalCloverAmount += $order->lineItems->elements[0]->price??0;
+                                }
+                            }
+
+                            $grandTotal = $totalBigCommerceAmount + $totalCloverAmount;
+
+                            if ($grandTotal >= $amount->value) {
+
+                                $points = $points->value;
+                                $shoppingAmount = $amount->value;
+                                $pointsEarned = floor($grandTotal / $shoppingAmount) * $points;
+
+                                if($userPoints && $userPoints->last_clover_order_id != $lastCloverOrderId && $userPoints->last_bigCommerce_order_id != $lastBigCommerceOrderId){
+
+                                    $userPoints->last_clover_order_id = $lastCloverOrderId;
+                                    $userPoints->last_bigCommerce_order_id = $lastBigCommerceOrderId;
+                                    $userPoints->total_points += $pointsEarned;
+                                    $userPoints->remaining_points += $pointsEarned;
+                                    $userPoints->save();
+                                    dd("Points earned");
+                                }
+                            } else {
+                                dd("No Points");
+                            }
+
+                        }
                     return response($response, 200);
                 }
                 $response = ['success' => false, "message" => "Password doesn't match"];
