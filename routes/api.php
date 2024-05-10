@@ -25,6 +25,7 @@ Route::group(['middleware' => ['json.response', 'auth:sanctum','verified']], fun
     Route::get('/getBigCommerceUsers',[UserGetController::class,'getBigCommerceUsers']);
     Route::apiResource('inventory',InventoryController::class);
     Route::post('/create-order',[OrderController::class,'store']);
+    Route::get('/loyalty-points/{id}',[UserController::class,'loyaltyPoints']);
     Route::apiResource('setting',SettingController::class);
 });
 Route::get('subscription', [SubscriptionController::class, 'index']);

@@ -7,6 +7,7 @@ import SidebarMain from "../components/SidebarMain";
 import Box from "../components/Box";
 import service from "../config/axiosConfig";
 import Loading from "../components/Loading";
+import UserDashboard from "../components/UserDashboard";
 function Dashboard() {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -40,20 +41,11 @@ function Dashboard() {
     };
     return (
         <>
-            {/* <section className="container mx-auto pt-10 px-4">
-                <h1 className="text-3xl text-center my-5 font-bold text-white">Dashboard</h1>
-                <div className="grid grid-cols-4 gap-4">
-                    <Box title='Total Users' total='5' />
-                    <Box title='Total Orders' total='14' />
-                    <Box title='Total Orders on Clover' total='9' />
-                    <Box title='Total Orders on Big Commerce' total='12' />
-                </div>
-            </section> */}
             <section className="main-dashboard">
                 <div className="container-fluid dash-board">
                     <div className="row">
                         <SidebarMain />
-                                {user.role.name === "admin" && (
+                        {user.role.name === "admin" && (
                             <div className="col-lg-9 col-md-9 dashboard-right-sec ">
                                 <div className="row dashboard-right-top-sec">
                                     <div className="col-lg-8">
@@ -147,6 +139,9 @@ function Dashboard() {
                                     </div>
                                 </div>
                             </div>
+                        )}
+                        {user.role.name === "user" && (
+                            <UserDashboard />
                         )}
                         </div>
                     </div>

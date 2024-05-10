@@ -34,98 +34,6 @@ function SidebarMain() {
 
     return (
         <>
-            {/* <Navbar fluid rounded className="bg-gray-50 custome-b-01" >
-                <Navbar.Brand as={Link} href="https://flowbite-react.com">
-                    <span className="self-center whitespace-nowrap text-xl font-semibold text-white">
-                        Ocean Supply
-                    </span>
-                </Navbar.Brand>
-                <div className="flex md:order-2">
-                    <Dropdown
-                        arrowIcon={false}
-                        inline
-                        label={
-                            <Avatar
-                                alt="User settings"
-                                img="https://media.istockphoto.com/id/1495088043/vector/user-profile-icon-avatar-or-person-icon-profile-picture-portrait-symbol-default-portrait.jpg?s=612x612&w=0&k=20&c=dhV2p1JwmloBTOaGAtaA3AW1KSnjsdMt7-U_3EZElZ0="
-                                rounded
-                            />
-                        }
-                    >
-                        <Dropdown.Header>
-                            <span className="block text-sm">{user.name}</span>
-                            <span className="block truncate text-sm font-medium">
-                                {user.email}
-                            </span>
-                        </Dropdown.Header>
-                        <Dropdown.Item onClick={handleSignout}>
-                            Sign out
-                        </Dropdown.Item>
-                    </Dropdown>
-                    <Navbar.Toggle />
-                </div>
-                <Navbar.Toggle />
-                <Navbar.Collapse>
-
-                </Navbar.Collapse>
-            </Navbar>
-            <Sidebar
-                aria-label="Sidebar with logo branding example"
-                className="h-screen  custome-b-02"
-            >
-                <Sidebar.Items >
-                    <Sidebar.ItemGroup >
-                        <Sidebar.Item
-                            icon={HiChartPie}
-                            onClick={() => handleNavigation("/")}
-                        >
-                            Dashboard
-                        </Sidebar.Item>
-                        {user.role.name === "admin" && (
-                            <Sidebar.Item
-                                icon={HiInbox}
-                                onClick={() =>
-                                    handleNavigation("/subscription")
-                                }
-                            >
-                                Subscription
-                            </Sidebar.Item>
-                        )}
-                        {user.role.name === "admin" && (
-                            <Sidebar.Item
-                                icon={HiViewBoards}
-                                onClick={() =>
-                                    handleNavigation("/subscription-list")
-                                }
-                            >
-                                Subscription List
-                            </Sidebar.Item>
-                        )}
-                        <Sidebar.Item
-                            icon={HiUser}
-                            onClick={() => handleNavigation("/profile")}
-                        >
-                            Users Profile
-                        </Sidebar.Item>
-                        {user.role.name === "admin" && (
-                            <Sidebar.Item
-                                icon={HiTable}
-                                onClick={() => handleNavigation("/user/list")}
-                            >
-                                User List
-                            </Sidebar.Item>
-                        )}
-                        {user.role.name === "admin" && (
-                            <Sidebar.Item
-                                icon={HiTable}
-                                onClick={() => handleNavigation("/inventory/list")}
-                            >
-                                Inventories
-                            </Sidebar.Item>
-                        )}
-                    </Sidebar.ItemGroup>
-                </Sidebar.Items>
-            </Sidebar> */}
             <div className="col-lg-3 col-md-3">
                 <div className="main-dash-content">
                     <div className="main-logo">
@@ -195,9 +103,11 @@ function SidebarMain() {
                             )}
                         </div>
                     </div>
+                    {user.role.name === "admin" && (
                     <div className="dash-extra-link">
                         <a onClick={() => handleNavigation("/inventory/list")}>Inventories</a>
                     </div>
+                    )}
                     <div className="dash-logout-btn">
                         <a onClick={handleSignout} className="t-btn t-btn-gradient">Log Out</a>
                     </div>

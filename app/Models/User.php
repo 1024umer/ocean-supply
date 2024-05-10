@@ -11,7 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-    public $with = ['role'];
+    public $with = ['role', 'subscription'];
     /**
      * The attributes that are mass assignable.
      *
@@ -36,6 +36,11 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function subscription()
+    {
+        return $this->belongsTo(Subscription::class);
     }
     public const ADMIN_ROLE_ID = 1;
     public const USER_ROLE_ID = 2;

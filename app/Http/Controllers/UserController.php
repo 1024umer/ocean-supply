@@ -6,6 +6,7 @@ use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Models\UserPoint;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -27,5 +28,11 @@ class UserController extends Controller
     public function destroy(User $user){
         $user->delete();
         return response()->json(['message' => 'User deleted successfully'], 200);
+    }
+
+    public function loyaltyPoints($id)
+    {
+        $userPoints = UserPoint::where('user_id', $id)->first();
+        return response()->json($userPoints);
     }
 }
