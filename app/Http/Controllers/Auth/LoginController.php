@@ -63,36 +63,67 @@ class LoginController extends Controller
                             $bigCommerceOrders = $bigCommerce->bigCommerceOrders($user);
                             $orderClover = $orderClover->getAllOrders($user);
 
-
+                            $BigCommerceIndex = null;
                             if($bigCommerceOrders && count($bigCommerceOrders) > 0){
-                                foreach ($bigCommerceOrders as $order) {
-                                    $lastBigCommerceOrderId = $order['id'];
-                                    $totalBigCommerceAmount += $order['subtotal_inc_tax'];
+                                foreach ($bigCommerceOrders as $index => $order) {
+                                    if($order['id'] == $userPoints->last_bigCommerce_order_id){
+                                        $BigCommerceIndex = $index;
+                                        break;
+                                    }
+                                }
+
+                                foreach ($bigCommerceOrders as $index => $order) {
+                                    // Skip orders before $BigCommerceIndex
+                                    if ($index-1 < $BigCommerceIndex) {
+                                        continue;
+                                    }
+                                    // Add the subtotal of the current order to totalBigCommerceAmount
+                                        $lastBigCommerceOrderId = $order['id'];
+                                        $totalBigCommerceAmount += $order['subtotal_inc_tax'];
                                 }
                             }
 
+                            $CloverIndex = null;
                             if(count($orderClover->elements) > 0){
-                                foreach($orderClover->elements as $order) {
+
+                                foreach($orderClover->elements as $index => $order) {
+                                    if($order->id == $userPoints->last_clover_order_id){
+                                        $CloverIndex = $index;
+                                        break;
+                                    }
+                                }
+
+                                foreach ($orderClover->elements as $index => $order) {
+                                    // Skip orders before $CloverIndex
+                                    if ($index-1 < $CloverIndex) {
+                                        continue;
+                                    }
+                                    // Add the price of the current order to totalCloverAmount
                                     $lastCloverOrderId = $order->id;
-                                    $totalCloverAmount += $order->lineItems->elements[0]->price??0;
+                                    $totalCloverAmount += $order->lineItems->elements[0]->price/100 ??0;
                                 }
                             }
+
+                            // dd($totalCloverAmount);
 
                             $grandTotal = $totalBigCommerceAmount + $totalCloverAmount;
-
                             if ($grandTotal >= $amount->value) {
 
                                 $points = $points->value;
                                 $shoppingAmount = $amount->value;
                                 $pointsEarned = floor($grandTotal / $shoppingAmount) * $points;
 
-                                if($userPoints && $userPoints->last_clover_order_id != $lastCloverOrderId && $userPoints->last_bigCommerce_order_id != $lastBigCommerceOrderId){
-
-                                    $userPoints->last_clover_order_id = $lastCloverOrderId;
-                                    $userPoints->last_bigCommerce_order_id = $lastBigCommerceOrderId;
+                                if($userPoints && ($userPoints->last_clover_order_id != $lastCloverOrderId || $userPoints->last_bigCommerce_order_id != $lastBigCommerceOrderId)){
+                                    if($lastCloverOrderId != ''){
+                                        $userPoints->last_clover_order_id = $lastCloverOrderId;
+                                    }
+                                    if($lastBigCommerceOrderId != 0){
+                                        $userPoints->last_bigCommerce_order_id = $lastBigCommerceOrderId;
+                                    }
                                     $userPoints->total_points += $pointsEarned;
                                     $userPoints->remaining_points += $pointsEarned;
                                     $userPoints->save();
+                                    return response($response, 200);
                                     // dd("Points earned");
                                 }
                             } else {

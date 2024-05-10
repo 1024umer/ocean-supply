@@ -53,6 +53,7 @@ function Dashboard() {
                 <div className="container-fluid dash-board">
                     <div className="row">
                         <SidebarMain />
+                                {user.role.name === "admin" && (
                             <div className="col-lg-9 col-md-9 dashboard-right-sec ">
                                 <div className="row dashboard-right-top-sec">
                                     <div className="col-lg-8">
@@ -97,6 +98,7 @@ function Dashboard() {
                                         </div>
                                     </div>
                                 </div>
+
                                 <div className="row">
                                     <div className="col-lg-4 col-md-4">
                                         <div className="price-box">
@@ -145,6 +147,7 @@ function Dashboard() {
                                     </div>
                                 </div>
                             </div>
+                        )}
                         </div>
                     </div>
             </section>

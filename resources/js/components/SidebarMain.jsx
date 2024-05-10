@@ -170,6 +170,7 @@ function SidebarMain() {
                                     </div>
                                 </div>
                             </div>
+                            {user.role.name === "admin" && (
                             <div className="card">
                                 <div id="headingTwo" className="card-header bg-white shadow-sm border-0">
                                     <h2 className="mb-0">
@@ -191,6 +192,7 @@ function SidebarMain() {
                                     </div>
                                 </div>
                             </div>
+                            )}
                         </div>
                     </div>
                     <div className="dash-extra-link">

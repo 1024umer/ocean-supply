@@ -15,6 +15,7 @@ export const PreviewUser = () => {
     const getOrders = async () => {
         const response = await service.get("/api/order/" + id).then(response =>{
             setCloverOrders(response.data.clover_orders.elements);
+            console.log(response.data.clover_orders.elements);
             setBigCommerceOrders(response.data.big_commerce_orders);
             setLoading(false)
         }).catch(error => console.log(error));
@@ -80,7 +81,7 @@ export const PreviewUser = () => {
                                         <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
                                             {order.lineItems ? order.lineItems.elements[0].name : ''}
                                         </Table.Cell>
-                                        <Table.Cell>${order.lineItems ? order.lineItems.elements[0].price : ''}</Table.Cell>
+                                        <Table.Cell>${order.lineItems ? order.lineItems.elements[0].price/100 : ''}</Table.Cell>
                                         <Table.Cell>{new Date(order.createdTime).toLocaleDateString()}</Table.Cell>
                                         <Table.Cell>
                                             <Link

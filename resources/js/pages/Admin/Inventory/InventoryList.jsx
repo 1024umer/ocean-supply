@@ -41,7 +41,7 @@ function InventoryList() {
                                             </div>
                                             <div className="btn-box">
                                                 <a href="#">Search</a>
-                                                <a href="#">Create Order</a>
+                                                <Link to="/order">Create Order</Link>
                                             </div>
                                         </div>
                                     </div>
