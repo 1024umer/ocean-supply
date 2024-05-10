@@ -129,7 +129,7 @@ function SidebarMain() {
             <div className="col-lg-3 col-md-3">
                 <div className="main-dash-content">
                     <div className="main-logo">
-                        <img src="front/images/main-logo.png" alt="" />
+                        <img src="/front/images/main-logo.png" alt="" />
                     </div>
                     <div className="user-profile">
                         <div className="content">
@@ -137,7 +137,7 @@ function SidebarMain() {
                             <h3>{user.first_name} {user.last_name}</h3>
                         </div>
                         <div className="profile-img">
-                            <img src="front/images/user-profile-img.png" alt="" />
+                            <img src="/front/images/user-profile-img.png" alt="" />
                         </div>
                     </div>
                     <div className="main-dash-link">

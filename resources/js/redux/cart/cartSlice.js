@@ -4,7 +4,6 @@ const initialState = {
     cart: [],
     loading: false,
     error: null,
-    count:0,
 };
 const cartSlice = createSlice({
     name: 'cart',
@@ -12,7 +11,6 @@ const cartSlice = createSlice({
     reducers: {
         addToCart(state, action) {
             const product = action.payload;
-            state.count++;
             return {
                 ...state,
                 cart: [...state.cart, product],
