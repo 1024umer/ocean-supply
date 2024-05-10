@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserGetController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -24,5 +25,6 @@ Route::group(['middleware' => ['json.response', 'auth:sanctum','verified']], fun
     Route::get('/getBigCommerceUsers',[UserGetController::class,'getBigCommerceUsers']);
     Route::apiResource('inventory',InventoryController::class);
     Route::post('/create-order',[OrderController::class,'store']);
+    Route::apiResource('setting',SettingController::class);
 });
 Route::get('subscription', [SubscriptionController::class, 'index']);

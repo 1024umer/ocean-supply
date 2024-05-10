@@ -18,11 +18,11 @@ function Box({ title, total, item }) {
                     <div className="pro-details">
                         <h6>{title}</h6>
                         <div className="code-price">
-                            <p>Code : XXXXX</p>
+                            <p>Code : {item.code}</p>
                             <p>Price : ${total}</p>
                         </div>
                         <div className="in-stock-or-not">
-                            <p>In Stock</p>
+                            <p>{item.available === true ? "In Stock" : "Out of Stock"}</p>
                         </div>
                         <button type="button" className="btn btn-primary" data-toggle="modal" data-target={"#myModal"+item.id}>
                             <img src="/front/images/modal-plus-icon.png" alt="" />

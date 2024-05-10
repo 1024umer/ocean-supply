@@ -13,10 +13,12 @@ function ProductModal({item}) {
                         <div className="modal-body">
                             <div className="product-details-modal">
                                 <ul>
-                                    <li>Price : $150</li>
-                                    <li>Code : XXXXX</li>
-                                    <li>QR Code : XXXXXXXXXXXXX</li>
-                                    <li>Other Details</li>
+                                    <li>Id : {item.id}</li>
+                                    <li>Code : {item.code}</li>
+                                    <li>Price : ${item.price}</li>
+                                    <li>Price Type : {item.priceType}</li>
+                                    <li>Cost : ${item.cost}</li>
+                                    <li>SKU : {item.sku}</li>
                                 </ul>
                             </div>
                         </div>
