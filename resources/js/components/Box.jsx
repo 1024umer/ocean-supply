@@ -1,12 +1,11 @@
 import React from 'react'
 import { Card } from "flowbite-react";
 import { useDispatch } from "react-redux";
-import { addMultipleToCart, addToCart } from '../redux/cart/cartSlice';
+import { addMultipleToCart, addToCart, clearItemFromCart } from '../redux/cart/cartSlice';
 import ProductModal from './ProductModal';
 function Box({ title, total, item }) {
     const dispatch = useDispatch();
     const handleBoxClick = (product) => {
-        console.log(product)
         dispatch(addToCart(product));
     };
 
