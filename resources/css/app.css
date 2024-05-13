@@ -1532,5 +1532,50 @@
 
   /* customer-dash-css-end */
 
+  /* Paginations */
+  .ant-pagination .ant-pagination-item-link {
+    border: none!important;
+    background-color: rgb(1, 85, 121)!important;
+    color: white!important;
+    padding: 10px;
+    border-radius: 10px;
+    transition: .3s;
+  }
 
+  .ant-pagination-item a{
+    padding-top: 2px !important;
+    font-size: 17px!important;
+    font-weight: 500!important;
+    font-family: 'Josefin Sans', sans-serif!important;
+  }
+
+  .ant-pagination-item-link{
+    padding-top: 2px !important;
+    font-size: 17px!important;
+    font-weight: 800!important;
+    font-family: 'Josefin Sans', sans-serif!important;
+    background-color: rgb(1, 85, 121)!important;
+    color: white!important;
+    border-radius: 10px;
+    transition: .3s;
+    border: none!important;
+  }
+
+  .ant-pagination .ant-pagination-item-link:hover {
+    background-color: #0574a4!important;
+  }
+
+  .ant-pagination-item{
+    background-color: rgb(156, 156, 156)!important;
+    color: white!important;
+    border-radius: 10px;
+    transition: .3s;
+  }
+  .ant-pagination-item-active{
+    background-color: #015579!important;
+  }
+
+  .ant-pagination-item:hover{
+    background-color: #0574a4!important;
+  }
 
