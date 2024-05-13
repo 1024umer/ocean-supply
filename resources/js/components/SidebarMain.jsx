@@ -64,9 +64,9 @@ function SidebarMain() {
                                 <div id="collapseOne" aria-labelledby="headingOne" data-parent="#accordionExample" className="collapse ">
                                     <div className="card-body">
                                         <ul>
-                                            <li><a onClick={() => handleNavigation("/profile")}>User Profile</a></li>
+                                            <li><Link to={'/profile'}>User Profile</Link></li>
                                             {user.role.name === "admin" && (
-                                                <li><a onClick={() => handleNavigation("/user/list")}>All Users</a></li>
+                                                <li><Link to={'/user/list'}>All Users</Link></li>
                                             )}
                                             {user.role.name === "admin" && (
                                                 <li><a onClick={() => handleNavigation("/clover/user/list")}>Clover Users</a></li>

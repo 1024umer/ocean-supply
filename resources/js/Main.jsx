@@ -21,6 +21,7 @@ import CloverUsers from "./pages/Admin/User/cloverUsers";
 import CreateOrder from "./pages/Admin/Order/CreateOrder";
 import BigCommerceUsers from "./pages/Admin/User/bigCommerceUsers";
 import GetOrders from "./pages/Admin/Order/GetOrders";
+import Loading from "./components/Loading";
 const Main = () => {
     return (
         <Provider store={store}>

@@ -1,7 +1,6 @@
 import React from 'react'
 import { Spinner } from "flowbite-react";
 import SidebarMain from './SidebarMain';
-
 function Loading() {
   return (
     <>

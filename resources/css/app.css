@@ -1578,4 +1578,6 @@
   .ant-pagination-item:hover{
     background-color: #0574a4!important;
   }
-
+  .collapse {
+    visibility: visible;
+}
