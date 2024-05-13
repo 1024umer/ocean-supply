@@ -1579,5 +1579,5 @@
     background-color: #0574a4!important;
   }
   .collapse {
-    visibility: visible;
+    visibility: visible !important;
 }
