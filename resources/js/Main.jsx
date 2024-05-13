@@ -20,6 +20,7 @@ import InventoryPreview from "./pages/Admin/Inventory/InventoryPreview";
 import CloverUsers from "./pages/Admin/User/cloverUsers";
 import CreateOrder from "./pages/Admin/Order/CreateOrder";
 import BigCommerceUsers from "./pages/Admin/User/bigCommerceUsers";
+import GetOrders from "./pages/Admin/Order/GetOrders";
 const Main = () => {
     return (
         <Provider store={store}>
@@ -45,6 +46,7 @@ const Main = () => {
                             <Route path="/inventory/list" element={<InventoryList />}></Route>
                             <Route path="/inventory/:id" element={<InventoryPreview/>}></Route>
                             <Route path="/order" element={<CreateOrder/>}></Route>
+                            <Route path="/get/orders" element={<GetOrders/>}></Route>
                         </Route>
                         <Route path="*" element={<div>Not Found</div>}>
                         </Route>

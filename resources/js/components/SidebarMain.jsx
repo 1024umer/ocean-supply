@@ -101,6 +101,26 @@ function SidebarMain() {
                                 </div>
                             </div>
                             )}
+                            {user.role.name === "admin" && (
+                            <div className="card">
+                                <div id="headingThree" className="card-header bg-white shadow-sm border-0">
+                                    <h2 className="mb-0">
+                                        <button type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
+                                            aria-controls="collapseThree"
+                                            className="btn btn-link collapsed text-dark font-weight-bold text-uppercase collapsible-link">Orders</button>
+                                    </h2>
+                                </div>
+                                <div id="collapseThree" aria-labelledby="headingThree" data-parent="#accordionExample" className="collapse">
+                                    <div className="card-body">
+                                        <ul>
+                                        {user.role.name === "admin" && (
+                                            <li><a onClick={() => handleNavigation("/get/orders")}>All Orders</a></li>
+                                        )}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            )}
                         </div>
                     </div>
                     {user.role.name === "admin" && (

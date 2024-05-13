@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\OrderRequest;
 use App\Models\User;
-use App\Services\Clover\CloverCreateOrder;
 use Illuminate\Http\Request;
+use App\Http\Requests\OrderRequest;
 use App\Http\Resources\OrderResource;
+use App\Services\Clover\CloverCreateOrder;
+use App\Services\Clover\getCloverAllOrders;
 use App\Services\Clover\OrderCloverUserService;
 use App\Services\BigCommerce\OrderBigCommerceService;
 
@@ -31,5 +32,10 @@ class OrderController extends Controller
         $user = User::find(auth('api')->user()->id);
         $data = $cloverCreateOrder->createOrder($user,$request->all());
         dd($data);
+    }
+    public function getAllOrders(getCloverAllOrders $getCloverAllOrders)
+    {
+        $response = $getCloverAllOrders->getCloverAllOrders();
+        return response()->json($response);
     }
 }
