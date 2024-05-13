@@ -231,6 +231,7 @@
 
   /* Firefox */
   input[type=number] {
+    appearance: textfield;
     -moz-appearance: textfield;
   }
 
@@ -715,7 +716,7 @@
     top: -1px;
   }
 
-  .dash-board-footer .two-align-box ul li:last-child() a::after {
+  .dash-board-footer .two-align-box ul li:last-child a::after {
     display: none;
   }
 
@@ -855,6 +856,7 @@
   }
 
   .loyalty-points-box .three-flex .gradient-text {
+    background-clip: text;
     background: -webkit-linear-gradient(#30BFF9, #015579);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -1098,6 +1100,7 @@
   }
 
   .products-sec .products.select-check-box .box-check input {
+    appearance: none;
     width: 100%;
     height: 100%;
     -webkit-appearance: none;
