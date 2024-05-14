@@ -6,8 +6,8 @@ import Loading from "../../../components/Loading";
 import ProductModal from "../../../components/ProductModal";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart } from "../../../redux/cart/cartSlice";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function CreateOrder() {
     const [users, setUsers] = useState([]);
     const [userPoints, setUserPoints] = useState(0);
@@ -19,58 +19,58 @@ function CreateOrder() {
     const [value, setValue] = useState(0);
     const [amount, setAmount] = useState(0);
     const [formData, setFormData] = useState({
-        title: '',
-        note: '',
+        title: "",
+        note: "",
         discount: 0,
         totalPrice: totalPrice,
         cart: cart,
     });
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await service.post('/api/create-order', formData)
-            dispatch(clearCart())
-            navigate('/order');
+            const response = await service.post("/api/create-order", formData);
+            dispatch(clearCart());
+            navigate("/order");
             setFormData({
-                title: '',
-                note: '',
+                title: "",
+                note: "",
                 discount: 0,
-                cart: '',
-                totalPrice: '',
-                user: '',
-                taxAmount: '',
-                cashAmount: ''
+                cart: "",
+                totalPrice: "",
+                user: "",
+                taxAmount: "",
+                cashAmount: "",
             });
-            toast.success('Order Created Successfully', {
-                position: 'top-center'
+            toast.success("Order Created Successfully", {
+                position: "top-center",
             });
         } catch (error) {
             if (error.response) {
                 toast.error(error.response.data.message, {
-                    position: 'top-center'
+                    position: "top-center",
                 });
             } else {
-                toast.error('An error occurred. Please try again later.', {
-                    position: 'top-center',
-                    autoClose: 2000
+                toast.error("An error occurred. Please try again later.", {
+                    position: "top-center",
+                    autoClose: 2000,
                 });
             }
         }
     };
+
     const getUsers = async () => {
         const response = await service.get("/api/user");
         setUsers(response.data.data);
-        setLoading(false)
+        setLoading(false);
     };
 
     const getSetting = async () => {
         const response = await service.get("/api/setting");
         response.data.data.forEach((item, index) => {
-
             if (index === 0) {
                 setPoints(item.value);
             }
@@ -84,7 +84,7 @@ function CreateOrder() {
             }
         });
         setSetting(response.data.data);
-        setLoading(false)
+        setLoading(false);
     };
     const getUserPoints = async (data, id) => {
         const points = data;
@@ -93,7 +93,21 @@ function CreateOrder() {
     };
     const handleCart = () => {
         dispatch(clearCart());
-    }
+    };
+
+    const handleCreateOrder = (e) => {
+        e.preventDefault();
+        toast.error("cart is empty", {
+            position: "top-right",
+            zIndex:999,
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+        });
+    };
+
     useEffect(() => {
         getSetting();
         getUsers();
@@ -110,30 +124,85 @@ function CreateOrder() {
                                 <div className="col-lg-12">
                                     <div className="products-search-box cart-box ">
                                         <h3>Selected Products</h3>
-                                        {cart?.length > 0 && <button onClick={() => handleCart()} className="t-btn t-btn-gradient my-2">Clear Cart</button>}
+                                        {cart?.length > 0 && (
+                                            <button
+                                                onClick={() => handleCart()}
+                                                className="t-btn t-btn-gradient my-2"
+                                            >
+                                                Clear Cart
+                                            </button>
+                                        )}
                                         <div className="products select-check-box">
                                             <form action="">
                                                 <div className="scroll-box">
                                                     <div className="many-check-boxes">
                                                         {cart.map((product) => (
-                                                            <div key={product.id} className="box-check">
-                                                                <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
+                                                            <div
+                                                                key={product.id}
+                                                                className="box-check"
+                                                            >
+                                                                <input
+                                                                    type="checkbox"
+                                                                    id="vehicle1"
+                                                                    name="vehicle1"
+                                                                    value="Bike"
+                                                                />
                                                                 <label htmlFor="vehicle1">
                                                                     <div className="pro-details">
-                                                                        <h6>{product.name}</h6>
+                                                                        <h6>
+                                                                            {
+                                                                                product.name
+                                                                            }
+                                                                        </h6>
                                                                         <div className="code-price">
-                                                                            <p>Code : {product.code}</p>
-                                                                            <p>Price : ${product.price}</p>
+                                                                            <p>
+                                                                                Code
+                                                                                :{" "}
+                                                                                {
+                                                                                    product.code
+                                                                                }
+                                                                            </p>
+                                                                            <p>
+                                                                                Price
+                                                                                :
+                                                                                $
+                                                                                {
+                                                                                    product.price
+                                                                                }
+                                                                            </p>
                                                                         </div>
                                                                         <div className="in-stock-or-not">
-                                                                            <p>{product.available === true ? "In Stock" : "Out of Stock"}</p>
+                                                                            <p>
+                                                                                {product.available ===
+                                                                                true
+                                                                                    ? "In Stock"
+                                                                                    : "Out of Stock"}
+                                                                            </p>
                                                                         </div>
-                                                                        <button type="button" className="btn btn-primary" data-toggle="modal" data-target={"#myModal" + product.id}>
-                                                                            <img src="/front/images/modal-plus-icon.png" alt="" />
+                                                                        <button
+                                                                            type="button"
+                                                                            className="btn btn-primary"
+                                                                            data-toggle="modal"
+                                                                            data-target={
+                                                                                "#myModal" +
+                                                                                product.id
+                                                                            }
+                                                                        >
+                                                                            <img
+                                                                                src="/front/images/modal-plus-icon.png"
+                                                                                alt=""
+                                                                            />
                                                                         </button>
                                                                     </div>
                                                                 </label>
-                                                                <ProductModal key={product.id} item={product} />
+                                                                <ProductModal
+                                                                    key={
+                                                                        product.id
+                                                                    }
+                                                                    item={
+                                                                        product
+                                                                    }
+                                                                />
                                                             </div>
                                                         ))}
                                                     </div>
@@ -143,44 +212,128 @@ function CreateOrder() {
 
                                         <div className="cart-details">
                                             <form onSubmit={handleSubmit}>
-
                                                 <div className="select-user-box">
-                                                    <label htmlFor="user">Select User</label>
-                                                    <select name="user" id="user" onChange={(e) => getUserPoints(e.target.selectedOptions[0].dataset.points, e.target.value)}>
-                                                        <option value="" selected disabled>Select User</option>
+                                                    <label htmlFor="user">
+                                                        Select User
+                                                    </label>
+                                                    <select
+                                                        name="user"
+                                                        id="user"
+                                                        onChange={(e) =>
+                                                            getUserPoints(
+                                                                e.target
+                                                                    .selectedOptions[0]
+                                                                    .dataset
+                                                                    .points,
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                    >
+                                                        <option
+                                                            value=""
+                                                            selected
+                                                            disabled
+                                                        >
+                                                            Select User
+                                                        </option>
                                                         {users.map((user) => (
-                                                            <option key={user.id} value={user.id} data-points={user.point[0] ? user.point[0].remaining_points : 0}>
-                                                                {user.first_name} {user.last_name}
+                                                            <option
+                                                                key={user.id}
+                                                                value={user.id}
+                                                                data-points={
+                                                                    user
+                                                                        .point[0]
+                                                                        ? user
+                                                                              .point[0]
+                                                                              .remaining_points
+                                                                        : 0
+                                                                }
+                                                            >
+                                                                {
+                                                                    user.first_name
+                                                                }{" "}
+                                                                {user.last_name}
                                                             </option>
                                                         ))}
                                                     </select>
                                                 </div>
                                                 <div className="select-user-box pricing-details">
-                                                    <label htmlFor="cars">Pricing Details</label>
+                                                    <label htmlFor="cars">
+                                                        Pricing Details
+                                                    </label>
                                                     <div className="three-input-boxes">
-                                                        <input onChange={handleChange} type="text" name="title" placeholder="Title" />
-                                                        <input onChange={handleChange} type="text" name="note" placeholder="Note(Optional)" />
-                                                        <input onChange={handleChange} type="text" name="discount" placeholder="Discount" />
-                                                        <input onChange={handleChange} type="text" name="taxAmount" placeholder="Tax Amount" />
-                                                        <input onChange={handleChange} type="text" name="cashAmount" placeholder="Cash Amount" />
+                                                        <input
+                                                            onChange={
+                                                                handleChange
+                                                            }
+                                                            type="text"
+                                                            name="title"
+                                                            placeholder="Title"
+                                                        />
+                                                        <input
+                                                            onChange={
+                                                                handleChange
+                                                            }
+                                                            type="text"
+                                                            name="note"
+                                                            placeholder="Note(Optional)"
+                                                        />
+                                                        <input
+                                                            onChange={
+                                                                handleChange
+                                                            }
+                                                            type="text"
+                                                            name="discount"
+                                                            placeholder="Discount"
+                                                        />
+                                                        <input
+                                                            onChange={
+                                                                handleChange
+                                                            }
+                                                            type="text"
+                                                            name="taxAmount"
+                                                            placeholder="Tax Amount"
+                                                        />
+                                                        <input
+                                                            onChange={
+                                                                handleChange
+                                                            }
+                                                            type="text"
+                                                            name="cashAmount"
+                                                            placeholder="Cash Amount"
+                                                        />
                                                     </div>
                                                 </div>
                                                 <div className="cart-table-box">
                                                     <table>
                                                         <tr>
                                                             <td>User Points</td>
-                                                            <td>{userPoints ?? 0} &nbsp;&nbsp;  Points Value is(${value / points * userPoints})</td>
+                                                            <td>
+                                                                {userPoints ??
+                                                                    0}{" "}
+                                                                &nbsp;&nbsp;
+                                                                Points Value
+                                                                is($
+                                                                {(value /
+                                                                    points) *
+                                                                    userPoints}
+                                                                )
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Net Price</td>
-                                                            <td>${totalPrice}</td>
+                                                            <td>
+                                                                ${totalPrice}
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Tax</td>
                                                             <td>27.0</td>
                                                         </tr>
                                                         <tr>
-                                                            <td>Delivery Charges</td>
+                                                            <td>
+                                                                Delivery Charges
+                                                            </td>
                                                             <td>$1200</td>
                                                         </tr>
                                                         <tr>
@@ -188,21 +341,43 @@ function CreateOrder() {
                                                             <td>10%</td>
                                                         </tr>
                                                         <tr>
-                                                            <td className="bold-table-content" >Total Price</td>
-                                                            <td className="bold-table-content" >${totalPrice}</td>
+                                                            <td className="bold-table-content">
+                                                                Total Price
+                                                            </td>
+                                                            <td className="bold-table-content">
+                                                                ${totalPrice}
+                                                            </td>
                                                         </tr>
                                                     </table>
                                                 </div>
 
                                                 <div className="two-btns-inline">
-                                                    <button className="active-btn" >Create Order Now</button>
-                                                    <button className="active-btn disable-btn" >Discard Order</button>
-
+                                                    {(cart?.length > 0 && (
+                                                        <button className="active-btn">
+                                                            Create Order Now
+                                                        </button>
+                                                    )) || (
+                                                        <button
+                                                            className="active-btn"
+                                                            onClick={
+                                                                handleCreateOrder
+                                                            }
+                                                            style={{
+                                                                disabled: true,
+                                                            }}
+                                                        >
+                                                            Create Order Now
+                                                        </button>
+                                                    )}
+                                                    <Link
+                                                        to="/inventory/list"
+                                                        className="active-btn disable-btn"
+                                                    >
+                                                        Discard Order
+                                                    </Link>
                                                 </div>
-
                                             </form>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -211,7 +386,7 @@ function CreateOrder() {
                 </div>
             </section>
         </>
-    )
+    );
 }
 
-export default CreateOrder
+export default CreateOrder;

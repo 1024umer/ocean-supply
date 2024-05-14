@@ -44,6 +44,21 @@
     border: 0;
     outline: 0;
   }
+  a {
+    border: 0;
+    outline: 0;
+  }
+
+  a:hover {
+    cursor: pointer;
+  }
+
+  a:focus,
+  input:focus,
+  textarea:focus {
+    border: 0;
+    outline: 0;
+  }
 
   a:hover {
     text-decoration: none;
@@ -1366,6 +1381,22 @@
   }
 
   .products-search-box.cart-box .two-btns-inline button.active-btn.disable-btn{
+    background: linear-gradient(90deg, #7A7A7A 0%, #9C9C9C 100%);
+  }
+  .products-search-box.cart-box .two-btns-inline a.active-btn {
+    padding: 10px 20px;
+    background: linear-gradient(90deg, rgba(1, 85, 121, 1) 0%, rgba(0, 111, 158, 1) 100%);
+    color: white;
+    font-size: 15px;
+    border-radius: 20px;
+    line-height: 1.2em;
+  }
+
+  .products-search-box.cart-box .two-btns-inline a.active-btn:hover {
+    background: linear-gradient(90deg, rgb(0 0 0) 0%, rgb(0 0 0) 100%);
+  }
+
+  .products-search-box.cart-box .two-btns-inline a.active-btn.disable-btn{
     background: linear-gradient(90deg, #7A7A7A 0%, #9C9C9C 100%);
   }
 
