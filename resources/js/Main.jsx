@@ -13,7 +13,7 @@ import SubscriptionForm from "./pages/Admin/Subscription/subscriptionForm";
 import SubscriptionList from "./pages/Admin/Subscription/subscriptionList";
 import { PersistGate } from 'redux-persist/integration/react';
 import UserList from "./pages/Admin/User/UserList";
-import EditUser from "./pages/Admin/User/editUser";
+import EditUser from "./pages/Admin/User/EditUser";
 import { PreviewUser } from "./pages/Admin/User/PreviewUser";
 import InventoryList from "./pages/Admin/Inventory/InventoryList";
 import InventoryPreview from "./pages/Admin/Inventory/InventoryPreview";
