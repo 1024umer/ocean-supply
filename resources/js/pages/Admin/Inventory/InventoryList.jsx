@@ -20,15 +20,12 @@ function InventoryList() {
     useEffect(() => {
         getInventories();
     }, []);
-    if (loading) {
-        return <Loading />;
-    }
     return (
         <>
             <section className="main-dashboard">
                 <div className="container-fluid dash-board">
                     <div className="row">
-                        <SidebarMain />
+                    {loading ? <Loading /> : <SidebarMain />}
                         <div className="col-lg-9 col-md-9 dashboard-right-sec products-sec  ">
                             <div className="row dashboard-right-top-sec">
                                 <div className="col-lg-12">

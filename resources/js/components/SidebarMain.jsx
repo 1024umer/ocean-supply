@@ -49,7 +49,7 @@ function SidebarMain() {
                         </div>
                     </div>
                     <div className="main-dash-link">
-                        <a onClick={() => handleNavigation("/")} href="#">Dashborad</a>
+                        <Link to={'/'}>Dashborad</Link>
                     </div>
                     <div className="main-accordion-box">
                         <div id="accordionExample" className="accordion shadow">
@@ -91,10 +91,10 @@ function SidebarMain() {
                                     <div className="card-body">
                                         <ul>
                                         {user.role.name === "admin" && (
-                                            <li><a onClick={() => handleNavigation("/subscription")}>Subscription</a></li>
+                                            <li><Link to="/subscription">Subscription</Link></li>
                                         )}
                                         {user.role.name === "admin" && (
-                                            <li><a onClick={() => handleNavigation("/subscription-list")}>Subscription List</a></li>
+                                            <li><Link to="/subscription-list">Subscription List</Link></li>
                                         )}
                                         </ul>
                                     </div>
@@ -114,7 +114,7 @@ function SidebarMain() {
                                     <div className="card-body">
                                         <ul>
                                         {user.role.name === "admin" && (
-                                            <li><a onClick={() => handleNavigation("/get/orders")}>All Orders</a></li>
+                                            <li><Link to="/get/orders">All Orders</Link></li>
                                         )}
                                         </ul>
                                     </div>
@@ -125,11 +125,11 @@ function SidebarMain() {
                     </div>
                     {user.role.name === "admin" && (
                     <div className="dash-extra-link">
-                        <a onClick={() => handleNavigation("/inventory/list")}>Inventories</a>
+                        <Link to={'/inventory/list'}>Inventories</Link>
                     </div>
                     )}
                     <div className="dash-logout-btn">
-                        <a onClick={handleSignout} className="t-btn t-btn-gradient">Log Out</a>
+                        <Link onClick={handleSignout} className="t-btn t-btn-gradient">Log Out</Link>
                     </div>
 
                     <div className="two-abs-imgs">
