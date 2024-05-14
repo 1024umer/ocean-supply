@@ -11,8 +11,8 @@ function Box({ title, total, item }) {
 
     return (
         <>
-            <div className="box-check" onClick={() => handleBoxClick(item)}>
-                <input type="checkbox" id={'vehicle1'+item.id} name="vehicle1" value="Bike" />
+            <div className="box-check" >
+                <input type="checkbox" id={'vehicle1'+item.id} name="vehicle1" value="Bike" onClick={() => handleBoxClick(item)}/>
                 <label htmlFor={'vehicle1'+item.id}>
                     <div className="pro-details">
                         <h6>{title}</h6>
