@@ -21,9 +21,9 @@ function CreateOrder() {
     const [formData, setFormData] = useState({
         title: '',
         note: '',
-        discount: '',
-        totalPrice:totalPrice,
-        cart:cart,
+        discount: 0,
+        totalPrice: totalPrice,
+        cart: cart,
     });
     const dispatch = useDispatch()
     const handleChange = (e) => {
@@ -32,29 +32,22 @@ function CreateOrder() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await service.post('/api/create-order', formData);
-
-            if (response.status === 200) {
-                const { token, user } = response.data.data;
-                localStorage.setItem('token', JSON.stringify(token));
-                navigate('/order');
-                setFormData({
-                    title: '',
-                    note: '',
-                    discount: '',
-                    cart:'',
-                    totalPrice:'',
-                    user:'',
-
-                });
-                toast.success('Signup successful!', {
-                    position: 'top-center'
-                });
-            } else {
-                toast.error(response.data.message, {
-                    position: 'top-center'
-                });
-            }
+            const response = await service.post('/api/create-order', formData)
+            dispatch(clearCart())
+            navigate('/order');
+            setFormData({
+                title: '',
+                note: '',
+                discount: 0,
+                cart: '',
+                totalPrice: '',
+                user: '',
+                taxAmount: '',
+                cashAmount: ''
+            });
+            toast.success('Order Created Successfully', {
+                position: 'top-center'
+            });
         } catch (error) {
             if (error.response) {
                 toast.error(error.response.data.message, {
@@ -93,7 +86,7 @@ function CreateOrder() {
         setSetting(response.data.data);
         setLoading(false)
     };
-    const getUserPoints = async (data,id) => {
+    const getUserPoints = async (data, id) => {
         const points = data;
         setFormData({ ...formData, user: id });
         setUserPoints(points);
@@ -112,30 +105,30 @@ function CreateOrder() {
                 <div className="container-fluid dash-board">
                     <div className="row">
                         <SidebarMain />
-                        <div class="col-lg-9 col-md-9 dashboard-right-sec products-sec  ">
-                            <div class="row dashboard-right-top-sec">
-                                <div class="col-lg-12">
-                                    <div class="products-search-box cart-box ">
+                        <div className="col-lg-9 col-md-9 dashboard-right-sec products-sec  ">
+                            <div className="row dashboard-right-top-sec">
+                                <div className="col-lg-12">
+                                    <div className="products-search-box cart-box ">
                                         <h3>Selected Products</h3>
                                         {cart?.length > 0 && <button onClick={() => handleCart()} className="t-btn t-btn-gradient my-2">Clear Cart</button>}
-                                        <div class="products select-check-box">
+                                        <div className="products select-check-box">
                                             <form action="">
-                                                <div class="scroll-box">
-                                                    <div class="many-check-boxes">
+                                                <div className="scroll-box">
+                                                    <div className="many-check-boxes">
                                                         {cart.map((product) => (
-                                                            <div key={product.id} class="box-check">
+                                                            <div key={product.id} className="box-check">
                                                                 <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
-                                                                <label for="vehicle1">
-                                                                    <div class="pro-details">
+                                                                <label htmlFor="vehicle1">
+                                                                    <div className="pro-details">
                                                                         <h6>{product.name}</h6>
-                                                                        <div class="code-price">
+                                                                        <div className="code-price">
                                                                             <p>Code : {product.code}</p>
                                                                             <p>Price : ${product.price}</p>
                                                                         </div>
-                                                                        <div class="in-stock-or-not">
+                                                                        <div className="in-stock-or-not">
                                                                             <p>{product.available === true ? "In Stock" : "Out of Stock"}</p>
                                                                         </div>
-                                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target={"#myModal" + product.id}>
+                                                                        <button type="button" className="btn btn-primary" data-toggle="modal" data-target={"#myModal" + product.id}>
                                                                             <img src="/front/images/modal-plus-icon.png" alt="" />
                                                                         </button>
                                                                     </div>
@@ -148,11 +141,11 @@ function CreateOrder() {
                                             </form>
                                         </div>
 
-                                        <div class="cart-details">
+                                        <div className="cart-details">
                                             <form onSubmit={handleSubmit}>
 
-                                                <div class="select-user-box">
-                                                    <label for="user">Select User</label>
+                                                <div className="select-user-box">
+                                                    <label htmlFor="user">Select User</label>
                                                     <select name="user" id="user" onChange={(e) => getUserPoints(e.target.selectedOptions[0].dataset.points, e.target.value)}>
                                                         <option value="" selected disabled>Select User</option>
                                                         {users.map((user) => (
@@ -162,15 +155,17 @@ function CreateOrder() {
                                                         ))}
                                                     </select>
                                                 </div>
-                                                <div class="select-user-box pricing-details">
-                                                    <label for="cars">Pricing Details</label>
-                                                    <div class="three-input-boxes">
+                                                <div className="select-user-box pricing-details">
+                                                    <label htmlFor="cars">Pricing Details</label>
+                                                    <div className="three-input-boxes">
                                                         <input onChange={handleChange} type="text" name="title" placeholder="Title" />
                                                         <input onChange={handleChange} type="text" name="note" placeholder="Note(Optional)" />
                                                         <input onChange={handleChange} type="text" name="discount" placeholder="Discount" />
+                                                        <input onChange={handleChange} type="text" name="taxAmount" placeholder="Tax Amount" />
+                                                        <input onChange={handleChange} type="text" name="cashAmount" placeholder="Cash Amount" />
                                                     </div>
                                                 </div>
-                                                <div class="cart-table-box">
+                                                <div className="cart-table-box">
                                                     <table>
                                                         <tr>
                                                             <td>User Points</td>
@@ -193,15 +188,15 @@ function CreateOrder() {
                                                             <td>10%</td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="bold-table-content" >Total Price</td>
-                                                            <td class="bold-table-content" >${totalPrice}</td>
+                                                            <td className="bold-table-content" >Total Price</td>
+                                                            <td className="bold-table-content" >${totalPrice}</td>
                                                         </tr>
                                                     </table>
                                                 </div>
 
-                                                <div class="two-btns-inline">
-                                                    <button class="active-btn" >Create Order Now</button>
-                                                    <button class="active-btn disable-btn" >Discard Order</button>
+                                                <div className="two-btns-inline">
+                                                    <button className="active-btn" >Create Order Now</button>
+                                                    <button className="active-btn disable-btn" >Discard Order</button>
 
                                                 </div>
 

@@ -3,36 +3,23 @@
 namespace App\Services\Clover;
 
 use Illuminate\Support\Facades\Http;
-use App\Services\Clover\CreateCloverPaymentService;
+use App\Services\Clover\{DiscountOnOrder,CreateCloverPaymentService,CreateCloverLineItem};
+
 class CloverCreateOrder
 {
     protected $createCloverPaymentService;
-    public function __construct(CreateCloverPaymentService $createCloverPaymentService){
+    protected $createCloverLineItem;
+    protected $discountOnOrder;
+    public function __construct(DiscountOnOrder $discountOnOrder,CreateCloverLineItem $createCloverLineItem,CreateCloverPaymentService $createCloverPaymentService)
+    {
         $this->createCloverPaymentService = $createCloverPaymentService;
+        $this->createCloverLineItem = $createCloverLineItem;
+        $this->discountOnOrder = $discountOnOrder;
     }
     public function createOrder($user, $request)
     {
         $user = (object) $user;
-        $request = (object) $request;
         $curl = curl_init();
-        $lineItems = [];
-        foreach ($request->cart as $item) {
-            $lineItems[] = [
-                'printed' => 'false',
-                'exchanged' => 'false',
-                'refunded' => 'false',
-                'refund' => [
-                    'transactionInfo' => [
-                        'isTokenBasedTx' => 'false',
-                        'emergencyFlag' => 'false'
-                    ]
-                ],
-                'isRevenue' => 'false',
-                'id' => $item['id'],
-                'price' => $item['price'],
-                'unitQty' => 1
-            ];
-        }
         curl_setopt_array($curl, [
             CURLOPT_URL => "https://sandbox.dev.clover.com/v3/merchants/" . env('CLOVER_MERCHANT_ID') . "/orders",
             CURLOPT_RETURNTRANSFER => true,
@@ -42,15 +29,19 @@ class CloverCreateOrder
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POSTFIELDS => json_encode([
-
+                'employee' => [
+                    'id' => '3B7FRFF86PVTJ'
+                ],
                 'taxRemoved' => 'false',
-                'lineItems' => $lineItems,
-                'title' => $request->title,
-                'note' => $request->note,
-                'total' => $request->totalPrice,
+                'title' => $request['title'],
+                'note' => $request['note'],
+                'total' => $request['totalPrice'],
                 'paymentState' => 'PAID',
                 'customers' => [
                     [
+                        'merchant' => [
+                            'id' => env('CLOVER_MERCHANT_ID')
+                        ],
                         'id' => $user->clover_id,
                         'firstName' => $user->first_name,
                         'lastName' => $user->last_name
@@ -64,6 +55,7 @@ class CloverCreateOrder
         ]);
 
         $response = curl_exec($curl);
+        $order = json_decode($response, true);
         $err = curl_error($curl);
 
         curl_close($curl);
@@ -71,9 +63,11 @@ class CloverCreateOrder
         if ($err) {
             return "cURL Error #:" . $err;
         } else {
-            dd($response);
-            $this->createCloverPaymentService->createPayment($response['id']);
-            return $response;
+            $payment = $this->createCloverPaymentService->createPayment($order, $request);
+            $lineItem = $this->createCloverLineItem->createLineItem($order['id'], $request);
+            $discount = $this->discountOnOrder->createDiscount($order['id'], $request);
+            // dd($discount);
+            return [$payment,$lineItem];
         }
     }
 }

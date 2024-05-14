@@ -31,7 +31,7 @@ class OrderController extends Controller
     public function store(CloverCreateOrder $cloverCreateOrder,OrderRequest $request){
         $user = User::find(auth('api')->user()->id);
         $data = $cloverCreateOrder->createOrder($user,$request->all());
-        dd($data);
+        return new OrderResource($data);
     }
     public function getAllOrders(getCloverAllOrders $getCloverAllOrders)
     {

@@ -25,7 +25,8 @@ class OrderRequest extends FormRequest
             'cart' => 'required',
             'user' => 'required|exists:App\Models\User,id',
             'title' => 'required|string|max:255',
-            'totalPrice' => 'required'
+            'totalPrice' => 'required',
+            'cashAmount' => 'required'
         ];
     }
 }
