@@ -119,9 +119,11 @@ export default function subscriptionList() {
             dataIndex: "action",
             width: "14%",
             render: (text, record) => (
+                <div className="d-flex justify-content-center align-items-center">
                 <Link to={`/subscription/${record.id}`} className="">
                     <img src="/front/images/edite.png" alt="edit" />
                 </Link>
+                </div>
             ),
             className: "text-center edite-and-delet",
         },
