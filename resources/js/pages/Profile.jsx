@@ -10,7 +10,6 @@ function Profile() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { user } = useSelector((state) => state.user);
-    // console.log(user)
     const [formData, setFormData] = useState({
         first_name: user.first_name,
         last_name: user.last_name,
@@ -213,7 +212,6 @@ function Profile() {
                                                     type="text"
                                                     id="store_credit_amount"
                                                     name="store_credit_amount"
-                                                    // value={user.postal_code}
                                                     onChange={handleChange}
                                                     required
                                                 />

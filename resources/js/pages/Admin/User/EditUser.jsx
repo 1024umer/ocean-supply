@@ -49,7 +49,6 @@ export default function EditUser() {
 
         try {
             const response = await service.put(`/api/user/${id}`, user);
-            console.log(response.status);
             if (response.status == 200) {
                 navigate("/user/list");
             }
@@ -201,6 +200,25 @@ export default function EditUser() {
                                                     />
                                                 </div>
                                             </div>
+
+                                            <div className="box">
+                                                <label htmlFor="">
+                                                    Store Credit Amount
+                                                </label>
+                                                <small>
+                                                    Please Enter Amount Only for
+                                                    Big Commerce.
+                                                </small>
+                                                <input
+                                                    type="text"
+                                                    id="store_credit_amount"
+                                                    name="store_credit_amount"
+                                                    // value={user.point ? user.point[0].store_credit_amount : ''}
+                                                    onChange={handleChange}
+                                                    required
+                                                />
+                                            </div>
+
                                             <button type="submit">
                                                 Update Now
                                             </button>

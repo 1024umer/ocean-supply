@@ -135,7 +135,7 @@ class LoginController extends Controller
                                     $userPoints->total_points += $pointsEarned;
                                     $userPoints->remaining_points += $pointsEarned;
 
-                                    $storeCreditAmount = $value->value/$points * $userPoints->remaining_points;
+                                    $storeCreditAmount = $value->value/$points * $pointsEarned;
                                     $BigCommerce = $this->UpdateBigCommerceUserService->updateStoreCreditAmount($user ,$storeCreditAmount);
                                     $userPoints->store_credit_amount = $storeCreditAmount;
                                     $userPoints->save();

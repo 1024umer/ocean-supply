@@ -24,16 +24,19 @@ class UserController extends Controller
     }
 
     public function show(User $user){
-        return new UserResource($user);
+        $points = UserPoint::where('user_id', $user->id)->first();
+        return new UserResource($user->load('point'));
     }
 
     public function update(UserRequest $request, User $user){
         $user = User::find($user->id);
         $BigCommerce = $this->UpdateBigCommerceUserService->update($request->all(), $user);
         $Clover = $this->UpdateCloverUserService->update($request->all(), $user);
-
         if ($BigCommerce && $Clover) {
             $user->update($request->all());
+            $userPoints = UserPoint::where('user_id',$user->id)->first();
+            $userPoints->store_credit_amount = $request->store_credit_amount;
+            $userPoints->save();
             return new UserResource($user);
         } else {
             return response()->json(['message' => 'Something went wrong.'], 500);

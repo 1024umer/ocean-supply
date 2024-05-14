@@ -27,7 +27,7 @@ class UpdateBigCommerceUserService
                 ),
                 "accepts_product_review_abandoned_cart_emails" => true,
                 "store_credit_amounts" => array(
-                    array("amount" => $data->store_credit_amount)
+                    array("amount" => $data->store_credit_amount ?? $user->point[0]['store_credit_amount'])
                 )
             )
         );

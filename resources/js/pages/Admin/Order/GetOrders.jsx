@@ -125,9 +125,10 @@ function GetOrders() {
                                         <div className="img-abs">
                                             <img className="user-list-img-top" src="/front/images/user-list-img-top.png" alt="" />
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
+                               
+                        </div>
+                        </div>
+                        </div>
                         </div>
                     </div>
                 </div>

@@ -22,10 +22,10 @@ class ProfileController extends Controller
 
     public function update(ProfileRequest $request)
     {
-        $user = User::find(auth('api')->user()->id);
+        // $user = User::find(auth('api')->user()->id);
+        $user = User::where('id',auth('api')->user()->id)->with('point')->first();
         $BigCommerce = $this->UpdateBigCommerceUserService->update($request->all(), $user);
         $Clover = $this->UpdateCloverUserService->update($request->all(), $user);
-
         if ($BigCommerce && $Clover) {
             $user->update($request->all());
             return new ProfileResource($user);
