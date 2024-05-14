@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserGetController;
 use App\Http\Controllers\Auth\LoginController;
@@ -28,5 +29,5 @@ Route::group(['middleware' => ['json.response', 'auth:sanctum','verified']], fun
     Route::get('/loyalty-points/{id}',[UserController::class,'loyaltyPoints']);
     Route::apiResource('setting',SettingController::class);
     Route::get('/getAllOrders',[OrderController::class,'getAllOrders']);
+    Route::get('/getAllPayment/{id}',[PaymentController::class,'index']);
 });
-Route::get('subscription', [SubscriptionController::class, 'index']);

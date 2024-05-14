@@ -523,7 +523,7 @@
     font-weight: 700;
   }
 
-  .main-user-box .two-align-thing .t-btn.without-shadow {
+  .main-user-box  .t-btn.without-shadow {
     width: 124px;
     height: 37px;
     background: linear-gradient(90deg, rgba(1, 85, 121, 1) 0%, rgba(0, 111, 158, 1) 100%);
@@ -1548,6 +1548,20 @@
     font-weight: 500!important;
     font-family: 'Josefin Sans', sans-serif!important;
   }
+
+
+  button,table tr td,table tr th{
+    font-family: 'Josefin Sans', sans-serif !important;
+  }
+
+  .table-box button.t-btn.without-shadow {
+    width: 130px;
+    font-size: 13px;
+}
+.table-box button.t-btn.without-shadow:hover{
+    background-color: black !important;
+    background: linear-gradient(90deg, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 100%);
+}
 
   .ant-pagination-item-link{
     padding-top: 2px !important;
