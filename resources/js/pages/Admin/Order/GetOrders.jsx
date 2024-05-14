@@ -9,6 +9,7 @@ import { clearCart } from "../../../redux/cart/cartSlice";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Table, Button } from 'antd'; // Import Button component from antd
+import PaymentModal from "../../../components/PaymentModal";
 
 function GetOrders() {
 
@@ -30,6 +31,8 @@ function GetOrders() {
     if (loading) {
         return <Loading />;
     }
+
+
 
     const formatTimestamp = (timestamp) => {
         const date = new Date(timestamp);
@@ -63,7 +66,12 @@ function GetOrders() {
             title: 'Action',
             dataIndex: 'id',
             render: (orderId) => (
-                <Link to={`/get/payment/`+orderId} className="t-btn without-shadow">Check Payment</Link>
+
+                <div>
+                <button type="button" className="t-btn without-shadow" data-toggle="modal" data-target={"#myModal"+orderId}>Check Payment
+                </button>
+                <PaymentModal orderId={orderId} ></PaymentModal>
+                </div>
             ),
         }
     ];
