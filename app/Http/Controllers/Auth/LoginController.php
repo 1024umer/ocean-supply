@@ -10,10 +10,17 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Services\Clover\OrderCloverUserService;
+use App\Services\Clover\UpdateCloverUserService;
 use App\Services\BigCommerce\OrderBigCommerceService;
+use App\Services\BigCommerce\UpdateBigCommerceUserService;
 
 class LoginController extends Controller
 {
+    public function __construct(UpdateBigCommerceUserService $UpdateBigCommerceUserService, UpdateCloverUserService $UpdateCloverUserService)
+    {
+        $this->UpdateBigCommerceUserService = $UpdateBigCommerceUserService;
+        $this->UpdateCloverUserService = $UpdateCloverUserService;
+    }
     public function login(Request $request, OrderBigCommerceService $bigCommerce, OrderCloverUserService $orderClover)
     {
         $amount = Setting::where('key', 'amount')->first();
@@ -48,20 +55,20 @@ class LoginController extends Controller
                     $token = $user->createToken('Ocean Supply')->plainTextToken;
                     $response = ['success' => true, 'token' => $token, 'user' => $user];
 
-                        if ($is_active->value == "1") {
+                    if ($is_active->value == "1") {
 
-                            $userPoints = UserPoint::where('user_id', $user->id)->first();
-                            if(!$userPoints){
-                                $userPoints = new UserPoint();
-                                $userPoints->user_id = $user->id;
-                                $userPoints->total_points = 0;
-                                $userPoints->remaining_points = 0;
-                                $userPoints->last_clover_order_id = '';
-                                $userPoints->last_bigCommerce_order_id = 0;
-                                $userPoints->save();
-                            }
-                            $bigCommerceOrders = $bigCommerce->bigCommerceOrders($user);
-                            $orderClover = $orderClover->getAllOrders($user);
+                        $userPoints = UserPoint::where('user_id', $user->id)->first();
+                        if(!$userPoints){
+                            $userPoints = new UserPoint();
+                            $userPoints->user_id = $user->id;
+                            $userPoints->total_points = 0;
+                            $userPoints->remaining_points = 0;
+                            $userPoints->last_clover_order_id = '';
+                            $userPoints->last_bigCommerce_order_id = 0;
+                            $userPoints->save();
+                        }
+                        $bigCommerceOrders = $bigCommerce->bigCommerceOrders($user);
+                        $orderClover = $orderClover->getAllOrders($user);
 
                             $BigCommerceIndex = null;
                             if($bigCommerceOrders && count($bigCommerceOrders) > 0){
@@ -100,7 +107,12 @@ class LoginController extends Controller
                                     }
                                     // Add the price of the current order to totalCloverAmount
                                     $lastCloverOrderId = $order->id;
-                                    $totalCloverAmount += $order->lineItems->elements[0]->price/100 ??0;
+                                    // $totalCloverAmount += $order->lineItems->elements[0]->price/100 ??0;
+                                    if (isset($order->lineItems) && is_array($order->lineItems->elements) && count($order->lineItems->elements) > 0) {
+                                        $totalCloverAmount += $order->lineItems->elements[0]->price / 100;
+                                    } else {
+                                        $totalCloverAmount += 0;
+                                    }
                                 }
                             }
 
@@ -122,6 +134,10 @@ class LoginController extends Controller
                                     }
                                     $userPoints->total_points += $pointsEarned;
                                     $userPoints->remaining_points += $pointsEarned;
+
+                                    $storeCreditAmount = $value->value/$points * $userPoints->remaining_points;
+                                    $BigCommerce = $this->UpdateBigCommerceUserService->updateStoreCreditAmount($user ,$storeCreditAmount);
+                                    $userPoints->store_credit_amount = $storeCreditAmount;
                                     $userPoints->save();
                                     return response($response, 200);
                                     // dd("Points earned");

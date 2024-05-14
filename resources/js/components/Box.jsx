@@ -6,6 +6,7 @@ import ProductModal from './ProductModal';
 function Box({ title, total, item }) {
     const dispatch = useDispatch();
     const handleBoxClick = (product) => {
+        console.log("clicked", product);
         dispatch(addToCart(product));
     };
 

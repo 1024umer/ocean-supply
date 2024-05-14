@@ -34,7 +34,7 @@ export default function EditUser() {
         city: "",
         region: "",
         postal_code: "",
-        store_credit_amount:"",
+        store_credit_amount: "",
     });
 
     const handleChange = (e) => {
@@ -66,163 +66,151 @@ export default function EditUser() {
 
     return (
         <>
-            <SidebarMain />
-            <section className="container mx-auto max-w-lg mt-10 p-6 bg-gray-100 rounded-lg shadow-xl">
-                <h1 className="text-3xl font-bold mb-6 text-center mt-10">
-                    Edit User
-                </h1>
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-4">
-                        <label
-                            htmlFor="first_name"
-                            className="block text-gray-700 font-bold mb-2"
-                        >
-                            First Name
-                        </label>
-                        <input
-                            type="text"
-                            id="first_name"
-                            name="first_name"
-                            value={user.first_name}
-                            onChange={handleChange}
-                            className="border border-gray-300 rounded-md px-4 py-2 w-full"
-                        />
+            <section className="main-dashboard">
+                <div className="container-fluid dash-board">
+                    <div className="row">
+                        <SidebarMain />
+                        <div className="col-lg-9 col-md-9 dashboard-right-sec ">
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <div className="form-main-design add-new-lp-charges admin-profile">
+                                        <h2 className="form-main-heading">
+                                            Update Profile
+                                        </h2>
+                                        <form onSubmit={handleSubmit}>
+                                            <div className="two-inline-inputs">
+                                                <div className="box">
+                                                    <label htmlFor="">
+                                                        First Name
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        id="first_name"
+                                                        name="first_name"
+                                                        value={user.first_name}
+                                                        onChange={handleChange}
+                                                        placeholder="i.e. Jhon"
+                                                    />
+                                                </div>
+                                                <div className="box">
+                                                    <label htmlFor="">
+                                                        Last Name
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        id="last_name"
+                                                        name="last_name"
+                                                        value={user.last_name}
+                                                        onChange={handleChange}
+                                                        placeholder="i.e. Elia"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <label htmlFor="">
+                                                Email Address
+                                            </label>
+                                            <input
+                                                type="email"
+                                                id="email"
+                                                name="email"
+                                                value={user.email}
+                                                onChange={handleChange}
+                                                placeholder="i.e. someone@example.com"
+                                            />
+
+                                            <label htmlFor="">
+                                                Contact Number
+                                            </label>
+                                            <input
+                                                type="text"
+                                                id="phone"
+                                                name="phone"
+                                                value={user.phone}
+                                                onChange={handleChange}
+                                                placeholder="i.e. +1 XXX XXXXXX"
+                                            />
+
+                                            <div className="two-inline-inputs">
+                                                <div className="box">
+                                                    <label htmlFor="">
+                                                        Country
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        id="country"
+                                                        name="country"
+                                                        value={user.country}
+                                                        onChange={handleChange}
+                                                        placeholder="i.e. Columbia, California, etc."
+                                                    />
+                                                </div>
+                                                <div className="box">
+                                                    <label htmlFor="">
+                                                        Street Address
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        id="street_address"
+                                                        name="street_address"
+                                                        value={
+                                                            user.street_address
+                                                        }
+                                                        onChange={handleChange}
+                                                        placeholder="i.e. Tokyo, Borovo etc."
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="box">
+                                                <label htmlFor="">City</label>
+                                                <input
+                                                    type="text"
+                                                    id="city"
+                                                    name="city"
+                                                    value={user.city}
+                                                    onChange={handleChange}
+                                                    placeholder="i.e. Tokyo, Borovo etc."
+                                                />
+                                            </div>
+
+                                            <div className="two-inline-inputs">
+                                                <div className="box">
+                                                    <label htmlFor="">
+                                                        Region
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        id="region"
+                                                        name="region"
+                                                        value={user.region}
+                                                        onChange={handleChange}
+                                                        placeholder="i.e. XXXXX"
+                                                    />
+                                                </div>
+                                                <div className="box">
+                                                    <label htmlFor="">
+                                                        Postal Code
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        id="postal_code"
+                                                        name="postal_code"
+                                                        value={user.postal_code}
+                                                        onChange={handleChange}
+                                                        placeholder="123"
+                                                        required
+                                                    />
+                                                </div>
+                                            </div>
+                                            <button type="submit">
+                                                Update Now
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div className="mb-4">
-                        <label
-                            htmlFor="last_name"
-                            className="block text-gray-700 font-bold mb-2"
-                        >
-                            Last Name
-                        </label>
-                        <input
-                            type="text"
-                            id="last_name"
-                            name="last_name"
-                            value={user.last_name}
-                            onChange={handleChange}
-                            className="border border-gray-300 rounded-md px-4 py-2 w-full"
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label
-                            htmlFor="email"
-                            className="block text-gray-700 font-bold mb-2"
-                        >
-                            Email
-                        </label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value={user.email}
-                            onChange={handleChange}
-                            className="border border-gray-300 rounded-md px-4 py-2 w-full"
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label
-                            htmlFor="phone"
-                            className="block text-gray-700 font-bold mb-2"
-                        >
-                            Phone
-                        </label>
-                        <input
-                            type="text"
-                            id="phone"
-                            name="phone"
-                            value={user.phone}
-                            onChange={handleChange}
-                            className="border border-gray-300 rounded-md px-4 py-2 w-full"
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label
-                            htmlFor="country"
-                            className="block text-gray-700 font-bold mb-2"
-                        >
-                            Country
-                        </label>
-                        <input
-                            type="text"
-                            id="country"
-                            name="country"
-                            value={user.country}
-                            onChange={handleChange}
-                            className="border border-gray-300 rounded-md px-4 py-2 w-full"
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label
-                            htmlFor="street_address"
-                            className="block text-gray-700 font-bold mb-2"
-                        >
-                            Street Address
-                        </label>
-                        <input
-                            type="text"
-                            id="street_address"
-                            name="street_address"
-                            value={user.street_address}
-                            onChange={handleChange}
-                            className="border border-gray-300 rounded-md px-4 py-2 w-full"
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label
-                            htmlFor="city"
-                            className="block text-gray-700 font-bold mb-2"
-                        >
-                            City
-                        </label>
-                        <input
-                            type="text"
-                            id="city"
-                            name="city"
-                            value={user.city}
-                            onChange={handleChange}
-                            className="border border-gray-300 rounded-md px-4 py-2 w-full"
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label
-                            htmlFor="region"
-                            className="block text-gray-700 font-bold mb-2"
-                        >
-                            Region
-                        </label>
-                        <input
-                            type="text"
-                            id="region"
-                            name="region"
-                            value={user.region}
-                            onChange={handleChange}
-                            className="border border-gray-300 rounded-md px-4 py-2 w-full"
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label
-                            htmlFor="postal_code"
-                            className="block text-gray-700 font-bold mb-2"
-                        >
-                            Postal Code
-                        </label>
-                        <input
-                            type="text"
-                            id="postal_code"
-                            name="postal_code"
-                            value={user.postal_code}
-                            onChange={handleChange}
-                            className="border border-gray-300 rounded-md px-4 py-2 w-full"
-                        />
-                    </div>
-                    <button
-                        type="submit"
-                        className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-                    >
-                        Update
-                    </button>
-                </form>
+                </div>
             </section>
             <ToastContainer />
         </>
