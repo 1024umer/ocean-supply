@@ -171,6 +171,9 @@
     justify-content: space-between;
     margin-top: 30px;
   }
+  .t-btn{
+    padding-top: 8px;
+  }
 
   .t-btn.t-btn-gradient {
     background: rgb(1, 85, 121);
@@ -1594,4 +1597,13 @@
   }
   .collapse {
     visibility: visible !important;
+}
+
+.form-main-design form .input-radio-box .radio-box input {
+  width: 20px !important;
+  height: 20px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  outline: none !important;
+  border: none !important;
 }

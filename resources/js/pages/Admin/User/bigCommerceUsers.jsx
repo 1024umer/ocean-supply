@@ -15,7 +15,7 @@ export default function BigCommerceUsers() {
         const response = await service.get("/api/getBigCommerceUsers");
         setUsers(response.data.data);
         setFilteredOrders(response.data.data);
-        setLoading(false)
+        setLoading(false);
     };
 
     useEffect(() => {
@@ -41,9 +41,7 @@ export default function BigCommerceUsers() {
             onFilter: (value, record) => record.first_name.includes(value),
             width: "23%",
             className: "text-center",
-            render: (text, record) => (
-                `${text} ${record.last_name}`
-            ),
+            render: (text, record) => `${text} ${record.last_name}`,
         },
         {
             title: "Email",
@@ -94,11 +92,11 @@ export default function BigCommerceUsers() {
     };
     return (
         <>
-        <section className="main-dashboard">
-            <div className="container-fluid dash-board">
-                <div className="row">
-                {loading ? <Loading /> : <SidebarMain />}
-                        
+            <section className="main-dashboard">
+                <div className="container-fluid dash-board">
+                    <div className="row">
+                        {loading ? <Loading /> : <SidebarMain />}
+
                         <div className="col-lg-9 col-md-9 dashboard-right-sec ">
                             <div className="row dashboard-right-top-sec">
                                 <div className="col-lg-12">
@@ -159,9 +157,9 @@ export default function BigCommerceUsers() {
                                 </div>
                             </div>
                         </div>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
         </>
     );
 }
