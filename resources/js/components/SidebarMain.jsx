@@ -69,10 +69,10 @@ function SidebarMain() {
                                                 <li><Link to={'/user/list'}>All Users</Link></li>
                                             )}
                                             {user.role.name === "admin" && (
-                                                <li><a onClick={() => handleNavigation("/clover/user/list")}>Clover Users</a></li>
+                                                <li><Link to={'/clover/user/list'}>Clover Users</Link></li>
                                             )}
                                             {user.role.name === "admin" && (
-                                                <li><a onClick={() => handleNavigation("/big-commerce/user/list")}>Big Commerce Users</a></li>
+                                                <li><Link to={'/big-commerce/user/list'}>Big Commerce Users</Link></li>
                                             )}
                                         </ul>
                                     </div>

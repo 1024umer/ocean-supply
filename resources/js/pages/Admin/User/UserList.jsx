@@ -63,8 +63,8 @@ export default function UserList() {
             filterMode: "tree",
             filterSearch: true,
             onFilter: (value, record) => record.id.includes(value),
-            width: "10px",
-            textAlign: "center",
+            width: "2.5%",
+            className: "text-center",
         },
         {
             title: "Name",
@@ -77,7 +77,8 @@ export default function UserList() {
                     {`${text} ${record.last_name}`}
                 </Link>
             ),
-            width: "15%",
+            width: "12.5%",
+            className: "text-center",
         },
         {
             title: "Email",
@@ -87,6 +88,7 @@ export default function UserList() {
             filterMode: "tree",
             filterSearch: true,
             onFilter: (value, record) => record.email.includes(value),
+            className: "text-center",
         },
         {
             title: "Role",
@@ -95,6 +97,8 @@ export default function UserList() {
             filterSearch: true,
             onFilter: (value, record) => record.role.includes(value),
             render: (text) => `${text.title}`,
+            className: "text-center",
+            width: "12.5%",
         },
         {
             title: "Phone",
@@ -102,6 +106,8 @@ export default function UserList() {
             filterMode: "tree",
             filterSearch: true,
             onFilter: (value, record) => record.phone.includes(value),
+            className: "text-center",
+            width: "12.5%",
         },
         {
             title: "Total Points",
@@ -110,6 +116,8 @@ export default function UserList() {
             filterSearch: true,
             onFilter: (value, record) => record.point.includes(value),
             render: (text) => (text && text[0] ? text[0].total_points : 0),
+            className: "text-center",
+            width: "12.5%",
         },
         {
             title: "Remaining Points",
@@ -119,6 +127,8 @@ export default function UserList() {
             onFilter: (value, record) => record.point.includes(value),
             render: (points) =>
                 points && points[0] ? points[0].remaining_points : 0,
+            className: "text-center",
+            width: "12.5%",
         },
         {
             title: "Action",
@@ -128,18 +138,19 @@ export default function UserList() {
                     <Link
                         to={`/user/edit/${record.id}`}
                         className="p-button p-button-primary"
-                    >
+                        >
                         Edit
                     </Link>
                     <button
                         onClick={() => handleDelete(record.id)}
                         className="p-button p-button-danger"
                         style={{ marginLeft: '8px' }}
-                    >
+                        >
                         Delete
                     </button>
                 </>
             ),
+            className: "text-center",
         },
     ];
 
