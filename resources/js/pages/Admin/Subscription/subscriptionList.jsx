@@ -42,7 +42,6 @@ export default function subscriptionList() {
 
     const handleEdit = (rowData) => {
         const { id } = rowData;
-        console.log({ id });
         navigate(`/subscription/${id}`);
     };
 

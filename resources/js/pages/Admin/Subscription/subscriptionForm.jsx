@@ -58,7 +58,6 @@ export default function SubscriptionForm() {
                     subscription
                 );
             }
-            console.log(response.status);
             if (response.status === 201 || response.status === 200) {
                 navigate("/subscription-list");
             }

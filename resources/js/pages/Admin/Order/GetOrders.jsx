@@ -19,7 +19,6 @@ function GetOrders() {
     const getOrders = async () => {
         setLoading(true);
         const response = await service.get("/api/getAllOrders");
-        console.log(response.data.elements);
         setOrders(response.data.elements);
         setFilteredOrders(response.data.elements);
         setLoading(false);
@@ -37,24 +36,6 @@ function GetOrders() {
         return date.toLocaleString(); // Adjust format as needed
     };
 
-    const handleButtonClick = async (orderId) => {
-
-        try {
-            const response = await service.get(`/api/getAllPayment/${orderId}`);
-            console.log(response.status);
-            // if (response.status == 200) {
-            //     navigate("/user/list");
-            // }
-        } catch (error) {
-            for (const [key, value] of Object.entries(
-                error.response.data.errors
-            )) {
-                toast.error(value[0], {
-                    position: "top-right",
-                });
-            }
-        }
-    };
 
     const columns = [
         {
@@ -82,13 +63,12 @@ function GetOrders() {
             title: 'Action',
             dataIndex: 'id',
             render: (orderId) => (
-                <button onClick={() => handleButtonClick(orderId)} className="t-btn without-shadow">Check Payment</button>
+                <Link to={`/get/payment/`+orderId} className="t-btn without-shadow">Check Payment</Link>
             ),
         }
     ];
 
     const onChange = (pagination, filters, sorter, extra) => {
-        console.log('params', pagination, filters, sorter, extra);
     };
 
     const handleSearch = (e) => {
@@ -125,7 +105,7 @@ function GetOrders() {
                                         <div className="img-abs">
                                             <img className="user-list-img-top" src="/front/images/user-list-img-top.png" alt="" />
                                         </div>
-                               
+
                         </div>
                         </div>
                         </div>

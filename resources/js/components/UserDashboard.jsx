@@ -32,7 +32,6 @@ function UserDashboard() {
             console.log(error);
         }
     };
-    console.log(loyaltyPoints);
 
     const formatTimestamp = (timestamp) => {
         const date = new Date(timestamp);

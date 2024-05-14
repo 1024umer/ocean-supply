@@ -20,7 +20,6 @@ export default function BigCommerceUsers() {
 
     const getUsers = async () => {
         const response = await service.get("/api/getBigCommerceUsers");
-        console.log(response);
         setUsers(response.data.data);
         setLoading(false)
     };

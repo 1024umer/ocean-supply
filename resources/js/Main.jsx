@@ -21,6 +21,7 @@ import CloverUsers from "./pages/Admin/User/cloverUsers";
 import CreateOrder from "./pages/Admin/Order/CreateOrder";
 import BigCommerceUsers from "./pages/Admin/User/bigCommerceUsers";
 import GetOrders from "./pages/Admin/Order/GetOrders";
+import GetPayment from "./pages/Admin/Payment/GetPayment";
 import Loading from "./components/Loading";
 const Main = () => {
     return (
@@ -48,6 +49,7 @@ const Main = () => {
                             <Route path="/inventory/:id" element={<InventoryPreview/>}></Route>
                             <Route path="/order" element={<CreateOrder/>}></Route>
                             <Route path="/get/orders" element={<GetOrders/>}></Route>
+                            <Route path="/get/payment/:id" element={<GetPayment/>}></Route>
                         </Route>
                         <Route path="*" element={<div>Not Found</div>}>
                         </Route>

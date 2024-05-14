@@ -12,7 +12,6 @@ function InventoryPreview() {
 
     const getInventories = async () => {
         const response = await service.get("/api/inventory/"+ id).then(response => {
-            console.log(response.data)
             setInventory(response.data);
             setLoading(false)
         }).catch(setLoading(true));
