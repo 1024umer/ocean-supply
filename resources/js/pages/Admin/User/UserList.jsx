@@ -52,9 +52,6 @@ export default function UserList() {
             }
         }
     };
-    if (loading) {
-        return <Loading />;
-    }
 
     const columns = [
         {
@@ -173,7 +170,7 @@ export default function UserList() {
             <section className="main-dashboard">
                 <div className="container-fluid dash-board">
                     <div className="row">
-                        <SidebarMain />
+                        {loading ? <Loading /> : <SidebarMain />}
                         <div className="col-lg-9 col-md-9 dashboard-right-sec ">
                             <div className="row dashboard-right-top-sec">
                                 <div className="col-lg-12">

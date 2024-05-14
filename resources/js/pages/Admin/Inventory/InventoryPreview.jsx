@@ -19,9 +19,6 @@ function InventoryPreview() {
     useEffect(() => {
         getInventories();
     }, []);
-    if (loading) {
-        return <Loading />;
-    }
     const formatTimestamp = (timestamp) => {
         const date = new Date(timestamp);
         return date.toLocaleString(); // Adjust format as needed
@@ -31,7 +28,7 @@ function InventoryPreview() {
         <section className="main-dashboard">
             <div className="container-fluid dash-board">
                 <div className="row">
-                    <SidebarMain />
+                {loading ? <Loading /> : <SidebarMain />}
                     <section className="container mx-auto px-4">
                     <div className="container">
                         <div className="row">
