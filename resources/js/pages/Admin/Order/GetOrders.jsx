@@ -39,26 +39,30 @@ function GetOrders() {
             filterMode: "tree",
             filterSearch: true,
             onFilter: (value, record) => record.id.includes(value),
-            width: "30%",
+            width: "25%",
+            className: "text-center",
         },
         {
             title: "Date",
             dataIndex: "createdTime",
             onFilter: (value, record) => record.createdTime.includes(value),
             render: (text) => formatTimestamp(text),
+            width: "25%",
+            className: "text-center",
         },
         {
             title: "Total",
             dataIndex: "total",
-            width: "40%",
             onFilter: (value, record) => record.total.includes(value),
             render: (text) => `$${text}`,
+            width: "25%",
+            className: "text-center",
         },
         {
             title: "Action",
             dataIndex: "id",
             render: (orderId) => (
-                <div>
+                <div className="d-flex justify-content-center align-items-center">
                     <button
                         type="button"
                         className="t-btn without-shadow"
@@ -70,6 +74,8 @@ function GetOrders() {
                     <PaymentModal orderId={orderId}></PaymentModal>
                 </div>
             ),
+            width: "25%",
+            className: "text-center",
         },
     ];
 

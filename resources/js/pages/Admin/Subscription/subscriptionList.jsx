@@ -5,18 +5,20 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import service from "../../../config/axiosConfig";
 import { useNavigate } from "react-router-dom";
-import { Table } from "flowbite-react";
-import { Link } from 'react-router-dom';
+import { Table } from "antd";
+import { Link } from "react-router-dom";
 import SidebarMain from "../../../components/SidebarMain";
 import Loading from "../../../components/Loading";
 export default function subscriptionList() {
     const navigate = useNavigate();
     const [subscriptions, setSubscriptions] = useState([]);
+    const [filteredSubscriptions, setFilteredSubscriptions] = useState([]);
     const [loading, setLoading] = useState(true);
     const getSubscription = async () => {
         try {
             const response = await service.get("/api/subscriptionList");
             setSubscriptions(response.data.data);
+            setFilteredSubscriptions(response.data.data);
         } catch (error) {
             console.error("Error fetching subscriptions:", error);
             toast.error("Failed to fetch subscriptions");
@@ -28,6 +30,118 @@ export default function subscriptionList() {
     useEffect(() => {
         getSubscription();
     }, []);
+
+    const columns = [
+        {
+            title: "#",
+            dataIndex: "id",
+            filterMode: "tree",
+            filterSearch: true,
+            onFilter: (value, record) => record.id.includes(value),
+            width: "2%",
+            className: "text-center",
+        },
+        {
+            title: "Name",
+            dataIndex: "name",
+            filterMode: "tree",
+            filterSearch: true,
+            onFilter: (value, record) => record.name.includes(value),
+            width: "14%",
+            className: "text-center",
+        },
+        {
+            title: "Title",
+            dataIndex: "title",
+            filterMode: "tree",
+            filterSearch: true,
+            onFilter: (value, record) => record.title.includes(value),
+            width: "14%",
+            className: "text-center",
+        },
+        {
+            title: "Price",
+            dataIndex: "price",
+            filterMode: "tree",
+            filterSearch: true,
+            onFilter: (value, record) => record.price.includes(value),
+            width: "14%",
+            className: "text-center",
+            render: (text) => <span>${text}</span>,
+        },
+        {
+            title: "Description",
+            dataIndex: "description",
+            filterMode: "tree",
+            filterSearch: true,
+            onFilter: (value, record) => record.description.includes(value),
+            width: "14%",
+            className: "text-center",
+        },
+        {
+            title: "Is Premium",
+            dataIndex: "is_premium",
+            filterMode: "tree",
+            filterSearch: true,
+            onFilter: (value, record) => record.is_premium === 1,
+            width: "14%",
+            className: "text-center",
+            render: (text) => (
+                <span
+                    className={`border text-center ${
+                        text === 1 ? "badge active" : "badge none-active"
+                    }`}
+                >
+                    {text === 1 ? "Premium" : "Not Premium"}
+                </span>
+            ),
+        },
+        {
+            title: "Is Active",
+            dataIndex: "is_active",
+            filterMode: "tree",
+            filterSearch: true,
+            onFilter: (value, record) => record.is_active === 1,
+            width: "14%",
+            className: "text-center",
+            render: (text) => (
+                <span
+                    className={`border text-center ${
+                        text === 1 ? "badge active" : "badge none-active"
+                    } `}
+                >
+                    {text === 1 ? "Active" : "De-Active"}
+                </span>
+            ),
+        },
+        {
+            title: "Action",
+            dataIndex: "action",
+            width: "14%",
+            render: (text, record) => (
+                <div className="d-flex justify-content-center align-items-center">
+                <Link to={`/subscription/${record.id}`} className="">
+                    <img src="/front/images/edite.png" alt="edit" />
+                </Link>
+                </div>
+            ),
+            className: "text-center edite-and-delet",
+        },
+    ];
+
+    const onChange = (pagination, filters, sorter, extra) => {};
+
+    const handleSearch = (e) => {
+        const keyword = e.target.value.toLowerCase();
+        const filtered = subscriptions.filter(
+            (subscriptions) =>
+                subscriptions.id.toString().toLowerCase().includes(keyword) ||
+                subscriptions.name.toString().toLowerCase().includes(keyword) ||
+                subscriptions.title.toString().toLowerCase().includes(keyword) ||
+                subscriptions.price.toString().includes(keyword)
+        );
+        setFilteredSubscriptions(filtered);
+    };
 
     const renderEditButton = (rowData) => {
         return (
@@ -46,69 +160,82 @@ export default function subscriptionList() {
     };
 
     const products = subscriptions;
-    if (loading) {
-        return <Loading/> ;
-    }
     return (
         <>
-        <SidebarMain />
-            <section className="container mx-auto px-4">
-                <h1 className="font-bold text-3xl text-center mt-10 text-white " >
-                    Subscription List
-                </h1>
-                <div className="grid grid-cols-1 gap-4 mt-10">
+            <section className="main-dashboard">
+                <div className="container-fluid dash-board">
+                    <div className="row">
+                        {loading ? <Loading /> : <SidebarMain />}
 
-                    <div className="overflow-x-auto">
-                    <Table hoverable>
-                            <Table.Head>
-                                <Table.HeadCell className="text-center border p-4">#</Table.HeadCell>
-                                <Table.HeadCell className="text-center border">Name</Table.HeadCell>
-                                <Table.HeadCell className="text-center border">Title</Table.HeadCell>
-                                <Table.HeadCell className="text-center border">Price</Table.HeadCell>
-                                <Table.HeadCell className="text-center border">Description</Table.HeadCell>
-                                <Table.HeadCell className="text-center border">Is Premium</Table.HeadCell>
-                                <Table.HeadCell className="text-center border">Is Active</Table.HeadCell>
-                                <Table.HeadCell className="text-center border">Action</Table.HeadCell>
-                            </Table.Head>
-                            <Table.Body className="divide-y">
+                        <div className="col-lg-9 col-md-9 dashboard-right-sec  ">
+                            <div className="row dashboard-right-top-sec">
+                                <div className="col-lg-12">
+                                    <div className="main-user-box userlist-box subscribtion-table">
+                                        <div className="two-align-thing">
+                                            <h3>Packages</h3>
+                                            <div className="aline-box">
+                                                <input
+                                                    type="search"
+                                                    placeholder="Search"
+                                                    onChange={handleSearch}
+                                                />
+                                                <Link
+                                                    to={"/subscription"}
+                                                    className="t-btn without-shadow"
+                                                >
+                                                    {" "}
+                                                    Add A Package
+                                                </Link>
+                                            </div>
+                                        </div>
+                                        <div className="table-box">
+                                            <Table
+                                                rowKey="id"
+                                                key={subscriptions.id}
+                                                columns={columns}
+                                                dataSource={
+                                                    filteredSubscriptions
+                                                }
+                                                onChange={onChange}
+                                            />
+                                        </div>
+                                        <div className="img-abs">
+                                            <img
+                                                className="user-list-img-top"
+                                                src="/front/images/user-list-img-top.png"
+                                                alt=""
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                            {subscriptions.map(subscription => (
-                                    <Table.Row key={subscription.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                                        <Table.Cell className="text-center border p-4">{subscription.id}</Table.Cell>
-                                        <Table.Cell className="text-center border">{subscription.name}</Table.Cell>
-                                        <Table.Cell className="text-center border">{subscription.title}</Table.Cell>
-                                        <Table.Cell className="text-center border">{subscription.description}</Table.Cell>
-                                        <Table.Cell className="text-center border">${subscription.price}</Table.Cell>
-                                        <Table.Cell className="text-center border">
-                                            {subscription.is_premium === 1 ? (
-                                                <span className="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-800">
-                                                    Premium
-                                                </span>
-                                            ) : (
-                                                <span className="bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-800">
-                                                    Not Premium
-                                                </span>
-                                            )}
-                                        </Table.Cell>
-                                        <Table.Cell className="text-center">
-                                            {subscription.is_active === 1 ? (
-                                                <span className="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-green-200 dark:text-green-800">
-                                                    Active
-                                                </span>
-                                            ) : (
-                                                <span className="bg-red-100 text-red-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-red-200 dark:text-red-800">
-                                                    Not Active
-                                                </span>
-                                            )}
-                                        </Table.Cell>
-                                        <Table.Cell className="text-center">
-                                        <Link to={`/subscription/${subscription.id}`} className="text-center font-medium text-blue-600 dark:text-blue-500 hover:underline pr-3">Edit</Link>
-                                        </Table.Cell>
-                                    </Table.Row>
-                                ))}
-
-                            </Table.Body>
-                        </Table>
+                            <div className="row footer-row">
+                                <div className="col-md-12">
+                                    <div className="dash-board-footer">
+                                        <div className="two-align-box">
+                                            <p>
+                                                © 2024 | All Rights Are Reserved
+                                            </p>
+                                            <ul>
+                                                <li>
+                                                    <a href="#">Facebook</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Instagram</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Twitter</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">LinkedIn</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
