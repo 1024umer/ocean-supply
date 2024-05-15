@@ -30,4 +30,5 @@ Route::group(['middleware' => ['json.response', 'auth:sanctum','verified']], fun
     Route::apiResource('setting',SettingController::class);
     Route::get('/getAllOrders',[OrderController::class,'getAllOrders']);
     Route::get('/getAllPayment/{id}',[PaymentController::class,'index']);
+    Route::get('/getCloverSingleCustomer/{id}',[UserGetController::class,'getCloverSingleCustomer']);
 });

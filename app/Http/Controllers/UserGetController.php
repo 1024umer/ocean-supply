@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Services\BigCommerce\UsersGet;
 use App\Services\Clover\CloverUserGet;
-use Illuminate\Http\Request;
+use App\Services\Clover\CloverGetSingleCustomer;
 
 class UserGetController extends Controller
 {
@@ -40,6 +41,12 @@ class UserGetController extends Controller
         }
         return response()->json($decodedResponse);
 
+    }
+
+    public function getCloverSingleCustomer(CloverGetSingleCustomer $service, $id)
+    {
+        $response = $service->CloverGetSingleCustomer($id);
+        return response()->json($response);
     }
 
 }

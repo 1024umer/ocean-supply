@@ -64,7 +64,7 @@ class CreateCloverPaymentService
         if ($err) {
             return response()->json($err, 404);
         } else {
-            return response()->json($response, 200);
+            return response()->json(json_decode($response), 200);
         }
     }
 }

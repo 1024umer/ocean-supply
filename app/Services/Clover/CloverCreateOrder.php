@@ -2,6 +2,7 @@
 
 namespace App\Services\Clover;
 
+use App\Models\Order;
 use Illuminate\Support\Facades\Http;
 use App\Services\Clover\{DiscountOnOrder, CreateCloverPaymentService, CreateCloverLineItem,CreateOrderCustomer};
 
@@ -60,6 +61,16 @@ class CloverCreateOrder
             $lineItem = $this->createCloverLineItem->createLineItem($order['id'], $request);
             $discount = $this->discountOnOrder->createDiscount($order['id'], $request);
             $customer = $this->createOrderCustomer->createOrderCustomer($order['id'], $user);
+            if($payment && $customer){
+                $data = $payment->original;
+                $orderId = $data->order->id;
+                $Order = new Order();
+                $Order->order_id = $orderId;
+                $Order->clover_id = $user->clover_id;
+                $Order->total = $data->amount;
+                $Order->status = $data->result;
+                $Order->save();
+            }
             return [$payment, $lineItem,$customer,$discount];
         }
     }

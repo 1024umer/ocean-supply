@@ -37,7 +37,7 @@ class DiscountOnOrder
         if ($err) {
             return "cURL Error #:" . $err;
         } else {
-            return $response;
+            return json_decode($response);
         }
     }
 

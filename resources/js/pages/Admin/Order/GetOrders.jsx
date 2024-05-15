@@ -11,11 +11,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { Table, Button } from "antd"; // Import Button component from antd
 import PaymentModal from "../../../components/PaymentModal";
 import LineItemsModal from "../../../components/LineItemsModal";
+import CustomerDetailsModal from "../../../components/CustomerDetailsModal";
 
 function GetOrders() {
     const [orders, setOrders] = useState([]);
+    const [customers, setCustomers] = useState([]);
     const [filteredOrders, setFilteredOrders] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [modelOpen, setModelOpen] = useState(false);
 
     const getOrders = async () => {
         setLoading(true);
@@ -27,6 +30,18 @@ function GetOrders() {
     useEffect(() => {
         getOrders();
     }, []);
+
+    const handleClick = async (customerId) => {
+        try {
+            const response = await service.get(`/api/getCloverSingleCustomer/${customerId}`);
+            setCustomers(response.data);
+            setModelOpen(true);
+            document.getElementById('customerModal'+customerId).style.display = 'block';
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
 
     const formatTimestamp = (timestamp) => {
         const date = new Date(timestamp);
@@ -40,6 +55,29 @@ function GetOrders() {
             filterMode: "tree",
             filterSearch: true,
             onFilter: (value, record) => record.id.includes(value),
+            width: "25%",
+            className: "text-center",
+        },
+        {
+            title: "Customer Id",
+            dataIndex: "customers",
+            render: (customers) => {
+                if (customers && customers.elements.length > 0) {
+                    return customers.elements
+                        .map((customer) => (
+                            <span
+                                className="customerId"
+                                key={customer.id}
+                                onClick={() => handleClick(customer.id)}
+                            >
+                                {customer.id}
+                            </span>
+                        ))
+                        .reduce((prev, curr) => [prev, ", ", curr]);
+                } else {
+                    return "No customer";
+                }
+            },
             width: "25%",
             className: "text-center",
         },
@@ -66,15 +104,6 @@ function GetOrders() {
             width: "25%",
             className: "text-center",
         },
-
-        {
-            title: "Date",
-            dataIndex: "createdTime",
-            onFilter: (value, record) => record.createdTime.includes(value),
-            render: (text) => formatTimestamp(text),
-            width: "25%",
-            className: "text-center",
-        },
         {
             title: "Total",
             dataIndex: "total",
@@ -84,7 +113,15 @@ function GetOrders() {
             className: "text-center",
         },
         {
-            title: "Action",
+            title: "Date",
+            dataIndex: "createdTime",
+            onFilter: (value, record) => record.createdTime.includes(value),
+            render: (text) => formatTimestamp(text),
+            width: "25%",
+            className: "text-center",
+        },
+        {
+            title: "Payments",
             dataIndex: "id",
             render: (orderId) => (
                 <div className="d-flex justify-content-center align-items-center px-2">
@@ -107,20 +144,27 @@ function GetOrders() {
             dataIndex: "lineItems",
             render: (text, record) => (
                 <div className="d-flex justify-content-center align-items-center px-2">
-                    <button
-                        type="button"
-                        className="t-btn without-shadow"
-                        data-toggle="modal"
-                        data-target={"#myModal" + text.elements[0].id}
-                    >
-                        View Products
-                    </button>
-                    <LineItemsModal LineItems={text}></LineItemsModal>
+                    { text && text.elements && text.elements.length > 0 ? (
+                        <>
+                            <button
+                                type="button"
+                                className="t-btn without-shadow"
+                                data-toggle="modal"
+                                data-target={"#myModal" + text.elements[0].id}
+                            >
+                                View Products
+                            </button>
+                            <LineItemsModal LineItems={text}></LineItemsModal>
+                        </>
+                    ) : (
+                        <span>No elements found</span>
+                    )}
                 </div>
             ),
             width: "25%",
             className: "text-center",
-        },
+        }
+
     ];
 
     const onChange = (pagination, filters, sorter, extra) => {};
@@ -195,6 +239,7 @@ function GetOrders() {
                     </div>
                 </div>
             </section>
+            {modelOpen ?<CustomerDetailsModal customer={customers} status={'block'} />:null}
         </>
     );
 }

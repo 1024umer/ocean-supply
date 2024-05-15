@@ -1638,3 +1638,12 @@
   outline: none !important;
   border: none !important;
 }
+
+.customerId {
+    cursor: pointer;
+    transition: .3s;
+}
+.customerId:hover {
+    color: #015579;
+}
+
