@@ -37,7 +37,7 @@ class CloverCreateOrder
                 'taxRemoved' => 'false',
                 'title' => $request['title'],
                 'note' => $request['note'],
-                'total' => $request['totalPrice'],
+                'total' => $request['totalPrice']-$request['discount']+$request['taxAmount'],
                 'paymentState' => 'PAID',
                 'state' => 'open',
             ]),

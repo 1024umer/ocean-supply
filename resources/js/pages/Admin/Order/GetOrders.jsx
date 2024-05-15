@@ -10,6 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Table, Button } from "antd"; // Import Button component from antd
 import PaymentModal from "../../../components/PaymentModal";
+import LineItemsModal from "../../../components/LineItemsModal";
 
 function GetOrders() {
     const [orders, setOrders] = useState([]);
@@ -43,6 +44,30 @@ function GetOrders() {
             className: "text-center",
         },
         {
+            title: "Discount",
+            dataIndex: "discounts",
+            render: (discounts) => {
+                if (discounts && discounts.elements.length > 0) {
+                    return discounts.elements
+                        .map((discount) => {
+                            if (discount.amount !== undefined) {
+                                return `$${discount.amount}`;
+                            } else if (discount.percentage !== undefined) {
+                                return `${discount.percentage}% Off`;
+                            } else {
+                                return "Unknown discount type";
+                            }
+                        })
+                        .join(", ");
+                } else {
+                    return "$0";
+                }
+            },
+            width: "25%",
+            className: "text-center",
+        },
+
+        {
             title: "Date",
             dataIndex: "createdTime",
             onFilter: (value, record) => record.createdTime.includes(value),
@@ -62,7 +87,7 @@ function GetOrders() {
             title: "Action",
             dataIndex: "id",
             render: (orderId) => (
-                <div className="d-flex justify-content-center align-items-center">
+                <div className="d-flex justify-content-center align-items-center px-2">
                     <button
                         type="button"
                         className="t-btn without-shadow"
@@ -72,6 +97,25 @@ function GetOrders() {
                         Check Payment
                     </button>
                     <PaymentModal orderId={orderId}></PaymentModal>
+                </div>
+            ),
+            width: "25%",
+            className: "text-center",
+        },
+        {
+            title: "Products",
+            dataIndex: "lineItems",
+            render: (text, record) => (
+                <div className="d-flex justify-content-center align-items-center px-2">
+                    <button
+                        type="button"
+                        className="t-btn without-shadow"
+                        data-toggle="modal"
+                        data-target={"#myModal" + text.elements[0].id}
+                    >
+                        View Products
+                    </button>
+                    <LineItemsModal LineItems={text}></LineItemsModal>
                 </div>
             ),
             width: "25%",
@@ -100,47 +144,54 @@ function GetOrders() {
             <section className="main-dashboard">
                 <div className="container-fluid dash-board">
                     <div className="row">
-                        {loading ? <Loading /> : <SidebarMain />}
-
-                        <div className="col-lg-9 col-md-9 dashboard-right-sec ">
-                            <div className="row dashboard-right-top-sec">
-                                <div className="col-lg-12">
-                                    <div className="main-user-box userlist-box">
-                                        <div className="two-align-thing">
-                                            <h3>Orders</h3>
-                                            <div className="aline-box">
-                                                <input
-                                                    type="search"
-                                                    placeholder="Search"
-                                                    onChange={handleSearch}
-                                                />
-                                                <Link
-                                                    to="/order"
-                                                    className="t-btn without-shadow"
-                                                >
-                                                    {" "}
-                                                    Create Order
-                                                </Link>
+                        {(loading && <Loading />) || (
+                            <>
+                                <SidebarMain />
+                                <div className="col-lg-9 col-md-9 dashboard-right-sec ">
+                                    <div className="row dashboard-right-top-sec">
+                                        <div className="col-lg-12">
+                                            <div className="main-user-box userlist-box">
+                                                <div className="two-align-thing">
+                                                    <h3>Orders</h3>
+                                                    <div className="aline-box">
+                                                        <input
+                                                            type="search"
+                                                            placeholder="Search"
+                                                            onChange={
+                                                                handleSearch
+                                                            }
+                                                        />
+                                                        <Link
+                                                            to="/order"
+                                                            className="t-btn without-shadow"
+                                                        >
+                                                            {" "}
+                                                            Create Order
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                                <div className="table-box">
+                                                    <Table
+                                                        columns={columns}
+                                                        dataSource={
+                                                            filteredOrders
+                                                        }
+                                                        onChange={onChange}
+                                                    />
+                                                </div>
+                                                <div className="img-abs">
+                                                    <img
+                                                        className="user-list-img-top"
+                                                        src="/front/images/user-list-img-top.png"
+                                                        alt=""
+                                                    />
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="table-box">
-                                            <Table
-                                                columns={columns}
-                                                dataSource={filteredOrders}
-                                                onChange={onChange}
-                                            />
-                                        </div>
-                                        <div className="img-abs">
-                                            <img
-                                                className="user-list-img-top"
-                                                src="/front/images/user-list-img-top.png"
-                                                alt=""
-                                            />
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </>
+                        )}
                     </div>
                 </div>
             </section>

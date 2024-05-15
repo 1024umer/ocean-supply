@@ -34,7 +34,7 @@ export default function CloverUsers() {
             className: "text-center",
         },
         {
-            title: "Name",
+            title: "First Name",
             dataIndex: "firstName",
             filterMode: "tree",
             filterSearch: true,
@@ -43,7 +43,7 @@ export default function CloverUsers() {
             className: "text-center",
         },
         {
-            title: "Name",
+            title: "Last Name",
             dataIndex: "lastName",
             filterMode: "tree",
             filterSearch: true,
@@ -73,7 +73,7 @@ export default function CloverUsers() {
                 <div className="container-fluid dash-board">
                     <div className="row">
                         {loading ? <Loading /> : <SidebarMain />}
-                        
+
                         <div className="col-lg-9 col-md-9 dashboard-right-sec ">
                             <div className="row dashboard-right-top-sec">
                                 <div className="col-lg-12">

@@ -14,7 +14,7 @@ function CreateOrder() {
     const [setting, setSetting] = useState([]);
     const [loading, setLoading] = useState(true);
     const { cart } = useSelector((state) => state.cart);
-    const totalPrice = cart.reduce((acc, product) => acc + product.price, 0);
+    let totalPrice = cart.reduce((acc, product) => acc + product.price, 0);
     const [points, setPoints] = useState(0);
     const [value, setValue] = useState(0);
     const [amount, setAmount] = useState(0);
@@ -24,10 +24,36 @@ function CreateOrder() {
         discount: 0,
         totalPrice: totalPrice,
         cart: cart,
+        taxAmount: 0,
     });
     const dispatch = useDispatch();
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+        if (e.target.name === "discount") {
+            document.getElementById("showDiscount").textContent = "$"+e.target.value;
+            var tax = document.getElementById("showTax").textContent;
+            tax = tax.replace("$", "");
+            tax = parseFloat(tax);
+            totalPrice = totalPrice - e.target.value??0 + tax;
+            document.getElementById("showTotal").textContent = "$"+totalPrice;
+        }
+        if (e.target.name === "taxAmount") {
+            if(e.target.value > 0){
+                document.getElementById("showTax").textContent = "$"+e.target.value;
+                let discount = document.getElementById("showDiscount").textContent;
+                discount = discount.replace("$", "");
+                let tax = parseFloat(e.target.value);
+                totalPrice = totalPrice - discount + tax;
+                document.getElementById("showTotal").textContent = "$"+totalPrice;
+            }else{
+                document.getElementById("showTax").textContent = "$"+0;
+                let discount = document.getElementById("showDiscount").textContent;
+                discount = discount.replace("$", "");
+                let tax = parseFloat(0);
+                totalPrice = totalPrice - discount + tax;
+                document.getElementById("showTotal").textContent = "$"+totalPrice;
+            }
+        }
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -99,7 +125,7 @@ function CreateOrder() {
         e.preventDefault();
         toast.error("cart is empty", {
             position: "top-right",
-            zIndex:999,
+            zIndex: 999,
             autoClose: 2000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -283,6 +309,7 @@ function CreateOrder() {
                                                                 handleChange
                                                             }
                                                             type="text"
+                                                            id="discount"
                                                             name="discount"
                                                             placeholder="Discount"
                                                         />
@@ -292,6 +319,7 @@ function CreateOrder() {
                                                             }
                                                             type="text"
                                                             name="taxAmount"
+                                                            id="taxAmount"
                                                             placeholder="Tax Amount"
                                                         />
                                                         <input
@@ -328,23 +356,17 @@ function CreateOrder() {
                                                         </tr>
                                                         <tr>
                                                             <td>Tax</td>
-                                                            <td>27.0</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                Delivery Charges
-                                                            </td>
-                                                            <td>$1200</td>
+                                                            <td id="showTax">$0</td>
                                                         </tr>
                                                         <tr>
                                                             <td>Discount</td>
-                                                            <td>10%</td>
+                                                            <td id="showDiscount">$0</td>
                                                         </tr>
                                                         <tr>
                                                             <td className="bold-table-content">
                                                                 Total Price
                                                             </td>
-                                                            <td className="bold-table-content">
+                                                            <td className="bold-table-content" id="showTotal">
                                                                 ${totalPrice}
                                                             </td>
                                                         </tr>
