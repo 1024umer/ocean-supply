@@ -3,18 +3,20 @@
 namespace App\Services\Clover;
 
 use Illuminate\Support\Facades\Http;
-use App\Services\Clover\{DiscountOnOrder,CreateCloverPaymentService,CreateCloverLineItem};
+use App\Services\Clover\{DiscountOnOrder, CreateCloverPaymentService, CreateCloverLineItem,CreateOrderCustomer};
 
 class CloverCreateOrder
 {
     protected $createCloverPaymentService;
     protected $createCloverLineItem;
     protected $discountOnOrder;
-    public function __construct(DiscountOnOrder $discountOnOrder,CreateCloverLineItem $createCloverLineItem,CreateCloverPaymentService $createCloverPaymentService)
+    protected $createOrderCustomer;
+    public function __construct(CreateOrderCustomer $createOrderCustomer,DiscountOnOrder $discountOnOrder, CreateCloverLineItem $createCloverLineItem, CreateCloverPaymentService $createCloverPaymentService)
     {
         $this->createCloverPaymentService = $createCloverPaymentService;
         $this->createCloverLineItem = $createCloverLineItem;
         $this->discountOnOrder = $discountOnOrder;
+        $this->createOrderCustomer = $createOrderCustomer;
     }
     public function createOrder($user, $request)
     {
@@ -37,16 +39,7 @@ class CloverCreateOrder
                 'note' => $request['note'],
                 'total' => $request['totalPrice'],
                 'paymentState' => 'PAID',
-                'customers' => [
-                    [
-                        'merchant' => [
-                            'id' => env('CLOVER_MERCHANT_ID')
-                        ],
-                        'id' => $user->clover_id,
-                        'firstName' => $user->first_name,
-                        'lastName' => $user->last_name
-                    ]
-                ],
+                'state' => 'open',
             ]),
             CURLOPT_HTTPHEADER => array(
                 "Authorization: Bearer " . env('CLOVER_BEARRER_TOKEN'),
@@ -66,8 +59,8 @@ class CloverCreateOrder
             $payment = $this->createCloverPaymentService->createPayment($order, $request);
             $lineItem = $this->createCloverLineItem->createLineItem($order['id'], $request);
             $discount = $this->discountOnOrder->createDiscount($order['id'], $request);
-            // dd($discount);
-            return [$payment,$lineItem];
+            $customer = $this->createOrderCustomer->createOrderCustomer($order['id'], $user);
+            return [$payment, $lineItem];
         }
     }
 }
