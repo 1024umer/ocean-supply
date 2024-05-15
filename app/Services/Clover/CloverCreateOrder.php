@@ -60,7 +60,7 @@ class CloverCreateOrder
             $lineItem = $this->createCloverLineItem->createLineItem($order['id'], $request);
             $discount = $this->discountOnOrder->createDiscount($order['id'], $request);
             $customer = $this->createOrderCustomer->createOrderCustomer($order['id'], $user);
-            return [$payment, $lineItem];
+            return [$payment, $lineItem,$customer,$discount];
         }
     }
 }
