@@ -389,7 +389,7 @@ function CreateOrder() {
                                                         <tr>
                                                             <td>User Points</td>
                                                             <td>
-                                                                <span id="userPoints"></span>
+                                                                <span id="userPoints">0</span>
                                                                 &nbsp;&nbsp;
                                                                 Points Value
                                                                 is($
