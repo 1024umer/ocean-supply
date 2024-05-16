@@ -54,7 +54,6 @@ function CreateOrder() {
 
                 // ---- //
                 let Userpoints = parseInt(userPoints);
-                console.log(userPoints-DiscountAmountInPoint);
                 Userpoints = Userpoints-DiscountAmountInPoint;
                 document.getElementById("userPoints").textContent=Userpoints;
                 document.getElementById("pointUser").value = Userpoints;
@@ -72,7 +71,6 @@ function CreateOrder() {
 
                 // ---- //
                 let Userpoints = parseInt(userPoints);
-                console.log(userPoints-DiscountAmountInPoint);
                 Userpoints = Userpoints-DiscountAmountInPoint;
                 document.getElementById("userPoints").textContent=Userpoints;
                 document.getElementById("pointUser").value = Userpoints;
