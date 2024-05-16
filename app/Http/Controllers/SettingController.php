@@ -36,9 +36,10 @@ class SettingController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
-        //
+        $setting = Setting::all();
+        return new SettingResource($setting);
     }
 
     /**
@@ -52,9 +53,14 @@ class SettingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        foreach ($request->all() as $key => $value) {
+            $setting = Setting::where('key', $key)->first();
+            $setting->update(['value' => $value]);
+        }
+
+        return new SettingResource($setting);
     }
 
     /**

@@ -22,6 +22,7 @@ import CreateOrder from "./pages/Admin/Order/CreateOrder";
 import BigCommerceUsers from "./pages/Admin/User/bigCommerceUsers";
 import GetOrders from "./pages/Admin/Order/GetOrders";
 import Loading from "./components/Loading";
+import Setting from "./pages/Admin/Setting/Setting";
 const Main = () => {
     return (
         <Provider store={store}>
@@ -48,6 +49,7 @@ const Main = () => {
                             <Route path="/inventory/:id" element={<InventoryPreview/>}></Route>
                             <Route path="/order" element={<CreateOrder/>}></Route>
                             <Route path="/get/orders" element={<GetOrders/>}></Route>
+                            <Route path="/setting/update" element={<Setting/>}></Route>
                         </Route>
                         <Route path="*" element={<div>Not Found</div>}>
                         </Route>

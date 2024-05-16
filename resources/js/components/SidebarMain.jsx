@@ -121,6 +121,26 @@ function SidebarMain() {
                                 </div>
                             </div>
                             )}
+                            {user.role.name === "admin" && (
+                            <div className="card">
+                                <div id="headingFour" className="card-header bg-white shadow-sm border-0">
+                                    <h2 className="mb-0">
+                                        <button type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false"
+                                            aria-controls="collapseFour"
+                                            className="btn btn-link collapsed text-dark font-weight-bold text-uppercase collapsible-link">Points Settings</button>
+                                    </h2>
+                                </div>
+                                <div id="collapseFour" aria-labelledby="headingFour" data-parent="#accordionExample" className="collapse">
+                                    <div className="card-body">
+                                        <ul>
+                                        {user.role.name === "admin" && (
+                                            <li><Link to="/setting/update">Settinng</Link></li>
+                                        )}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            )}
                         </div>
                     </div>
                     {user.role.name === "admin" && (

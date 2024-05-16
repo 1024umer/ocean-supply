@@ -31,4 +31,5 @@ Route::group(['middleware' => ['json.response', 'auth:sanctum','verified']], fun
     Route::get('/getAllOrders',[OrderController::class,'getAllOrders']);
     Route::get('/getAllPayment/{id}',[PaymentController::class,'index']);
     Route::get('/getCloverSingleCustomer/{id}',[UserGetController::class,'getCloverSingleCustomer']);
+    Route::post('/settingUpdate',[SettingController::class,'update']);
 });
