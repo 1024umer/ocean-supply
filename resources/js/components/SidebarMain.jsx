@@ -45,7 +45,9 @@ function SidebarMain() {
                             <h3>{user.first_name} {user.last_name}</h3>
                         </div>
                         <div className="profile-img">
-                            <img src="/front/images/user-profile-img.png" alt="" />
+                            <Link to={'/profile'}>
+                                <img src="/front/images/user-profile-img.png" alt="" />
+                            </Link>
                         </div>
                     </div>
                     <div className="main-dash-link">
