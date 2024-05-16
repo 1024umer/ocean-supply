@@ -25,10 +25,12 @@ function CreateOrder() {
         totalPrice: totalPrice,
         cart: cart,
         taxAmount: 0,
+        pointUser: 0
     });
     const dispatch = useDispatch();
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+
         if (e.target.name === "discount") {
             document.getElementById("showDiscount").textContent = "$"+e.target.value;
             var tax = document.getElementById("showTax").textContent;
@@ -36,7 +38,51 @@ function CreateOrder() {
             tax = parseFloat(tax);
             totalPrice = totalPrice - e.target.value??0 + tax;
             document.getElementById("showTotal").textContent = "$"+totalPrice;
+
+            // Points
+
+            if(e.target.value > 0){
+                let discount = document.getElementById("showDiscount").textContent;
+                discount = discount.replace("$", "");
+                let discountAmount = parseFloat(discount);
+                let pointValue = (value/points)*userPoints;
+                pointValue = parseFloat(pointValue);
+
+                // ---- //
+                let perPointValue = value / points;
+                let DiscountAmountInPoint = discountAmount/perPointValue;
+
+                // ---- //
+                let Userpoints = parseInt(userPoints);
+                console.log(userPoints-DiscountAmountInPoint);
+                Userpoints = Userpoints-DiscountAmountInPoint;
+                document.getElementById("userPoints").textContent="$"+Userpoints;
+                document.getElementById("pointUser").value = Userpoints;
+                setFormData({ ...formData, pointUser: Userpoints });
+            }else{
+                let discount = document.getElementById("showDiscount").textContent;
+                discount = discount.replace("$", "");
+                let discountAmount = 0;
+                let pointValue = (value/points)*userPoints;
+                pointValue = parseFloat(pointValue);
+
+                // ---- //
+                let perPointValue = value / points;
+                let DiscountAmountInPoint = discountAmount/perPointValue;
+
+                // ---- //
+                let Userpoints = parseInt(userPoints);
+                console.log(userPoints-DiscountAmountInPoint);
+                Userpoints = Userpoints-DiscountAmountInPoint;
+                document.getElementById("userPoints").textContent="$"+Userpoints;
+                document.getElementById("pointUser").value = Userpoints;
+                setFormData({ ...formData, pointUser: Userpoints });
+
+            }
+
+            setFormData({ ...formData, discount: e.target.value });
         }
+
         if (e.target.name === "taxAmount") {
             if(e.target.value > 0){
                 document.getElementById("showTax").textContent = "$"+e.target.value;
@@ -70,6 +116,7 @@ function CreateOrder() {
                 user: "",
                 taxAmount: "",
                 cashAmount: "",
+                pointUser: "",
             });
             toast.success("Order Created Successfully", {
                 position: "top-center",
@@ -116,6 +163,10 @@ function CreateOrder() {
         const points = data;
         setFormData({ ...formData, user: id });
         setUserPoints(points);
+        document.getElementById("userPoints").textContent=points;
+        document.getElementById("pointUser").value = points;
+        setFormData({ ...formData, pointUser: Userpoints });
+
     };
     const handleCart = () => {
         dispatch(clearCart());
@@ -330,6 +381,7 @@ function CreateOrder() {
                                                             name="cashAmount"
                                                             placeholder="Cash Amount"
                                                         />
+                                                        <input onChange={handleChange} type="hidden" name="pointUser" id="pointUser"/>
                                                     </div>
                                                 </div>
                                                 <div className="cart-table-box">
@@ -337,8 +389,7 @@ function CreateOrder() {
                                                         <tr>
                                                             <td>User Points</td>
                                                             <td>
-                                                                {userPoints ??
-                                                                    0}{" "}
+                                                                <span id="userPoints"></span>
                                                                 &nbsp;&nbsp;
                                                                 Points Value
                                                                 is($
