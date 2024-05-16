@@ -63,8 +63,7 @@ class UpdateBigCommerceUserService
     public function updateStoreCreditAmount($user, $storeCreditAmount)
     {
         $data = (object) $user;
-        $storeCreditAmount = $storeCreditAmount;
-        // dd($storeCreditAmount);
+        $storeCreditAmount = intval($storeCreditAmount);
         $customerData = array(
             array(
                 "id" => $user->bigcommerce_id,

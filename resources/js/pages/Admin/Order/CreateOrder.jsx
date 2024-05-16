@@ -391,9 +391,9 @@ function CreateOrder() {
                                                                 &nbsp;&nbsp;
                                                                 Points Value
                                                                 is($
-                                                                {(value /
+                                                                {Math.floor((value /
                                                                     points) *
-                                                                    userPoints}
+                                                                    userPoints)}
                                                                 )
                                                             </td>
                                                         </tr>
