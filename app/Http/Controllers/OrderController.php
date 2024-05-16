@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\UserPoint;
+use App\Services\Clover\RefundCloverOrder;
 use Illuminate\Http\Request;
 use App\Http\Requests\OrderRequest;
 use App\Http\Resources\OrderResource;
@@ -48,5 +49,8 @@ class OrderController extends Controller
     {
         $response = $getCloverAllOrders->getCloverAllOrders();
         return response()->json($response);
+    }
+    public function refundOrder($orderId, RefundCloverOrder $refundCloverOrder){
+        $response = $refundCloverOrder->refund($orderId);
     }
 }
