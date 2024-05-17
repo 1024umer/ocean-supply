@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Setting;
 use App\Models\UserPoint;
+use App\Services\Clover\GetCloverSingleOrder;
+use App\Services\Clover\RefundCloverOrder;
 use Illuminate\Http\Request;
 use App\Http\Requests\OrderRequest;
 use App\Http\Resources\OrderResource;
 use App\Services\Clover\CloverCreateOrder;
-use App\Services\Clover\RefundCloverOrder;
 use App\Services\Clover\getCloverAllOrders;
 use App\Services\Clover\OrderCloverUserService;
 use App\Services\BigCommerce\OrderBigCommerceService;
@@ -54,6 +55,10 @@ class OrderController extends Controller
             $Service = $UpdateBigCommerceUserService->updateStoreCreditAmount($user, $StoreCreditAmount);
         }
         return new OrderResource($data);
+    }
+    public function show($id, GetCloverSingleOrder $getCloverSingleOrder){
+        $response = $getCloverSingleOrder->singleOrder($id);
+        return response()->json($response);
     }
     public function getAllOrders(getCloverAllOrders $getCloverAllOrders)
     {
