@@ -13,7 +13,6 @@ function CreateOrder() {
     const [userPoints, setUserPoints] = useState(0);
     const [setting, setSetting] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [pointUserForReq, setPointUserForReq] = useState(0);
     const { cart } = useSelector((state) => state.cart);
     let totalPrice = cart.reduce((acc, product) => acc + product.price, 0);
     const [points, setPoints] = useState(0);
@@ -26,13 +25,12 @@ function CreateOrder() {
         totalPrice: totalPrice,
         cart: cart,
         taxAmount: 0,
-        pointUser: 0
+        pointUser: 0,
+        user:""
     });
     const dispatch = useDispatch();
     const handleChange = (e) => {
-        console.log('hereeeeeeee1')
 
-        setFormData({ ...formData, [e.target.name]: e.target.value });
 
         if (e.target.name === "discount") {
             document.getElementById("showDiscount").textContent = "$" + e.target.value;
@@ -55,24 +53,20 @@ function CreateOrder() {
                 let Userpoints = parseInt(userPoints);
                 Userpoints = Userpoints - DiscountAmountInPoint;
                 document.getElementById("userPoints").textContent = Userpoints;
-                setPointUserForReq(Userpoints);
             } else {
                 let discount = document.getElementById("showDiscount").textContent;
                 discount = discount.replace("$", "");
                 let discountAmount = 0;
                 let pointValue = (value / points) * userPoints;
                 pointValue = parseFloat(pointValue);
-
+                
                 let perPointValue = value / points;
                 let DiscountAmountInPoint = discountAmount / perPointValue;
-
+                
                 let Userpoints = parseInt(userPoints);
                 Userpoints = Userpoints - DiscountAmountInPoint;
                 document.getElementById("userPoints").textContent = Userpoints;
-                setPointUserForReq(Userpoints);
             }
-            console.log('hereeeeeeee2')
-            setFormData({ ...formData, discount: e.target.value });
         }
 
         if (e.target.name === "taxAmount") {
@@ -92,9 +86,6 @@ function CreateOrder() {
                 document.getElementById("showTotal").textContent = "$" + totalPrice;
             }
         }
-        console.log("pointUserForReq", pointUserForReq);
-        setFormData({ ...formData, pointUser: pointUserForReq });
-        console.log(formData);
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -105,7 +96,7 @@ function CreateOrder() {
             setFormData({
                 title: "",
                 note: "",
-                discount: 0,
+                discount: "",
                 cart: "",
                 totalPrice: "",
                 user: "",
@@ -156,11 +147,8 @@ function CreateOrder() {
     };
     const getUserPoints = async (data, id) => {
         const points = data;
-        setFormData({ ...formData, user: id });
         setUserPoints(points);
         document.getElementById("userPoints").textContent = points;
-        setPointUserForReq(points);
-        // setFormData({ ...formData, pointUser: points });
     };
     const handleCart = () => {
         dispatch(clearCart());
@@ -178,6 +166,7 @@ function CreateOrder() {
             draggable: true,
         });
     };
+
     const handleRemove = (product) => {
         dispatch(clearItemFromCart(product));
     }
@@ -301,14 +290,16 @@ function CreateOrder() {
                                                     <select
                                                         name="user"
                                                         id="user"
-                                                        onChange={(e) =>
+                                                        onChange={(e) =>{
                                                             getUserPoints(
                                                                 e.target
                                                                     .selectedOptions[0]
                                                                     .dataset
                                                                     .points,
                                                                 e.target.value
-                                                            )
+                                                            ),
+                                                            setFormData({...formData, user: e.target.value, pointUser: e.target.selectedOptions[0].dataset.points})
+                                                        }
                                                         }
                                                     >
                                                         <option
