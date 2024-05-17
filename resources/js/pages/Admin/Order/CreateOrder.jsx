@@ -13,6 +13,7 @@ function CreateOrder() {
     const [userPoints, setUserPoints] = useState(0);
     const [setting, setSetting] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [pointUserForReq, setPointUserForReq] = useState(0);
     const { cart } = useSelector((state) => state.cart);
     let totalPrice = cart.reduce((acc, product) => acc + product.price, 0);
     const [points, setPoints] = useState(0);
@@ -56,8 +57,7 @@ function CreateOrder() {
                 let Userpoints = parseInt(userPoints);
                 Userpoints = Userpoints - DiscountAmountInPoint;
                 document.getElementById("userPoints").textContent = Userpoints;
-                document.getElementById("pointUser").value = Userpoints;
-                setFormData({ ...formData, pointUser: Userpoints });
+                setPointUserForReq(Userpoints);
             } else {
                 let discount = document.getElementById("showDiscount").textContent;
                 discount = discount.replace("$", "");
@@ -73,9 +73,7 @@ function CreateOrder() {
                 let Userpoints = parseInt(userPoints);
                 Userpoints = Userpoints - DiscountAmountInPoint;
                 document.getElementById("userPoints").textContent = Userpoints;
-                document.getElementById("pointUser").value = Userpoints;
-                setFormData({ ...formData, pointUser: Userpoints });
-
+                setPointUserForReq(Userpoints);
             }
 
             setFormData({ ...formData, discount: e.target.value });
@@ -98,6 +96,9 @@ function CreateOrder() {
                 document.getElementById("showTotal").textContent = "$" + totalPrice;
             }
         }
+        console.log("pointUserForReq", pointUserForReq);
+        setFormData({ ...formData, pointUser: pointUserForReq });
+        console.log(formData);
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -162,9 +163,8 @@ function CreateOrder() {
         setFormData({ ...formData, user: id });
         setUserPoints(points);
         document.getElementById("userPoints").textContent = points;
-        document.getElementById("pointUser").value = points;
-        setFormData({ ...formData, pointUser: Userpoints });
-
+        setPointUserForReq(points);
+        // setFormData({ ...formData, pointUser: points });
     };
     const handleCart = () => {
         dispatch(clearCart());
@@ -390,7 +390,6 @@ function CreateOrder() {
                                                             name="cashAmount"
                                                             placeholder="Cash Amount"
                                                         />
-                                                        <input onChange={handleChange} type="hidden" name="pointUser" id="pointUser" />
                                                     </div>
                                                 </div>
                                                 <div className="cart-table-box">
