@@ -163,10 +163,39 @@ function GetOrders() {
             ),
             width: "25%",
             className: "text-center",
-        }
+        },
+        {
+            title: "Refund Order",
+            dataIndex: "id",
+            render: (orderId) => (
+                <div className="d-flex justify-content-center align-items-center px-2">
+                    <button
+                        type="button"
+                        className="t-btn without-shadow"
+                        onClick={() => handleRefund(orderId)}
+                    >
+                        Refund
+                    </button>
+                </div>
+            ),
+            width: "25%",
+            className: "text-center",
+        },
 
     ];
 
+    const handleRefund = async (orderId) => {
+        try {
+            const response = await service.post(`/api/refund-order/${orderId}`);
+            if (response.data.message === "success") {
+                toast.success("Refund successful");
+            } else {
+                toast.error("Error refunding order");
+            }
+        } catch (error) {
+            toast.error("Error refunding order");
+        }
+    };
     const onChange = (pagination, filters, sorter, extra) => {};
 
     const handleSearch = (e) => {

@@ -52,5 +52,6 @@ class OrderController extends Controller
     }
     public function refundOrder($orderId, RefundCloverOrder $refundCloverOrder){
         $response = $refundCloverOrder->refund($orderId);
+        return response()->json($response);
     }
 }
