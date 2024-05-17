@@ -30,6 +30,8 @@ function CreateOrder() {
     });
     const dispatch = useDispatch();
     const handleChange = (e) => {
+        console.log('hereeeeeeee1')
+
         setFormData({ ...formData, [e.target.name]: e.target.value });
 
         if (e.target.name === "discount") {
@@ -40,8 +42,6 @@ function CreateOrder() {
             totalPrice = totalPrice - e.target.value ?? 0 + tax;
             document.getElementById("showTotal").textContent = "$" + totalPrice;
 
-            // Points
-
             if (e.target.value > 0) {
                 let discount = document.getElementById("showDiscount").textContent;
                 discount = discount.replace("$", "");
@@ -49,11 +49,9 @@ function CreateOrder() {
                 let pointValue = (value / points) * userPoints;
                 pointValue = parseFloat(pointValue);
 
-                // ---- //
                 let perPointValue = value / points;
                 let DiscountAmountInPoint = discountAmount / perPointValue;
 
-                // ---- //
                 let Userpoints = parseInt(userPoints);
                 Userpoints = Userpoints - DiscountAmountInPoint;
                 document.getElementById("userPoints").textContent = Userpoints;
@@ -65,17 +63,15 @@ function CreateOrder() {
                 let pointValue = (value / points) * userPoints;
                 pointValue = parseFloat(pointValue);
 
-                // ---- //
                 let perPointValue = value / points;
                 let DiscountAmountInPoint = discountAmount / perPointValue;
 
-                // ---- //
                 let Userpoints = parseInt(userPoints);
                 Userpoints = Userpoints - DiscountAmountInPoint;
                 document.getElementById("userPoints").textContent = Userpoints;
                 setPointUserForReq(Userpoints);
             }
-
+            console.log('hereeeeeeee2')
             setFormData({ ...formData, discount: e.target.value });
         }
 
@@ -349,43 +345,48 @@ function CreateOrder() {
                                                     </label>
                                                     <div className="three-input-boxes">
                                                         <input
-                                                            onChange={
-                                                                handleChange
-                                                            }
+                                                            onChange={(e) => {
+                                                                handleChange(e);
+                                                                setFormData({ ...formData, title: e.target.value });
+                                                            }}
                                                             type="text"
                                                             name="title"
                                                             placeholder="Title"
                                                         />
                                                         <input
-                                                            onChange={
-                                                                handleChange
-                                                            }
+                                                            onChange={(e) => {
+                                                                handleChange(e);
+                                                                setFormData({ ...formData, note: e.target.value });
+                                                            }}
                                                             type="text"
                                                             name="note"
                                                             placeholder="Note(Optional)"
                                                         />
                                                         <input
-                                                            onChange={
-                                                                handleChange
-                                                            }
+                                                            onChange={(e) => {
+                                                                handleChange(e);
+                                                                setFormData({ ...formData, discount: e.target.value });
+                                                            }}
                                                             type="text"
                                                             id="discount"
                                                             name="discount"
                                                             placeholder="Discount"
                                                         />
                                                         <input
-                                                            onChange={
-                                                                handleChange
-                                                            }
+                                                            onChange={(e) => {
+                                                                handleChange(e);
+                                                                setFormData({ ...formData, taxAmount: e.target.value });
+                                                            }}
                                                             type="text"
                                                             name="taxAmount"
                                                             id="taxAmount"
                                                             placeholder="Tax Amount"
                                                         />
                                                         <input
-                                                            onChange={
-                                                                handleChange
-                                                            }
+                                                            onChange={(e) => {
+                                                                handleChange(e);
+                                                                setFormData({ ...formData, cashAmount: e.target.value });
+                                                            }}
                                                             type="text"
                                                             name="cashAmount"
                                                             placeholder="Cash Amount"

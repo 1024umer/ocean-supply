@@ -32,6 +32,7 @@ class OrderController extends Controller
         }
     }
     public function store(UpdateBigCommerceUserService $UpdateBigCommerceUserService,CloverCreateOrder $cloverCreateOrder,OrderRequest $request){
+        dd($request->all());
         $user = User::where('id',$request->user)->first();
         $data = $cloverCreateOrder->createOrder($user,$request->all());
 
