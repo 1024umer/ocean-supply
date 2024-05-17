@@ -5,7 +5,7 @@ import SidebarMain from "../../../components/SidebarMain";
 import Loading from "../../../components/Loading";
 import ProductModal from "../../../components/ProductModal";
 import { useDispatch, useSelector } from "react-redux";
-import { clearCart } from "../../../redux/cart/cartSlice";
+import { clearCart, clearItemFromCart } from "../../../redux/cart/cartSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 function CreateOrder() {
@@ -32,47 +32,47 @@ function CreateOrder() {
         setFormData({ ...formData, [e.target.name]: e.target.value });
 
         if (e.target.name === "discount") {
-            document.getElementById("showDiscount").textContent = "$"+e.target.value;
+            document.getElementById("showDiscount").textContent = "$" + e.target.value;
             var tax = document.getElementById("showTax").textContent;
             tax = tax.replace("$", "");
             tax = parseFloat(tax);
-            totalPrice = totalPrice - e.target.value??0 + tax;
-            document.getElementById("showTotal").textContent = "$"+totalPrice;
+            totalPrice = totalPrice - e.target.value ?? 0 + tax;
+            document.getElementById("showTotal").textContent = "$" + totalPrice;
 
             // Points
 
-            if(e.target.value > 0){
+            if (e.target.value > 0) {
                 let discount = document.getElementById("showDiscount").textContent;
                 discount = discount.replace("$", "");
                 let discountAmount = parseFloat(discount);
-                let pointValue = (value/points)*userPoints;
+                let pointValue = (value / points) * userPoints;
                 pointValue = parseFloat(pointValue);
 
                 // ---- //
                 let perPointValue = value / points;
-                let DiscountAmountInPoint = discountAmount/perPointValue;
+                let DiscountAmountInPoint = discountAmount / perPointValue;
 
                 // ---- //
                 let Userpoints = parseInt(userPoints);
-                Userpoints = Userpoints-DiscountAmountInPoint;
-                document.getElementById("userPoints").textContent=Userpoints;
+                Userpoints = Userpoints - DiscountAmountInPoint;
+                document.getElementById("userPoints").textContent = Userpoints;
                 document.getElementById("pointUser").value = Userpoints;
                 setFormData({ ...formData, pointUser: Userpoints });
-            }else{
+            } else {
                 let discount = document.getElementById("showDiscount").textContent;
                 discount = discount.replace("$", "");
                 let discountAmount = 0;
-                let pointValue = (value/points)*userPoints;
+                let pointValue = (value / points) * userPoints;
                 pointValue = parseFloat(pointValue);
 
                 // ---- //
                 let perPointValue = value / points;
-                let DiscountAmountInPoint = discountAmount/perPointValue;
+                let DiscountAmountInPoint = discountAmount / perPointValue;
 
                 // ---- //
                 let Userpoints = parseInt(userPoints);
-                Userpoints = Userpoints-DiscountAmountInPoint;
-                document.getElementById("userPoints").textContent=Userpoints;
+                Userpoints = Userpoints - DiscountAmountInPoint;
+                document.getElementById("userPoints").textContent = Userpoints;
                 document.getElementById("pointUser").value = Userpoints;
                 setFormData({ ...formData, pointUser: Userpoints });
 
@@ -82,20 +82,20 @@ function CreateOrder() {
         }
 
         if (e.target.name === "taxAmount") {
-            if(e.target.value > 0){
-                document.getElementById("showTax").textContent = "$"+e.target.value;
+            if (e.target.value > 0) {
+                document.getElementById("showTax").textContent = "$" + e.target.value;
                 let discount = document.getElementById("showDiscount").textContent;
                 discount = discount.replace("$", "");
                 let tax = parseFloat(e.target.value);
                 totalPrice = totalPrice - discount + tax;
-                document.getElementById("showTotal").textContent = "$"+totalPrice;
-            }else{
-                document.getElementById("showTax").textContent = "$"+0;
+                document.getElementById("showTotal").textContent = "$" + totalPrice;
+            } else {
+                document.getElementById("showTax").textContent = "$" + 0;
                 let discount = document.getElementById("showDiscount").textContent;
                 discount = discount.replace("$", "");
                 let tax = parseFloat(0);
                 totalPrice = totalPrice - discount + tax;
-                document.getElementById("showTotal").textContent = "$"+totalPrice;
+                document.getElementById("showTotal").textContent = "$" + totalPrice;
             }
         }
     };
@@ -161,7 +161,7 @@ function CreateOrder() {
         const points = data;
         setFormData({ ...formData, user: id });
         setUserPoints(points);
-        document.getElementById("userPoints").textContent=points;
+        document.getElementById("userPoints").textContent = points;
         document.getElementById("pointUser").value = points;
         setFormData({ ...formData, pointUser: Userpoints });
 
@@ -182,7 +182,9 @@ function CreateOrder() {
             draggable: true,
         });
     };
-
+    const handleRemove = (product) => {
+        dispatch(clearItemFromCart(product));
+    }
     useEffect(() => {
         getSetting();
         getUsers();
@@ -216,6 +218,7 @@ function CreateOrder() {
                                                                 key={product.id}
                                                                 className="box-check"
                                                             >
+
                                                                 <input
                                                                     type="checkbox"
                                                                     id="vehicle1"
@@ -223,7 +226,15 @@ function CreateOrder() {
                                                                     value="Bike"
                                                                 />
                                                                 <label htmlFor="vehicle1">
+
                                                                     <div className="pro-details">
+                                                                        <button
+                                                                            type="button"
+                                                                            className="btn btn-warning"
+                                                                            onClick={() => handleRemove(product.id)}
+                                                                        >
+                                                                            x
+                                                                        </button>
                                                                         <h6>
                                                                             {
                                                                                 product.name
@@ -249,7 +260,7 @@ function CreateOrder() {
                                                                         <div className="in-stock-or-not">
                                                                             <p>
                                                                                 {product.available ===
-                                                                                true
+                                                                                    true
                                                                                     ? "In Stock"
                                                                                     : "Out of Stock"}
                                                                             </p>
@@ -319,8 +330,8 @@ function CreateOrder() {
                                                                     user
                                                                         .point[0]
                                                                         ? user
-                                                                              .point[0]
-                                                                              .remaining_points
+                                                                            .point[0]
+                                                                            .remaining_points
                                                                         : 0
                                                                 }
                                                             >
@@ -379,7 +390,7 @@ function CreateOrder() {
                                                             name="cashAmount"
                                                             placeholder="Cash Amount"
                                                         />
-                                                        <input onChange={handleChange} type="hidden" name="pointUser" id="pointUser"/>
+                                                        <input onChange={handleChange} type="hidden" name="pointUser" id="pointUser" />
                                                     </div>
                                                 </div>
                                                 <div className="cart-table-box">
@@ -428,18 +439,18 @@ function CreateOrder() {
                                                             Create Order Now
                                                         </button>
                                                     )) || (
-                                                        <button
-                                                            className="active-btn"
-                                                            onClick={
-                                                                handleCreateOrder
-                                                            }
-                                                            style={{
-                                                                disabled: true,
-                                                            }}
-                                                        >
-                                                            Create Order Now
-                                                        </button>
-                                                    )}
+                                                            <button
+                                                                className="active-btn"
+                                                                onClick={
+                                                                    handleCreateOrder
+                                                                }
+                                                                style={{
+                                                                    disabled: true,
+                                                                }}
+                                                            >
+                                                                Create Order Now
+                                                            </button>
+                                                        )}
                                                     <Link
                                                         to="/inventory/list"
                                                         className="active-btn disable-btn"
