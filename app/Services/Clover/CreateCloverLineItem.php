@@ -27,7 +27,7 @@ class CreateCloverLineItem
                     ],
                     'isRevenue' => 'true',
                     'name' => $item['name'],
-                    'colorCode' => $item['code'],
+                    'colorCode' => $item['code'] ?? 0,
                     'price' => $item['price'],
                     'unitQty' => 1,
                     'createdTime' => $item['modifiedTime'],

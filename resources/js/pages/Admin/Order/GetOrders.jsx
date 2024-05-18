@@ -181,6 +181,23 @@ function GetOrders() {
             width: "25%",
             className: "text-center",
         },
+        {
+            title: "Slip",
+            dataIndex: "id",
+            render: (orderId) => (
+                <div className="d-flex justify-content-center align-items-center px-2">
+                    <Link
+                        to={`/slip/${orderId}`}
+                        type="button"
+                        className="t-btn without-shadow"
+                    >
+                        Print Slip
+                    </Link>
+                </div>
+            ),
+            width: "25%",
+            className: "text-center",
+        },
 
     ];
 

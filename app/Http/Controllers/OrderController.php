@@ -54,7 +54,8 @@ class OrderController extends Controller
             $StoreCreditAmount = $userPoints->store_credit_amount;
             $Service = $UpdateBigCommerceUserService->updateStoreCreditAmount($user, $StoreCreditAmount);
         }
-        return new OrderResource($data);
+        return $data[2]->id;
+        // return new OrderResource($data);
     }
     public function show($id, GetCloverSingleOrder $getCloverSingleOrder){
         $response = $getCloverSingleOrder->singleOrder($id);

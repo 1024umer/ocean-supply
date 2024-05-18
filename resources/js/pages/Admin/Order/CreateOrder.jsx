@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import service from "../../../config/axiosConfig";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SidebarMain from "../../../components/SidebarMain";
 import Loading from "../../../components/Loading";
 import ProductModal from "../../../components/ProductModal";
@@ -29,6 +29,7 @@ function CreateOrder() {
         user:""
     });
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const handleChange = (e) => {
 
 
@@ -91,8 +92,8 @@ function CreateOrder() {
         e.preventDefault();
         try {
             const response = await service.post("/api/create-order", formData);
+            navigate(`/slip/${response.data}`);
             dispatch(clearCart());
-            navigate("/order");
             setFormData({
                 title: "",
                 note: "",
