@@ -29,7 +29,7 @@ class CreateCloverLineItem
                     'name' => $item['name'],
                     'colorCode' => $item['code'] ?? 0,
                     'price' => $item['price'],
-                    'unitQty' => 1,
+                    'unitQty' => $item['quantity'],
                     'createdTime' => $item['modifiedTime'],
                     'orderClientCreatedTime' => $item['modifiedTime']
                 ];

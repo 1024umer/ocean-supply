@@ -1123,6 +1123,8 @@
     height: 100%;
     -webkit-appearance: none;
     position: absolute;
+    border-radius: 20px !important;
+    border: none !important;
   }
 
    .products-sec .products.select-check-box .box-check label {

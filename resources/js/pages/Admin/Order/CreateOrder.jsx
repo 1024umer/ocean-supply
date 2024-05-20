@@ -5,7 +5,7 @@ import SidebarMain from "../../../components/SidebarMain";
 import Loading from "../../../components/Loading";
 import ProductModal from "../../../components/ProductModal";
 import { useDispatch, useSelector } from "react-redux";
-import { clearCart, clearItemFromCart } from "../../../redux/cart/cartSlice";
+import { clearCart, clearItemFromCart, decreaseQuantity, increaseQuantity } from "../../../redux/cart/cartSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 function CreateOrder() {
@@ -176,6 +176,15 @@ function CreateOrder() {
         getUsers();
     }, []);
 
+    const handleIncreaseQuantity = (productId) => {
+        dispatch(increaseQuantity(productId));
+    };
+
+    const handleDecreaseQuantity = (productId) => {
+        dispatch(decreaseQuantity(productId));
+    };
+
+
     return (
         <>
             <section className="main-dashboard">
@@ -200,81 +209,34 @@ function CreateOrder() {
                                                 <div className="scroll-box">
                                                     <div className="many-check-boxes">
                                                         {cart.map((product) => (
-                                                            <div
-                                                                key={product.id}
-                                                                className="box-check"
-                                                            >
+                                                            <div key={product.id} className="box-check">
 
-                                                                <input
-                                                                    type="checkbox"
-                                                                    id="vehicle1"
-                                                                    name="vehicle1"
-                                                                    value="Bike"
-                                                                />
+                                                                <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"/>
+
                                                                 <label htmlFor="vehicle1">
-
+                                                                <button type="button" className="btn btn-sm btn-secondary" onClick={() => handleIncreaseQuantity(product.id)}>Increase Quantity</button>
+                                                                <button type="button" className="btn btn-sm btn-secondary" onClick={() => handleDecreaseQuantity(product.id)}>
+                                                                    Decrease Quantity
+                                                                </button>
                                                                     <div className="pro-details">
-                                                                        <button
-                                                                            type="button"
-                                                                            className="btn btn-warning"
-                                                                            onClick={() => handleRemove(product.id)}
-                                                                        >
-                                                                            x
-                                                                        </button>
-                                                                        <h6>
-                                                                            {
-                                                                                product.name
-                                                                            }
-                                                                        </h6>
+                                                                        <button type="button" className="btn btn-warning" onClick={() => handleRemove(product.id)}> x </button>
+                                                                        <h6> { product.name } </h6>
+
                                                                         <div className="code-price">
-                                                                            <p>
-                                                                                Code
-                                                                                :{" "}
-                                                                                {
-                                                                                    product.code
-                                                                                }
-                                                                            </p>
-                                                                            <p>
-                                                                                Price
-                                                                                :
-                                                                                $
-                                                                                {
-                                                                                    product.price
-                                                                                }
-                                                                            </p>
+                                                                            <p> Code :{" "} { product.code } </p>
+                                                                            <p>Price:${product.price}</p>
+                                                                            <p>Qty: {product.quantity}</p>
                                                                         </div>
-                                                                        <div className="in-stock-or-not">
-                                                                            <p>
-                                                                                {product.available ===
-                                                                                    true
-                                                                                    ? "In Stock"
-                                                                                    : "Out of Stock"}
-                                                                            </p>
+
+                                                                        <div className="in-stock-or-not"><p>{product.available === true ? "In Stock" : "Out of Stock"}</p>
                                                                         </div>
-                                                                        <button
-                                                                            type="button"
-                                                                            className="btn btn-primary"
-                                                                            data-toggle="modal"
-                                                                            data-target={
-                                                                                "#myModal" +
-                                                                                product.id
-                                                                            }
-                                                                        >
-                                                                            <img
-                                                                                src="/front/images/modal-plus-icon.png"
-                                                                                alt=""
-                                                                            />
+                                                                        <button type="button" className="btn btn-primary" data-toggle="modal" data-target={ "#myModal" + product.id }>
+                                                                            <img src="/front/images/modal-plus-icon.png" alt=""/>
                                                                         </button>
                                                                     </div>
                                                                 </label>
-                                                                <ProductModal
-                                                                    key={
-                                                                        product.id
-                                                                    }
-                                                                    item={
-                                                                        product
-                                                                    }
-                                                                />
+                                                                <ProductModal key={ product.id } item={ product }/>
+
                                                             </div>
                                                         ))}
                                                     </div>
