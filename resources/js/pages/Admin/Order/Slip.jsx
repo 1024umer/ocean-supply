@@ -129,6 +129,12 @@ export default function Slip() {
                                                         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                                         <td className="text-right text-success">${order.payments && order.payments.elements[0].cashTendered}</td>
                                                     </tr>
+                                                    <tr>
+                                                        <td className="text-left">STATUS</td>
+                                                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                                        {/* <td className="text-right">{order.paymentState}</td> */}
+                                                        <td className="text-right" style={order.lineItems && order.lineItems.elements[0].refunded === true ? {color: '#dc3545'} : {color: '#28a745'}}>{order.lineItems && order.lineItems.elements[0].refunded === true ? "Refunded" : "Paid"}</td>
+                                                    </tr>
                                                 </table>
 
                                                 <hr className="text-center" style={{
@@ -142,9 +148,7 @@ export default function Slip() {
 
 
                                         }
-
                                             <button className="t-btn t-btn-gradient" style={{ fontSize:'25px', width:'80px', height:'50px' }} onClick={printPage}>Print</button>
-
                                     </div>
                                 </div>
                             </div>
