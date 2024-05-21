@@ -195,6 +195,7 @@ function CreateOrder() {
                             <div className="row dashboard-right-top-sec">
                                 <div className="col-lg-12">
                                     <div className="products-search-box cart-box ">
+                                        <div className="cart-two-inline-">
                                         <h3>Selected Products</h3>
                                         {cart?.length > 0 && (
                                             <button
@@ -204,20 +205,16 @@ function CreateOrder() {
                                                 Clear Cart
                                             </button>
                                         )}
+                                        </div>
                                         <div className="products select-check-box">
                                             <form action="">
                                                 <div className="scroll-box">
                                                     <div className="many-check-boxes">
                                                         {cart.map((product) => (
                                                             <div key={product.id} className="box-check">
-
+                                                                
                                                                 <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"/>
-
                                                                 <label htmlFor="vehicle1">
-                                                                <button type="button" className="btn btn-sm btn-secondary" onClick={() => handleIncreaseQuantity(product.id)}>Increase Quantity</button>
-                                                                <button type="button" className="btn btn-sm btn-secondary" onClick={() => handleDecreaseQuantity(product.id)}>
-                                                                    Decrease Quantity
-                                                                </button>
                                                                     <div className="pro-details">
                                                                         <button type="button" className="btn btn-warning" onClick={() => handleRemove(product.id)}> x </button>
                                                                         <h6> { product.name } </h6>
@@ -234,8 +231,13 @@ function CreateOrder() {
                                                                             <img src="/front/images/modal-plus-icon.png" alt=""/>
                                                                         </button>
                                                                     </div>
+                                                                    <div className="increase-and-decrease-btns">
+                                                                <button type="button" className="btn btn-sm btn-secondary" onClick={() => handleIncreaseQuantity(product.id)}>+</button>
+                                                                <button type="button" className="btn btn-sm btn-secondary" onClick={() => handleDecreaseQuantity(product.id)}>-</button>
+                                                                </div>
                                                                 </label>
                                                                 <ProductModal key={ product.id } item={ product }/>
+
 
                                                             </div>
                                                         ))}

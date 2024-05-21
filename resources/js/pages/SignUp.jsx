@@ -43,7 +43,7 @@ const SignUp = () => {
                 const { token, user } = response.data.data;
                 localStorage.setItem('token', JSON.stringify(token));
                 dispatch(signupSuccess(user));
-                navigate('/dashboard');
+                navigate('/login');
                 setFormData({
                     firstName: '',
                     lastName: '',

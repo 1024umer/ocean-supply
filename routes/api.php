@@ -17,7 +17,6 @@ Route::group(['middleware' => ['json.response']], function () {
 Route::group(['middleware' => ['json.response', 'auth:sanctum','verified']], function () {
     Route::post('/logout', [LoginController::class, 'logout']);
     Route::post('/profile', [ProfileController::class, 'update']);
-    Route::get('/subscriptionList', [SubscriptionController::class, 'subscriptionList']);
     Route::apiResource('subscription', SubscriptionController::class)->only(['store', 'show', 'update', 'destroy']);
     Route::apiResource('/user',UserController::class);
     Route::get('/order/{id}',[OrderController::class,'getOrders']);
@@ -35,3 +34,4 @@ Route::group(['middleware' => ['json.response', 'auth:sanctum','verified']], fun
     Route::post('/settingUpdate',[SettingController::class,'update']);
     Route::get('/order/show/{id}',[OrderController::class,'show']);
 });
+Route::get('/subscriptionList', [SubscriptionController::class, 'subscriptionList']);

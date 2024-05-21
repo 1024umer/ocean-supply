@@ -26,6 +26,7 @@ class RegisterController extends Controller
         $bigCommerce = $this->createUserService->createUser($request->all());
         $clover = $this->createCloverUserService->createUser($request->all());
         // dd($bigCommerce,$clover);
+        // dd($bigCommerce);
         $user = User::create([
             'email' => $request->email,
             'first_name' => $request->firstName,

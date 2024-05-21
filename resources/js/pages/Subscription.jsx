@@ -14,7 +14,7 @@ import Navigation from "../components/Navigation";
 const Subscription = () => {
     const [subscriptions, setSubscriptions] = useState([]);
     const getSubscription = async () => {
-        const response = await service.get("/api/subscription");
+        const response = await service.get("/api/subscriptionList");
         setSubscriptions(response.data.data);
     };
     useEffect(() => {

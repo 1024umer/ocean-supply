@@ -25,6 +25,7 @@ class ProfileController extends Controller
         // $user = User::find(auth('api')->user()->id);
         $user = User::where('id',auth('api')->user()->id)->with('point')->first();
         $BigCommerce = $this->UpdateBigCommerceUserService->update($request->all(), $user);
+        // dd($BigCommerce);
         $Clover = $this->UpdateCloverUserService->update($request->all(), $user);
         if ($BigCommerce && $Clover) {
             $user->update($request->all());
